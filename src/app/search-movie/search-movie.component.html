@@ -1,0 +1,13 @@
+<div class="row" style="padding:5px">
+	<div class="input-field col s6">
+		<input type="text" id="searchField" [(ngModel)]="searchQuery" (keyup.enter)="keyPress()">
+		<label for="searchField">Search for a movie, actor..</label>
+	</div>
+</div>
+
+<div *ngIf="this.movieService.movies.length != 0">
+	<div *ngFor="let movie of this.movieService.movies">
+		<img src="{{movie.imageUrl}}" style="height:150px;width:150px">
+	</div>
+</div>
+
