@@ -1,13 +1,27 @@
-<div class="row" style="padding:5px">
-	<div class="input-field col s6">
-		<input type="text" id="searchField" [(ngModel)]="searchQuery" (keyup.enter)="keyPress()">
-		<label for="searchField">Search for a movie, actor..</label>
-	</div>
+<div style="padding:5px">
+	<md-input-container>
+		<input mdInput type="text" [(ngModel)]="searchQuery" placeholder="search for a movie" (keyup.enter)="keyPress()">
+	</md-input-container>
 </div>
 
 <div *ngIf="this.movieService.movies.length != 0">
-	<div *ngFor="let movie of this.movieService.movies">
-		<img src="{{movie.imageUrl}}" style="height:150px;width:150px">
+	<div fxLayout="row" fxLayoutWrap>
+		<div *ngFor="let movie of this.movieService.movies">
+			<img src="{{movie.imageUrl}}" style="height:150px;width:150px">
+		</div>
+	</div>
+</div>
+
+<div style="padding:5px">
+	<md-input-container>
+		<input mdInput type="text" [(ngModel)]="searchQuery2" placeholder="search for a person" (keyup.enter)="keyPress2()">
+	</md-input-container>
+</div>
+<div *ngIf="this.movieService.people.length != 0">
+	<div fxLayout="row" fxLayoutWrap>
+		<div *ngFor="let person of this.movieService.people">
+			<img src="{{person.imageUrl}}" style="height:150px;width:150px">
+		</div>
 	</div>
 </div>
 
