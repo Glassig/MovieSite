@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
 import { Movie } from '../model/movie';
+import { Person } from '../model/person';
 
 @Component({
   selector: 'search-movie',
@@ -10,8 +11,8 @@ import { Movie } from '../model/movie';
 export class SearchMovieComponent implements OnInit {
 
 	searchQuery: string;
+	searchQuery2: string;
 	searched: boolean = false;
-	searchedMovies: Movie[] = [];
 
 	constructor(public movieService: MovieService) { }
 
@@ -20,7 +21,10 @@ export class SearchMovieComponent implements OnInit {
 
 	keyPress() {
 		this.movieService.downloadMovies(this.searchQuery);
-		this.searchedMovies = this.movieService.movies;
+	}
+
+	keyPress2() {
+		this.movieService.downloadPeople(this.searchQuery2);
 	}
 
 }
