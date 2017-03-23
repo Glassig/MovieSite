@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "movie-site",
   "version": "0.0.0",
   "license": "MIT",
@@ -43,24 +42,15 @@
     "ts-node": "~2.0.0",
     "tslint": "~4.4.2",
     "typescript": "~2.0.0"
-  }
-=======
-  "name": "moviesite",
-  "version": "1.0.0",
-  "description": "A simple movie website for a course DH2642 at KTH",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "description": "A simple movie website for a course DH2642 at KTH",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Glassig/MovieSite.git"
   },
   "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Glassig/MovieSite/issues"
   },
   "homepage": "https://github.com/Glassig/MovieSite#readme"
->>>>>>> 92054b69aade0e1977bc36f01f2d988472abbf69
 }
