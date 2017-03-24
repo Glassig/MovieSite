@@ -14,6 +14,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/do';
 
 @Component({
   selector: 'search-movie',
@@ -24,7 +25,9 @@ export class SearchMovieComponent implements OnInit {
   private movieSearchTerms = new Subject<string>();
   private peopleSearchTerms = new Subject<string>();
 	movies: Observable<Movie[]>;
-  people: Observable<Person[]>
+  people: Observable<Person[]>;
+  moviesBoxVisible: boolean = false;
+  peopleBoxVisible: boolean = false;
 
 	constructor(public apiService: ApiService) { }
 
@@ -40,6 +43,7 @@ export class SearchMovieComponent implements OnInit {
       .switchMap(term => term ? this.apiService.getMovies(term) : Observable.of<Movie[]>([]))
       //only display first 8 movies
       .map(movies => movies.slice(0,8))
+      .do(movies => { this.moviesBoxVisible = movies.length > 0; });
   }
 
   private initialisePeople() {
@@ -49,6 +53,7 @@ export class SearchMovieComponent implements OnInit {
       .switchMap(term => term ? this.apiService.getPeople(term) : Observable.of<Person[]>([]))
       //only display first 8 people
       .map(people => people.slice(0,8))
+      .do(people => { this.peopleBoxVisible = people.length > 0; });
   }
 
   searchMovies(movieQuery: string) {
@@ -57,5 +62,13 @@ export class SearchMovieComponent implements OnInit {
 
   searchPeople(movieQuery: string) {
     this.peopleSearchTerms.next(movieQuery);
+  }
+
+  setMovieBoxVisibility(visible: boolean) {
+    this.moviesBoxVisible = visible;
+  }
+
+  setPeopleBoxVisibility(visible: boolean) {
+    this.peopleBoxVisible = visible;
   }
 }
