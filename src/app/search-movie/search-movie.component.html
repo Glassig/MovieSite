@@ -11,7 +11,7 @@
 				(blur)="setMovieBoxVisibility(false)">
 		</md-input-container>
 	  <div [class.visible]="moviesBoxVisible" class="dropdown-content">
-			<div fxLayout="row" fxLayoutAlign="start center" style="height:80px;border-bottom:1px solid darkgray;" *ngFor="let movie of movies | async">
+			<div class="search-results-row" fxLayout="row" fxLayoutAlign="start center" *ngFor="let movie of movies | async">
 				<div fxLayout="row" fxLayoutAlign="center none" fxFlex="80px" style="height:90%">
 					<img style="height:100%" src="{{movie.imageUrl}}">
 				</div>
@@ -34,7 +34,7 @@
 				(blur)="setPeopleBoxVisibility(false)">
 		</md-input-container>
 	  <div [class.visible]="peopleBoxVisible" class="dropdown-content">
-			<div fxLayout="row" fxLayoutAlign="start center" style="height:80px;border-bottom:1px solid darkgray;" *ngFor="let person of people | async">
+			<div class="search-results-row" fxLayout="row" fxLayoutAlign="start center" *ngFor="let person of people | async">
 				<div fxLayout="row" fxLayoutAlign="center none" fxFlex="80px" style="height:90%">
 					<img style="height:100%" src="{{person.imageUrl}}">
 				</div>

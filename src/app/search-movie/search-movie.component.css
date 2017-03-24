@@ -1,31 +1,11 @@
-.search-results-box {
-   width: 520px;
-   /*height: 480px;*/
-   background: red;
-   position: relative;
-   -moz-border-radius:    6px;
-   -webkit-border-radius: 6px;
-   border-radius:         6px;
+.search-results-row {
+  height: 80px;
+  border-bottom: 1px solid darkgray;
+  cursor: pointer;
 }
-.search-results-box:before {
-   content:"";
-   position: absolute;
-   bottom: 100%;
-   right: 36px;
-   width: 0;
-   height: 0;
-   border-left: 13px solid transparent;
-   border-bottom: 20px solid red;
-   border-right: 13px solid transparent;
+.search-results-row:hover {
+  background-color: #f1f1f1;
 }
-
-.search-results-content {
-  margin: 0px;
-}
-
-/* ------------------------------ */
-/* ------ Dropdown testing ------ */
-/* ------------------------------ */
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
@@ -46,14 +26,3 @@
 .visible {
   display: block;
 }
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}

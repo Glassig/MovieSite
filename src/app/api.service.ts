@@ -32,7 +32,7 @@ export class ApiService {
 	      return list.map(this.personFromJson);
 	    })
 	}
-	
+
 	movieFromJson(json: any): Movie {
 		if(json == undefined ){ return undefined; }
 
