@@ -16,6 +16,13 @@
 .settings/
 *.sublime-workspace
 
+#firebase
+/functions
+/public
+firebase.json
+database.rules.json
+.firebaserc
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json

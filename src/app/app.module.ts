@@ -13,12 +13,14 @@ import { SearchMovieComponent } from './search-movie/search-movie.component';
 
 import { ApiService } from './api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchMovieComponent,
-    SideNavComponent
+    SideNavComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
