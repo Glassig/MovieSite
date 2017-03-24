@@ -3,28 +3,54 @@ import { MovieService } from '../movie.service';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
 
+import { Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+
+// Observable class extensions
+import 'rxjs/add/observable/of';
+
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 @Component({
   selector: 'search-movie',
   templateUrl: './search-movie.component.html',
   styleUrls: ['./search-movie.component.css']
 })
 export class SearchMovieComponent implements OnInit {
-
-	searchQuery: string;
-	searchQuery2: string;
-	searched: boolean = false;
+  private movieSearchTerms = new Subject<string>();
+  private peopleSearchTerms = new Subject<string>();
+	movies: Observable<Movie[]>;
+  people: Observable<Person[]>
 
 	constructor(public movieService: MovieService) { }
 
 	ngOnInit() {
+    this.initialiseMovies();
+    this.initialisePeople();
 	}
 
-	keyPress() {
-		this.movieService.downloadMovies(this.searchQuery);
-	}
+  private initialiseMovies() {
+    this.movies = this.movieSearchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(term => term ? this.movieService.getMovies(term) : Observable.of<Movie[]>([]))
+  }
 
-	keyPress2() {
-		this.movieService.downloadPeople(this.searchQuery2);
-	}
+  private initialisePeople() {
+    this.people = this.peopleSearchTerms
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .switchMap(term => term ? this.movieService.getPeople(term) : Observable.of<Person[]>([]))
+  }
 
+  searchMovies(movieQuery: string) {
+    this.movieSearchTerms.next(movieQuery);
+  }
+
+  searchPeople(movieQuery: string) {
+    this.peopleSearchTerms.next(movieQuery);
+  }
 }

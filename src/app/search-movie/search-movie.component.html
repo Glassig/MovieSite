@@ -1,27 +1,33 @@
 <div style="padding:5px">
 	<md-input-container>
-		<input mdInput type="text" [(ngModel)]="searchQuery" placeholder="search for a movie" (keyup.enter)="keyPress()">
+		<input
+			#moviesSearchBox
+			mdInput
+			type="text"
+			placeholder="search for a movie"
+			(keyup)="searchMovies(moviesSearchBox.value)">
 	</md-input-container>
 </div>
 
-<div *ngIf="this.movieService.movies.length != 0">
-	<div fxLayout="row" fxLayoutWrap>
-		<div *ngFor="let movie of this.movieService.movies">
-			<img src="{{movie.imageUrl}}" style="height:150px;width:150px">
-		</div>
+
+<div fxLayout="row" fxLayoutWrap>
+	<div *ngFor="let movie of movies | async">
+		<img src="{{movie.imageUrl}}" style="height:150px;width:150px">
 	</div>
 </div>
 
 <div style="padding:5px">
 	<md-input-container>
-		<input mdInput type="text" [(ngModel)]="searchQuery2" placeholder="search for a person" (keyup.enter)="keyPress2()">
+		<input
+			#peopleSearchBox
+			mdInput
+			type="text"
+			placeholder="search for a person"
+			(keyup)="searchPeople(peopleSearchBox.value)">
 	</md-input-container>
 </div>
-<div *ngIf="this.movieService.people.length != 0">
-	<div fxLayout="row" fxLayoutWrap>
-		<div *ngFor="let person of this.movieService.people">
-			<img src="{{person.imageUrl}}" style="height:150px;width:150px">
-		</div>
+<div fxLayout="row" fxLayoutWrap>
+	<div *ngFor="let person of people | async">
+		<img src="{{person.imageUrl}}" style="height:150px;width:150px">
 	</div>
 </div>
-

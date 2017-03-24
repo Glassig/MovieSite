@@ -5,7 +5,6 @@ import { Movie } from './model/movie';
 import { Person } from './model/person';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -14,59 +13,24 @@ export class MovieService {
 	private MovieSearchURL: string = "https://api.themoviedb.org/3/search/movie?api_key=";
 	private PersonSearchURL: string = "https://api.themoviedb.org/3/search/person?api_key=";
 
-	movies: Movie[] = [];
-	people: Person[] = [];
-	isLoadingMovies = false;
-
 	constructor(private http: Http) {}
 
-	downloadMovies(query: string) {
-
-		this.movies = [];
+	getMovies(query: string): Observable<Movie[]> {
 		const url:string = `${this.MovieSearchURL}${this.APIKey}&query=${query}`;
-		this.isLoadingMovies = true;
-		
-		this.http.get(url)
+		return this.http.get(url)
 			.map(resp => {
-	        	const list = resp.json().results as any[];
-	        	return list.map(this.movieFromJson);
-	      	})
-	     
-	      	// convert the Observable to a promise
-	      	.toPromise()
-	      	.then(movies => {
-	        	// update dishes array when download is complete
-	        	this.movies = movies
-	        	// also set isLoadingDishes to false
-	        	this.isLoadingMovies = false
-	     	})
-
-	     	// handle any errors in the api request
-	     	//catch(); TODO
+	    	const list = resp.json().results as any[];
+	      return list.map(this.movieFromJson);
+	    })
 	}
 
-	downloadPeople(query: string) {
-
-		this.people = [];
+	getPeople(query: string): Observable<Person[]> {
 		const url:string = `${this.PersonSearchURL}${this.APIKey}&query=${query}`;
-		this.isLoadingMovies = true;
-		
-		this.http.get(url)
+		return this.http.get(url)
 			.map(resp => {
-	        	const list = resp.json().results as any[];
-	        	return list.map(this.personFromJson);
-	      	})
-	     
-	      	// convert the Observable to a promise
-	      	.toPromise()
-	      	.then(people => {
-	        	// update dishes array when download is complete
-	        	this.people = people;
-	        	console.log(people);
-	     	})
-
-	     	// handle any errors in the api request
-	     	//catch(); TODO
+	    	const list = resp.json().results as any[];
+	      return list.map(this.personFromJson);
+	    })
 	}
 	movieFromJson(json: any): Movie {
 		if(json == undefined ){ return undefined; }
@@ -74,7 +38,7 @@ export class MovieService {
 		var movie = new Movie();
 		movie.title = json.title as string;
 		movie.id = json.id as number;
-		if(json.poster_path == undefined) { 
+		if(json.poster_path == undefined) {
 			movie.imageUrl = "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
 		} else {
 			movie.imageUrl = "https://image.tmdb.org/t/p/w500" + json.poster_path as string;
@@ -90,7 +54,7 @@ export class MovieService {
 		var person = new Person();
 		person.name = json.name as string;
 		person.id = json.id as number;
-		if(json.profile_path == undefined) { 
+		if(json.profile_path == undefined) {
 			person.imageUrl = "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
 		} else {
 			person.imageUrl = "https://image.tmdb.org/t/p/w500" + json.profile_path as string;
@@ -98,7 +62,4 @@ export class MovieService {
 
 		return person;
 	}
-
-
-
 }
