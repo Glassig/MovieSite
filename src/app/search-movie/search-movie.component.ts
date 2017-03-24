@@ -10,6 +10,7 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/observable/of';
 
 // Observable operators
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -37,6 +38,8 @@ export class SearchMovieComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(term => term ? this.apiService.getMovies(term) : Observable.of<Movie[]>([]))
+      //only display first 8 movies
+      .map(movies => movies.slice(0,8))
   }
 
   private initialisePeople() {
@@ -44,6 +47,8 @@ export class SearchMovieComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(term => term ? this.apiService.getPeople(term) : Observable.of<Person[]>([]))
+      //only display first 8 people
+      .map(people => people.slice(0,8))
   }
 
   searchMovies(movieQuery: string) {
