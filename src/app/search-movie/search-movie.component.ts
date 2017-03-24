@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MovieService } from '../movie.service';
+import { ApiService } from '../api.service';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
 
@@ -25,7 +25,7 @@ export class SearchMovieComponent implements OnInit {
 	movies: Observable<Movie[]>;
   people: Observable<Person[]>
 
-	constructor(public movieService: MovieService) { }
+	constructor(public apiService: ApiService) { }
 
 	ngOnInit() {
     this.initialiseMovies();
@@ -36,14 +36,14 @@ export class SearchMovieComponent implements OnInit {
     this.movies = this.movieSearchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(term => term ? this.movieService.getMovies(term) : Observable.of<Movie[]>([]))
+      .switchMap(term => term ? this.apiService.getMovies(term) : Observable.of<Movie[]>([]))
   }
 
   private initialisePeople() {
     this.people = this.peopleSearchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(term => term ? this.movieService.getPeople(term) : Observable.of<Person[]>([]))
+      .switchMap(term => term ? this.apiService.getPeople(term) : Observable.of<Person[]>([]))
   }
 
   searchMovies(movieQuery: string) {

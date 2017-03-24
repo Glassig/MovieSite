@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class MovieService {
+export class ApiService {
 	private APIKey: string = "99d34030725aed23c5f81fe23241d83e";
 	private MovieSearchURL: string = "https://api.themoviedb.org/3/search/movie?api_key=";
 	private PersonSearchURL: string = "https://api.themoviedb.org/3/search/person?api_key=";
