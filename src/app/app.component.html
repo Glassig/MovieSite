@@ -1,11 +1,10 @@
-<md-sidenav-container class="sidenav-fab-container">
-	
-	<md-sidenav #sidenav mode="side" opened="true" style="background:light-blue">
+<md-sidenav-container class="sidenav-fab-container">	
+	<md-sidenav #sidenav mode="side" opened="true" class="sidenav-content">
 		<side-nav></side-nav>
 	</md-sidenav>
 
 	<div fxLayout="row" fxLayoutAlign="start">
-		<md-icon (click)="sidenav.toggle()" style="cursor:pointer">menu</md-icon>
+		<button md-mini-fab (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>
 		<router-outlet></router-outlet>
 	</div>
 </md-sidenav-container>

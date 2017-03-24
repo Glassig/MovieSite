@@ -6,15 +6,6 @@
 
 .sidenav-fab-container md-sidenav {
   max-width: 250px;
-}
-
-.sidenav-fab-container .mat-sidenav-content,
-.sidenav-fab-container md-sidenav {
-  display: flex;
-  overflow: visible;
-}
-
-.scrolling-content {
-  overflow: auto;
-  background: blue;
+  width:200px;
+  background-color: DeepSkyBlue;
 }
