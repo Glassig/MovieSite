@@ -11,7 +11,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { SearchMovieComponent } from './search-movie/search-movie.component';
 
-import { MovieService } from './movie.service';
+import { ApiService } from './api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     FlexLayoutModule
   ],
   providers: [
-    MovieService
+    ApiService
   ],
   bootstrap: [AppComponent]
 })
