@@ -15,12 +15,26 @@ import { ApiService } from './api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { LoginComponent } from './login/login.component';
 
+import { AngularFireModule } from 'angularfire2';
+
+import { AF } from './providers/af';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+
+  export const firebaseConfig = {
+    apiKey: "AIzaSyDlEV2M2O1fwIwJnS7ZDNrLUb6KvoQ5ov4",
+    authDomain: "movie-site-1c2d5.firebaseapp.com",
+    databaseURL: "https://movie-site-1c2d5.firebaseio.com",
+    storageBucket: "movie-site-1c2d5.appspot.com",
+    messagingSenderId: "835423026443"
+  };
+
 @NgModule({
   declarations: [
     AppComponent,
     SearchMovieComponent,
     SideNavComponent,
-    LoginComponent
+    LoginComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -28,10 +42,12 @@ import { LoginComponent } from './login/login.component';
     HttpModule,
     MaterialModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   providers: [
-    ApiService
+    ApiService,
+    AF
   ],
   bootstrap: [AppComponent]
 })

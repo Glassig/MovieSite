@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../model/user';
+import {AF} from "../providers/af";
+import {Router} from "@angular/router";
+import {AuthProviders} from 'angularfire2';
 
 @Component({
   selector: 'login',
@@ -7,9 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+	providerFacebook: AuthProviders = AuthProviders.Facebook;
+	providerGoogle: AuthProviders = AuthProviders.Google;
 
-  ngOnInit() {
+  constructor(public afService: AF, private router: Router) { 
   }
 
+  ngOnInit() {}
+
+  login(provider: AuthProviders) {
+  	this.afService.login(provider);
+  }
 }

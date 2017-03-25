@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AF } from '../providers/af';
 
 @Component({
   selector: 'side-nav',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(public afService: AF) { 
+  }
 
   ngOnInit() {
+  }
+
+  logout() {
+  	this.afService.logout();
   }
 
 }

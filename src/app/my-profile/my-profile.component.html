@@ -1,0 +1,11 @@
+<div *ngIf="!afService.isLoggedIn">
+	<h1>Log in first!</h1>
+</div>
+
+<div *ngIf="afService.isLoggedIn">
+	<h1>{{afService.user.name}}</h1>
+	<img src={{afService.user.imageUrl}}>
+	<h1>My Reviews: ....</h1>
+	<h1>My liked movies ....</h1>
+	<h1>My watchlist ..... </h1>
+</div>
