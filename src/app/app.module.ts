@@ -43,7 +43,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
     ApiService,
