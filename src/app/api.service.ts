@@ -10,29 +10,31 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiService {
-	private APIKey: string = "99d34030725aed23c5f81fe23241d83e";
-	private MovieSearchURL: string = "https://api.themoviedb.org/3/search/movie?api_key=";
-	private PersonSearchURL: string = "https://api.themoviedb.org/3/search/person?api_key=";
-	private mediaItemSearchURL: string = "https://api.themoviedb.org/3/search/multi?api_key=";
+	private static APIKey: string = "99d34030725aed23c5f81fe23241d83e";
+	private static imageBaseURL: string = "https://image.tmdb.org/t/p/w500";
 
-	constructor(private http: Http) {}
+	private searchURL(type: string, query: string): string {
+		return `https://api.themoviedb.org/3/search/${type}?api_key=${ApiService.APIKey}&query=${query}`;
+	}
+
+	constructor (private http: Http) {}
 
 	getMovies(query: string): Observable<Movie[]> {
-		const url:string = `${this.MovieSearchURL}${this.APIKey}&query=${query}`;
+		const url: string = this.searchURL('movie', query);
 		return this.http.get(url)
 			.map(this.extractResults)
 			.map(results => results.map(this.movieFromJson));
 	}
 
 	getPeople(query: string): Observable<Person[]> {
-		const url:string = `${this.PersonSearchURL}${this.APIKey}&query=${query}`;
+		const url: string = this.searchURL('person', query);
 		return this.http.get(url)
 			.map(this.extractResults)
 			.map(results => results.map(this.personFromJson));
 	}
 
 	getMediaItems(query: string): Observable<MediaItem[]> {
-		const url:string = `${this.mediaItemSearchURL}${this.APIKey}&query=${query}`;
+		const url: string = this.searchURL('multi', query);
 		return this.http.get(url)
 			.map(this.extractResults)
 			.map(results => results.map(this.mediaItemFromJson));
