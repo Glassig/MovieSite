@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 
 import { Movie } from './model/movie';
 import { Person } from './model/person';
+import { MediaItem, MediaType, mediaTypeFromString } from './model/media-item';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,29 +13,37 @@ export class ApiService {
 	private APIKey: string = "99d34030725aed23c5f81fe23241d83e";
 	private MovieSearchURL: string = "https://api.themoviedb.org/3/search/movie?api_key=";
 	private PersonSearchURL: string = "https://api.themoviedb.org/3/search/person?api_key=";
+	private mediaItemSearchURL: string = "https://api.themoviedb.org/3/search/multi?api_key=";
 
 	constructor(private http: Http) {}
 
 	getMovies(query: string): Observable<Movie[]> {
 		const url:string = `${this.MovieSearchURL}${this.APIKey}&query=${query}`;
 		return this.http.get(url)
-			.map(resp => {
-	    	const list = resp.json().results as any[];
-	      return list.map(this.movieFromJson);
-	    })
+			.map(this.extractResults)
+			.map(results => results.map(this.movieFromJson));
 	}
 
 	getPeople(query: string): Observable<Person[]> {
 		const url:string = `${this.PersonSearchURL}${this.APIKey}&query=${query}`;
 		return this.http.get(url)
-			.map(resp => {
-	    	const list = resp.json().results as any[];
-	      return list.map(this.personFromJson);
-	    })
+			.map(this.extractResults)
+			.map(results => results.map(this.personFromJson));
+	}
+
+	getMediaItems(query: string): Observable<MediaItem[]> {
+		const url:string = `${this.mediaItemSearchURL}${this.APIKey}&query=${query}`;
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(this.mediaItemFromJson));
+	}
+
+	private extractResults(response: Response): any[] {
+		return response.json().results as any[];
 	}
 
 	movieFromJson(json: any): Movie {
-		if(json == undefined ){ return undefined; }
+		if (json == undefined) { return undefined; }
 
 		var movie = new Movie();
 		movie.title = json.title as string;
@@ -50,7 +59,7 @@ export class ApiService {
 	}
 
 	personFromJson(json: any): Person {
-		if(json == undefined ){ return undefined; }
+		if (json == undefined) { return undefined; }
 
 		var person = new Person();
 		person.name = json.name as string;
@@ -62,5 +71,36 @@ export class ApiService {
 		}
 
 		return person;
+	}
+
+	mediaItemFromJson(json: any): MediaItem {
+		if (json == undefined) { return undefined; }
+
+		var mediaItem = new MediaItem();
+		mediaItem.id = json.id as number;
+		mediaItem.mediaType = mediaTypeFromString(json.media_type);
+
+		const imgBaseUrl = "https://image.tmdb.org/t/p/w92";
+
+		switch (mediaItem.mediaType) {
+			case MediaType.Movie:
+				mediaItem.imageUrl = `${imgBaseUrl}${json.poster_path}`;
+				mediaItem.title = json.title as string;
+				break;
+			case MediaType.Person:
+				mediaItem.imageUrl = `${imgBaseUrl}${json.profile_path}`;
+				mediaItem.title = json.name as string;
+				const knownFor = json.known_for as any[];
+				break;
+			case MediaType.TVShow:
+				mediaItem.imageUrl = `${imgBaseUrl}${json.poster_path}`;
+				mediaItem.title = json.name as string;
+				break;
+			case MediaType.Unknown:
+				// TODO: handle this case
+				break;
+		}
+
+		return mediaItem;
 	}
 }

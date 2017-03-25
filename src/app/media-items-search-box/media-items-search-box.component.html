@@ -1,0 +1,23 @@
+<div class="dropdown">
+  <md-input-container class="input">
+    <input
+      #mediaItemsSearchBox
+      mdInput
+      type="text"
+      placeholder="search for a movie, tv-show or person"
+      (keyup)="searchMediaItems(mediaItemsSearchBox.value)"
+      (focus)="setBoxVisibility(true)"
+      (blur)="setBoxVisibility(false)">
+  </md-input-container>
+  <div [class.visible]="boxVisible" class="dropdown-content">
+    <div class="search-results-row" fxLayout="row" fxLayoutAlign="start center" *ngFor="let mediaItem of mediaItems | async">
+      <div fxLayout="row" fxLayoutAlign="center none" fxFlex="80px" style="height:90%">
+        <img style="height:100%" src="{{mediaItem.imageUrl}}">
+      </div>
+      <div>
+        <div><b>{{mediaItem.title}}</b></div>
+        <div>{{mediaTypeString(mediaItem.mediaType)}}</div>
+      </div>
+    </div>
+  </div>
+</div>

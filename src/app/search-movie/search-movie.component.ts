@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
+import { MediaItem, MediaType } from '../model/media-item';
 
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
@@ -43,6 +44,7 @@ export class SearchMovieComponent implements OnInit {
       .switchMap(term => term ? this.apiService.getMovies(term) : Observable.of<Movie[]>([]))
       //only display first 8 movies
       .map(movies => movies.slice(0,8))
+      // don't show dropdown box if there was no results
       .do(movies => { this.moviesBoxVisible = movies.length > 0; });
   }
 
@@ -53,22 +55,14 @@ export class SearchMovieComponent implements OnInit {
       .switchMap(term => term ? this.apiService.getPeople(term) : Observable.of<Person[]>([]))
       //only display first 8 people
       .map(people => people.slice(0,8))
+      // don't show dropdown box if there was no results
       .do(people => { this.peopleBoxVisible = people.length > 0; });
   }
 
-  searchMovies(movieQuery: string) {
-    this.movieSearchTerms.next(movieQuery);
-  }
+  searchMovies(movieQuery: string) { this.movieSearchTerms.next(movieQuery); }
+  searchPeople(peopleQuery: string) { this.peopleSearchTerms.next(peopleQuery); }
 
-  searchPeople(movieQuery: string) {
-    this.peopleSearchTerms.next(movieQuery);
-  }
+  setMovieBoxVisibility(visible: boolean) { this.moviesBoxVisible = visible; }
 
-  setMovieBoxVisibility(visible: boolean) {
-    this.moviesBoxVisible = visible;
-  }
-
-  setPeopleBoxVisibility(visible: boolean) {
-    this.peopleBoxVisible = visible;
-  }
+  setPeopleBoxVisibility(visible: boolean) { this.peopleBoxVisible = visible; }
 }
