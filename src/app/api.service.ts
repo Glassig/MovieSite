@@ -17,23 +17,34 @@ export class ApiService {
 		return `https://api.themoviedb.org/3/search/${type}?api_key=${ApiService.APIKey}&query=${query}`;
 	}
 
-	constructor (private http: Http) {}
+	private getByIdURL(type: string, id: number): string {
+		return `https://api.themoviedb.org/3/${type}/${id}?api_key=${ApiService.APIKey}`;
+	}
 
-	getMovies(query: string): Observable<Movie[]> {
+	constructor(private http: Http) {}
+
+	getMovie(id: number): Observable<Movie> {
+		const url: string = this.getByIdURL('movie', id);
+		return this.http.get(url)
+			.map(resp => resp.json())
+			.map(this.movieFromJson);
+	}
+
+	searchMovies(query: string): Observable<Movie[]> {
 		const url: string = this.searchURL('movie', query);
 		return this.http.get(url)
 			.map(this.extractResults)
 			.map(results => results.map(this.movieFromJson));
 	}
 
-	getPeople(query: string): Observable<Person[]> {
+	searchPeople(query: string): Observable<Person[]> {
 		const url: string = this.searchURL('person', query);
 		return this.http.get(url)
 			.map(this.extractResults)
 			.map(results => results.map(this.personFromJson));
 	}
 
-	getMediaItems(query: string): Observable<MediaItem[]> {
+	searchMediaItems(query: string): Observable<MediaItem[]> {
 		const url: string = this.searchURL('multi', query);
 		return this.http.get(url)
 			.map(this.extractResults)

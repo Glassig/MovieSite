@@ -41,7 +41,7 @@ export class SearchMovieComponent implements OnInit {
     this.movies = this.movieSearchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(term => term ? this.apiService.getMovies(term) : Observable.of<Movie[]>([]))
+      .switchMap(term => term ? this.apiService.searchMovies(term) : Observable.of<Movie[]>([]))
       //only display first 8 movies
       .map(movies => movies.slice(0,8))
       // don't show dropdown box if there was no results
@@ -52,7 +52,7 @@ export class SearchMovieComponent implements OnInit {
     this.people = this.peopleSearchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .switchMap(term => term ? this.apiService.getPeople(term) : Observable.of<Person[]>([]))
+      .switchMap(term => term ? this.apiService.searchPeople(term) : Observable.of<Person[]>([]))
       //only display first 8 people
       .map(people => people.slice(0,8))
       // don't show dropdown box if there was no results

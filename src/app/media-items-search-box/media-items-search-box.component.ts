@@ -37,7 +37,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap(term => term
-        ? this.apiService.getMediaItems(term)
+        ? this.apiService.searchMediaItems(term)
         : Observable.of<MediaItem[]>([])
       )
       //only display first 8 results
