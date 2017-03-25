@@ -35,15 +35,16 @@ export class AF {
       var add = true;
       this.users
       .subscribe(resp => {
+        console.log(resp);
         resp.forEach(user => {
-          if(user.id == this.user.id) { add = false }
+          if(user.id == this.user.id) { 
+            add = false 
+          }
         });
         if(add) {
           this.users.push(this.user);
         }
-      })
-
-
+      });
     });
     }
 
