@@ -1,4 +1,10 @@
-<div fxLayout="row">
-	<side-nav fxFlex="300px"></side-nav>
-	<router-outlet></router-outlet>
-</div>
+<md-sidenav-container class="sidenav-fab-container">	
+	<md-sidenav #sidenav mode="side" opened="true" class="sidenav-content">
+		<side-nav></side-nav>
+	</md-sidenav>
+
+	<div fxLayout="row" fxLayoutAlign="start">
+		<button md-mini-fab (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>
+		<router-outlet style="margin-left:10px"></router-outlet>
+	</div>
+</md-sidenav-container>

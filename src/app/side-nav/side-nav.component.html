@@ -1,6 +1,18 @@
-<div class="sideNav">
-	<li><a class="active">Home</a></li>
-	<li><a>News</a></li>
-	<li><a>My Movies</a></li>
-	<li><a>About</a></li>
-</div>
+<md-list>
+	<a>Home</a>
+	<md-divider></md-divider>
+	
+	<div *ngIf="!afService.isLoggedIn">
+		<a routerLink="/login">Log in</a>
+	</div>
+	<div *ngIf="afService.isLoggedIn">
+		<a>My Watchlist</a>
+		<a routerLink="/search-movie">Search movie</a>
+		<a routerLink="/my-profile">My profile</a>
+		<a (click)="logout()">Logout</a>
+	</div>
+	
+</md-list>
+
+
+

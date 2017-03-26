@@ -3,64 +3,57 @@ import { Http, Response } from '@angular/http';
 
 import { Movie } from './model/movie';
 import { Person } from './model/person';
+import { MediaItem, MediaType, mediaTypeFromString, yearStringFromDateString } from './model/media-item';
+
+import { ApiToModelMapper } from './apiToModelMapper';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiService {
-	private APIKey: string = "99d34030725aed23c5f81fe23241d83e";
-	private MovieSearchURL: string = "https://api.themoviedb.org/3/search/movie?api_key=";
-	private PersonSearchURL: string = "https://api.themoviedb.org/3/search/person?api_key=";
+	private static APIKey: string = "99d34030725aed23c5f81fe23241d83e";
+	private static imageBaseURL: string = "https://image.tmdb.org/t/p/w500";
+
+	private searchURL(type: string, query: string): string {
+		return `https://api.themoviedb.org/3/search/${type}?api_key=${ApiService.APIKey}&query=${query}`;
+	}
+
+	private getByIdURL(type: string, id: number): string {
+		return `https://api.themoviedb.org/3/${type}/${id}?api_key=${ApiService.APIKey}`;
+	}
 
 	constructor(private http: Http) {}
 
-	getMovies(query: string): Observable<Movie[]> {
-		const url:string = `${this.MovieSearchURL}${this.APIKey}&query=${query}`;
+	getMovie(id: number): Observable<Movie> {
+		const url: string = this.getByIdURL('movie', id);
 		return this.http.get(url)
-			.map(resp => {
-	    	const list = resp.json().results as any[];
-	      return list.map(this.movieFromJson);
-	    })
+			.map(resp => resp.json())
+			.map(ApiToModelMapper.movieFromJson);
 	}
 
-	getPeople(query: string): Observable<Person[]> {
-		const url:string = `${this.PersonSearchURL}${this.APIKey}&query=${query}`;
+	searchMovies(query: string): Observable<Movie[]> {
+		const url: string = this.searchURL('movie', query);
 		return this.http.get(url)
-			.map(resp => {
-	    	const list = resp.json().results as any[];
-	      return list.map(this.personFromJson);
-	    })
-	}
-	
-	movieFromJson(json: any): Movie {
-		if(json == undefined ){ return undefined; }
-
-		var movie = new Movie();
-		movie.title = json.title as string;
-		movie.id = json.id as number;
-		if(json.poster_path == undefined) {
-			movie.imageUrl = "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
-		} else {
-			movie.imageUrl = "https://image.tmdb.org/t/p/w500" + json.poster_path as string;
-		}
-		movie.overview = json.overview as string;
-
-		return movie;
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieFromJson));
 	}
 
-	personFromJson(json: any): Person {
-		if(json == undefined ){ return undefined; }
+	searchPeople(query: string): Observable<Person[]> {
+		const url: string = this.searchURL('person', query);
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.personFromJson));
+	}
 
-		var person = new Person();
-		person.name = json.name as string;
-		person.id = json.id as number;
-		if(json.profile_path == undefined) {
-			person.imageUrl = "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
-		} else {
-			person.imageUrl = "https://image.tmdb.org/t/p/w500" + json.profile_path as string;
-		}
+	searchMediaItems(query: string): Observable<MediaItem[]> {
+		const url: string = this.searchURL('multi', query);
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.mediaItemFromJson));
+	}
 
-		return person;
+	private extractResults(response: Response): any[] {
+		return response.json().results as any[];
 	}
 }
