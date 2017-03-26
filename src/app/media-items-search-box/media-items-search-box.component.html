@@ -10,12 +10,12 @@
       (blur)="setBoxVisibility(false)">
   </md-input-container>
   <div [class.visible]="boxVisible" class="dropdown-content">
-    <div class="search-results-row" fxLayout="row" fxLayoutAlign="start center" *ngFor="let mediaItem of mediaItems | async">
-      <div fxLayout="row" fxLayoutAlign="center none" fxFlex="70px" style="height:90%">
-        <img style="height:100%" src="{{mediaItem.imageUrl}}">
+    <div class="search-results-row" fxLayout="row" fxLayoutAlign="start start" *ngFor="let mediaItem of mediaItems | async">
+      <div fxLayout="row" fxLayoutAlign="center center" fxFlex="60px" style="height:80px">
+        <img style="height:85%" src="{{mediaItem.imageUrl}}">
       </div>
       <div class="info-box">
-        <div class="title line-clamp line-clamp-1">{{mediaItem.title}}</div>
+        <div class="title">{{mediaItem.title}}</div>
         <div class="subtitle line-clamp line-clamp-4">{{mediaItem.subtitle}}</div>
       </div>
     </div>
