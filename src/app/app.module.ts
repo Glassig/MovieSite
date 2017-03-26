@@ -13,6 +13,8 @@ import { SearchMovieComponent } from './search-movie/search-movie.component';
 
 import { ApiService } from './api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
+
+import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-items-search-box.component';
 import { LoginComponent } from './login/login.component';
 
 import { AngularFireModule } from 'angularfire2';
@@ -33,6 +35,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     AppComponent,
     SearchMovieComponent,
     SideNavComponent,
+    MediaItemsSearchBoxComponent,
     LoginComponent,
     MyProfileComponent
   ],
