@@ -7,5 +7,14 @@
 	<img src={{afService.user.imageUrl}}>
 	<h1>My Reviews: ....</h1>
 	<h1>My liked movies ....</h1>
-	<h1>My watchlist ..... </h1>
+	<h1>My watchlist </h1>
+	<button (click)="afService.addMovieToWatchlist()" style="height:50px">Add test movie</button>
+	<button (click)="afService.removeMovieFromWatchlist()" style="height:50px">Remove test movie</button>
+	<div fxLayout="row" fxLayoutWrap>
+		<div *ngFor="let movie of afService.user.watchlist">
+			<img src={{movie.imageUrl}} style="height:100px;style:100px">
+		</div>
+	</div>
+
+
 </div>

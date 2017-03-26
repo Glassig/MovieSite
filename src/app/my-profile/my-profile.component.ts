@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AF} from "../providers/af";
 import { Router } from '@angular/router';
+import { Movie } from '../model/movie';
 
 @Component({
   selector: 'my-profile',
@@ -14,6 +15,7 @@ export class MyProfileComponent implements OnInit {
   ngOnInit() {
   	if(!this.afService.isLoggedIn) {
   		this.router.navigate(['/login']);
+  	} else {
   	}
   }
 
