@@ -11,12 +11,12 @@
   </md-input-container>
   <div [class.visible]="boxVisible" class="dropdown-content">
     <div class="search-results-row" fxLayout="row" fxLayoutAlign="start center" *ngFor="let mediaItem of mediaItems | async">
-      <div fxLayout="row" fxLayoutAlign="center none" fxFlex="80px" style="height:90%">
+      <div fxLayout="row" fxLayoutAlign="center none" fxFlex="70px" style="height:90%">
         <img style="height:100%" src="{{mediaItem.imageUrl}}">
       </div>
-      <div>
-        <div><b>{{mediaItem.title}}</b></div>
-        <div>{{mediaTypeString(mediaItem.mediaType)}}</div>
+      <div style="height:85%;margin-right:5px">
+        <div class="title">{{mediaItem.title}}</div>
+        <div class="subtitle line-clamp line-clamp-4">{{mediaItem.subtitle}}</div>
       </div>
     </div>
   </div>

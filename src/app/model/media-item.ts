@@ -16,9 +16,16 @@ export function mediaTypeFromString(mediaTypeString: string): MediaType {
   return mediaType;
 }
 
+export function yearStringFromDateString(date: string): string {
+	if (date == undefined) return "?";
+
+	return date.split('-')[0];
+}
+
 export class MediaItem {
   id: number;
   title: string;
+  subtitle: string;
   imageUrl: string;
   mediaType: MediaType;
 }
