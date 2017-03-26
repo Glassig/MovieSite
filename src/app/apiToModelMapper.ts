@@ -11,15 +11,21 @@ export class ApiToModelMapper {
 		mediaItem.mediaType = mediaTypeFromString(json.media_type);
 
 		const imgBaseUrl = "https://image.tmdb.org/t/p/w92";
+    const backupPic = "../assets/img/unknown.png";
 
 		switch (mediaItem.mediaType) {
 			case MediaType.Movie:
-				mediaItem.imageUrl = `${imgBaseUrl}${json.poster_path}`;
+        var posterPath = json.poster_path;
+        if (posterPath == null) { mediaItem.imageUrl = backupPic; }
+        else { mediaItem.imageUrl = `${imgBaseUrl}${posterPath}`; }
 				mediaItem.title = `${json.title} (${yearStringFromDateString(json.release_date)})`;
 				mediaItem.subtitle = json.overview as string;
 				break;
+
 			case MediaType.Person:
-				mediaItem.imageUrl = `${imgBaseUrl}${json.profile_path}`;
+        var profilePath = json.profile_path;
+        if (profilePath == null) { mediaItem.imageUrl = backupPic; }
+        else { mediaItem.imageUrl = `${imgBaseUrl}${profilePath}`; }
 				mediaItem.title = json.name as string;
 				const knownFor = json.known_for as any[];
 				mediaItem.subtitle = knownFor
@@ -27,11 +33,15 @@ export class ApiToModelMapper {
 					.map(media => media.title)
 					.reduce((acc,t) => `${acc}, ${t}`);
 				break;
+
 			case MediaType.TVShow:
-				mediaItem.imageUrl = `${imgBaseUrl}${json.poster_path}`;
+        var posterPath = json.poster_path;
+        if (posterPath == null) { mediaItem.imageUrl = backupPic; }
+				else { mediaItem.imageUrl = `${imgBaseUrl}${posterPath}`; }
 				mediaItem.title = `${json.name} (${yearStringFromDateString(json.first_air_date)})`;
 				mediaItem.subtitle = json.overview as string;
 				break;
+
 			case MediaType.Unknown:
 				// TODO: handle this case
 				break;
