@@ -1,27 +1,17 @@
-.sideNav {
-    list-style-type: none;
-    width:300px;
-    margin: 0;
-    padding: 0;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-}
-
-li a {
+a {
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
-li a.active {
+a.active {
     background-color: #4CAF50;
     color: white;
 }
 
-li a:hover:not(.active) {
+a:hover:not(.active) {
     background-color: #555;
     color: white;
 }
