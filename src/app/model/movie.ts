@@ -6,6 +6,6 @@ export class Movie {
   collectionId: number | null;
   // maybe make genre an enum in future
   genres: string[];
-  runtime: string;
-  releaseDate: string;
+  runtime: number | null;
+  releaseDate: string | null;
 }

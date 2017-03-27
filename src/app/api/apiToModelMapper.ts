@@ -61,15 +61,29 @@ export class ApiToModelMapper {
   static movieFromJson(json: any): Movie {
 		if (json == undefined) { return undefined; }
 
+    const imgBaseUrl = "https://image.tmdb.org/t/p/w500";
+
 		var movie = new Movie();
+    movie.id = json.id as number;
+
 		movie.title = json.title as string;
-		movie.id = json.id as number;
-		if(json.poster_path == undefined) {
-			movie.imageUrl = "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
-		} else {
-			movie.imageUrl = "https://image.tmdb.org/t/p/w500" + json.poster_path as string;
-		}
+    
+    const posterPath = json.poster_path;
+    movie.imageUrl = posterPath
+      ? `${imgBaseUrl}${json.poster_path}`
+      : "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png";
+
 		movie.overview = json.overview as string;
+
+    const collection = json.belongs_to_collection;
+    movie.collectionId = collection ? collection.id : null;
+
+    const genres = json.genres as any[];
+    movie.genres = genres ? genres.map(genre => genre.name) : [];
+
+    movie.runtime = json.runtime ? json.runtime : null;
+
+    movie.releaseDate = json.release_date ? json.release_date : null;
 
 		return movie;
 	}
@@ -77,15 +91,22 @@ export class ApiToModelMapper {
 	static personFromJson(json: any): Person {
 		if (json == undefined) { return undefined; }
 
+    const imgBaseUrl = "https://image.tmdb.org/t/p/w500";
+
 		var person = new Person();
+    person.id = json.id as number;
 		person.name = json.name as string;
-		person.id = json.id as number;
 		if(json.profile_path == undefined) {
 			person.imageUrl = "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
 		} else {
-			person.imageUrl = "https://image.tmdb.org/t/p/w500" + json.profile_path as string;
+			person.imageUrl = imgBaseUrl + json.profile_path as string;
 		}
 
 		return person;
 	}
+}
+
+function unwrapped(val) {
+  if (val == null) { return null }
+  else { return  }
 }
