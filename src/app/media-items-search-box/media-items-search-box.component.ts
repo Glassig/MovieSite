@@ -6,6 +6,8 @@ import { MediaItem, MediaType } from '../model/media-item';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 
+import { RouterModule, Routes, Router } from '@angular/router';
+
 // Observable class extensions
 import 'rxjs/add/observable/of';
 
@@ -26,7 +28,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   mediaItems: Observable<MediaItem[]>;
   boxVisible: boolean = false;
 
-  constructor(public apiService: ApiService) { }
+  constructor(public apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.initialiseMediaItems();
@@ -44,6 +46,17 @@ export class MediaItemsSearchBoxComponent implements OnInit {
       .map(results => results.slice(0,8))
       // don't show dropdown box if there was no results
       .do(results => { this.boxVisible = results.length > 0; });
+  }
+
+  mediaInfo(media: MediaItem) {
+    console.log(media);
+    switch(media.mediaType) {
+      case MediaType.Movie: this.router.navigate(['/movie', media.id]);
+                  break;
+      case MediaType.Person: break;
+      case MediaType.TVShow: break;
+      case MediaType.Unknown: console.log("Unable to acces page");
+    }
   }
 
   searchMediaItems(query: string) { this.mediaItemsSearchTerms.next(query); }
