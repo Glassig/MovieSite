@@ -3,7 +3,7 @@ export class Movie {
   title: string;
   imageUrl: string;
   overview: string;
-  collectionId: number | undefined;
+  collectionId: number | null;
   // maybe make genre an enum in future
   genres: string[];
   runtime: string;
