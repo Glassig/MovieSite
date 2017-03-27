@@ -1,0 +1,12 @@
+.topBar {
+	height: 60px;
+	width:100%;
+	position: relative;
+	z-index: 50;
+	background:#333;
+	margin:0;
+}
+h1 {
+	color: white;
+	font-family: Palatino;
+}

@@ -21,6 +21,7 @@ import { AngularFireModule } from 'angularfire2';
 
 import { AF } from './providers/af';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { TopNavComponent } from './top-nav/top-nav.component';
 
   export const firebaseConfig = {
     apiKey: "AIzaSyDlEV2M2O1fwIwJnS7ZDNrLUb6KvoQ5ov4",
@@ -37,7 +38,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     SideNavComponent,
     MediaItemsSearchBoxComponent,
     LoginComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,
