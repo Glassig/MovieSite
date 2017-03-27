@@ -1,4 +1,4 @@
-import { MediaItem, MediaType, mediaTypeFromString, yearStringFromDateString } from '../model/media-item';
+import { MediaItem, MediaType, mediaTypeFromString } from '../model/media-item';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
 
@@ -22,7 +22,7 @@ export class ApiToModelMapper {
 
         const releaseDate = json.release_date;
         mediaItem.title = releaseDate
-          ? `${json.title} (${yearStringFromDateString(releaseDate)})`
+          ? `${json.title} (${releaseDate.split('-')[0]})`
           : `${json.title}`;
 
 				mediaItem.subtitle = json.overview as string;
@@ -52,7 +52,7 @@ export class ApiToModelMapper {
         const firstAirDate = json.first_air_date;
 
         mediaItem.title = firstAirDate
-          ? `${json.title} (${yearStringFromDateString(firstAirDate)})`
+          ? `${json.title} (${firstAirDate.split('-')[0]})`
           : `${json.title}`;
 
 				mediaItem.subtitle = json.overview as string;
