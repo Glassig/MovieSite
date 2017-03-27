@@ -11,19 +11,23 @@ export class ApiToModelMapper {
 		mediaItem.mediaType = mediaTypeFromString(json.media_type);
 
 		const imgBaseUrl = "https://image.tmdb.org/t/p/w92";
-    const backupPic = "../assets/img/unknown.png";
+    const backupPic = "../../assets/img/unknown.png";
 
 		switch (mediaItem.mediaType) {
 			case MediaType.Movie:
-        var posterPath = json.poster_path;
-        if (posterPath == null) { mediaItem.imageUrl = backupPic; }
-        else { mediaItem.imageUrl = `${imgBaseUrl}${posterPath}`; }
-				mediaItem.title = `${json.title} (${yearStringFromDateString(json.release_date)})`;
+        const moviePosterPath = json.poster_path;
+        if (moviePosterPath == null) { mediaItem.imageUrl = backupPic; }
+        else { mediaItem.imageUrl = `${imgBaseUrl}${moviePosterPath}`; }
+        mediaItem.title = json.title as string;
+        const releaseDate = json.release_date;
+        if (!(releaseDate == "" || releaseDate == null)) {
+          mediaItem.title += ` (${yearStringFromDateString(releaseDate)})`;
+        }
 				mediaItem.subtitle = json.overview as string;
 				break;
 
 			case MediaType.Person:
-        var profilePath = json.profile_path;
+        const profilePath = json.profile_path;
         if (profilePath == null) { mediaItem.imageUrl = backupPic; }
         else { mediaItem.imageUrl = `${imgBaseUrl}${profilePath}`; }
 				mediaItem.title = json.name as string;
@@ -35,10 +39,14 @@ export class ApiToModelMapper {
 				break;
 
 			case MediaType.TVShow:
-        var posterPath = json.poster_path;
-        if (posterPath == null) { mediaItem.imageUrl = backupPic; }
-				else { mediaItem.imageUrl = `${imgBaseUrl}${posterPath}`; }
-				mediaItem.title = `${json.name} (${yearStringFromDateString(json.first_air_date)})`;
+        const tvPosterPath = json.poster_path;
+        if (tvPosterPath == null) { mediaItem.imageUrl = backupPic; }
+				else { mediaItem.imageUrl = `${imgBaseUrl}${tvPosterPath}`; }
+        mediaItem.title = json.name as string;
+        const firstAirDate = json.first_air_date;
+        if (!(firstAirDate == "" || firstAirDate == null)) {
+          mediaItem.title += ` (${yearStringFromDateString(firstAirDate)})`;
+        }
 				mediaItem.subtitle = json.overview as string;
 				break;
 

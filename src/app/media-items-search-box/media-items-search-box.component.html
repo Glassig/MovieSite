@@ -11,7 +11,7 @@
   </md-input-container>
   <div [class.visible]="boxVisible" class="dropdown-content">
     <div class="search-results-row" fxLayout="row" fxLayoutAlign="start start" *ngFor="let mediaItem of mediaItems | async">
-      <div fxLayout="row" fxLayoutAlign="center center" fxFlex="60px" style="height:80px">
+      <div fxLayoutAlign="center center" fxFlex="60px" style="height:80px">
         <img style="height:85%" src="{{mediaItem.imageUrl}}">
       </div>
       <div class="info-box">
