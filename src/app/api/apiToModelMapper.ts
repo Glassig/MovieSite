@@ -1,6 +1,6 @@
-import { MediaItem, MediaType, mediaTypeFromString, yearStringFromDateString } from './model/media-item';
-import { Movie } from './model/movie';
-import { Person } from './model/person';
+import { MediaItem, MediaType, mediaTypeFromString, yearStringFromDateString } from '../model/media-item';
+import { Movie } from '../model/movie';
+import { Person } from '../model/person';
 
 export class ApiToModelMapper {
   static mediaItemFromJson(json: any): MediaItem {

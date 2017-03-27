@@ -11,7 +11,7 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { SearchMovieComponent } from './search-movie/search-movie.component';
 
-import { ApiService } from './api.service';
+import { ApiService } from './api/api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-items-search-box.component';

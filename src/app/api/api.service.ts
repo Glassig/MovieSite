@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { Movie } from './model/movie';
-import { Person } from './model/person';
-import { MediaItem, MediaType } from './model/media-item';
+import { Movie } from '../model/movie';
+import { Person } from '../model/person';
+import { MediaItem, MediaType } from '../model/media-item';
 
 import { ApiToModelMapper } from './apiToModelMapper';
 
