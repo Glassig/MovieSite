@@ -37,10 +37,12 @@ export class ApiToModelMapper {
 				mediaItem.title = json.name as string;
 
 				const knownFor = json.known_for as any[];
-				mediaItem.subtitle = knownFor
-          .map(ApiToModelMapper.mediaItemFromJson)
-					.map(media => media.title)
-					.reduce((acc,t) => `${acc}, ${t}`);
+        mediaItem.subtitle = knownFor && knownFor.length > 0
+          ? knownFor
+              .map(ApiToModelMapper.mediaItemFromJson)
+  					  .map(media => media.title)
+  					  .reduce((acc,t) => `${acc}, ${t}`)
+          : "";
 				break;
 
 			case MediaType.TVShow:
@@ -52,8 +54,8 @@ export class ApiToModelMapper {
         const firstAirDate = json.first_air_date;
 
         mediaItem.title = firstAirDate
-          ? `${json.title} (${firstAirDate.split('-')[0]})`
-          : `${json.title}`;
+          ? `${json.name} (${firstAirDate.split('-')[0]})`
+          : `${json.name}`;
 
 				mediaItem.subtitle = json.overview as string;
 				break;
