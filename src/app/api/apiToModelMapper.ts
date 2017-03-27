@@ -16,21 +16,26 @@ export class ApiToModelMapper {
 		switch (mediaItem.mediaType) {
 			case MediaType.Movie:
         const moviePosterPath = json.poster_path;
-        if (moviePosterPath == null) { mediaItem.imageUrl = backupPic; }
-        else { mediaItem.imageUrl = `${imgBaseUrl}${moviePosterPath}`; }
-        mediaItem.title = json.title as string;
+        mediaItem.imageUrl = moviePosterPath
+          ? `${imgBaseUrl}${moviePosterPath}`
+          : backupPic;
+
         const releaseDate = json.release_date;
-        if (!(releaseDate == "" || releaseDate == null)) {
-          mediaItem.title += ` (${yearStringFromDateString(releaseDate)})`;
-        }
+        mediaItem.title = releaseDate
+          ? `${json.title} (${yearStringFromDateString(releaseDate)})`
+          : `${json.title}`;
+
 				mediaItem.subtitle = json.overview as string;
 				break;
 
 			case MediaType.Person:
         const profilePath = json.profile_path;
-        if (profilePath == null) { mediaItem.imageUrl = backupPic; }
-        else { mediaItem.imageUrl = `${imgBaseUrl}${profilePath}`; }
+        mediaItem.imageUrl = profilePath
+          ? `${imgBaseUrl}${profilePath}`
+          : backupPic;
+
 				mediaItem.title = json.name as string;
+
 				const knownFor = json.known_for as any[];
 				mediaItem.subtitle = knownFor
           .map(ApiToModelMapper.mediaItemFromJson)
@@ -40,13 +45,16 @@ export class ApiToModelMapper {
 
 			case MediaType.TVShow:
         const tvPosterPath = json.poster_path;
-        if (tvPosterPath == null) { mediaItem.imageUrl = backupPic; }
-				else { mediaItem.imageUrl = `${imgBaseUrl}${tvPosterPath}`; }
-        mediaItem.title = json.name as string;
+        mediaItem.imageUrl = tvPosterPath
+          ? `${imgBaseUrl}${tvPosterPath}`
+          : backupPic;
+
         const firstAirDate = json.first_air_date;
-        if (!(firstAirDate == "" || firstAirDate == null)) {
-          mediaItem.title += ` (${yearStringFromDateString(firstAirDate)})`;
-        }
+
+        mediaItem.title = firstAirDate
+          ? `${json.title} (${yearStringFromDateString(firstAirDate)})`
+          : `${json.title}`;
+
 				mediaItem.subtitle = json.overview as string;
 				break;
 
@@ -67,7 +75,7 @@ export class ApiToModelMapper {
     movie.id = json.id as number;
 
 		movie.title = json.title as string;
-    
+
     const posterPath = json.poster_path;
     movie.imageUrl = posterPath
       ? `${imgBaseUrl}${json.poster_path}`
