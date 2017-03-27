@@ -95,7 +95,7 @@ export class AF {
 
   addMovieToWatchlist(movie: Movie) {
     if(this.isLoggedIn) {
-      this.user.watchlist.push(this.testMovie);
+      this.user.watchlist.push(movie);
       this.users.update(this.user.key, this.user);
     }
   }
@@ -103,8 +103,8 @@ export class AF {
   removeMovieFromWatchlist(movie: Movie) {
     if(this.isLoggedIn) {
       this.user.watchlist = this.user.watchlist
-      .filter(movie => {
-        movie.id != this.testMovie.id;
+      .filter(resp => {
+        resp.id != movie.id;
       });
       this.users.update(this.user.key, this.user);
     }

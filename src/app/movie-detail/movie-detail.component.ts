@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { ApiToModelMapper } from '../api/apiToModelMapper';
+import { AF } from '../providers/af';
+
 
 import { Movie } from '../model/movie';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -16,7 +18,8 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(public apiService: ApiService, 
   	private route: ActivatedRoute,
-  	private router: Router
+  	private router: Router, 
+  	public afService: AF
   	) {}
 
   ngOnInit() {
