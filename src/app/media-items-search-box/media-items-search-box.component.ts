@@ -13,6 +13,7 @@ import 'rxjs/add/observable/of';
 // Observable operators
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/sample';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -67,6 +68,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
 
   private initialiseSelectedIndex() {
     this.selectedIndex = Observable.merge(this.arrowClicks, this.mediaItems.mapTo("top"))
+      .sampleTime(50)
       .withLatestFrom(this.mediaItems.map(items => items.length), (dir,n) => [dir,n])
       .scan((acc: number, curr: ["up"|"down"|"top",number]) => {
         const n = curr[1];
