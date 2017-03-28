@@ -89,7 +89,7 @@ export class AF {
     collectionId: null,
     // maybe make genre an enum in future
     genres: [],
-    runtime: "140",
+    runtime: 140,
     releaseDate: "2014-01-01"
   }
 
