@@ -15,7 +15,6 @@ import { ApiService } from './api/api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-items-search-box.component';
-import { LoginComponent } from './login/login.component';
 
 import { AngularFireModule } from 'angularfire2';
 
@@ -38,7 +37,6 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     SearchMovieComponent,
     SideNavComponent,
     MediaItemsSearchBoxComponent,
-    LoginComponent,
     MyProfileComponent,
     TopNavComponent,
     MovieDetailComponent
