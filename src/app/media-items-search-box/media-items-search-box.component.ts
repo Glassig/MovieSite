@@ -68,6 +68,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
 
   private initialiseSelectedIndex() {
     this.selectedIndex = Observable.merge(this.arrowClicks, this.mediaItems.mapTo("top"))
+      // don't navigate superfast when holding arrow button
       .sampleTime(50)
       .withLatestFrom(this.mediaItems.map(items => items.length), (dir,n) => [dir,n])
       .scan((acc: number, curr: ["up"|"down"|"top",number]) => {
@@ -90,8 +91,11 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   }
 
   private initialiseBoxVisible() {
-    const resultsNotEmpty = this.mediaItems.map(items => items.length > 0);
-    this.boxVisible = Observable.merge(resultsNotEmpty, this.visibleToggles)
+    const itemsNotEmpty = this.mediaItems.map(items => items.length > 0);
+    // delay clicks outside box (to be able to click on a result row)
+    const trueValues = this.visibleToggles.filter(b => b);
+    const falseValues = this.visibleToggles.filter(b => !b).delay(200);
+    this.boxVisible = Observable.merge(itemsNotEmpty, Observable.merge(trueValues, falseValues))
       .startWith(false)
       .publishReplay(1).refCount();
   }
@@ -101,8 +105,13 @@ export class MediaItemsSearchBoxComponent implements OnInit {
       .filter(item => item!=null)
       .subscribe(item => {
         // THIS is where we should navigate to the detail screen for the selected item
-        console.log(`I just pressed on item ${item.title}`)
+        this.navigateToItemDetailScreen(item);
       });
+  }
+
+  navigateToItemDetailScreen(mediaItem: MediaItem) {
+    //TODO: implement the navigation
+    console.log(`I want to navigate to the detail page for ${mediaItem.title}`);
   }
 
   // Functions called from html

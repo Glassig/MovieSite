@@ -17,7 +17,8 @@
       fxLayout="row"
       fxLayoutAlign="start start"
       *ngFor="let mediaItem of mediaItems | async; let i = index"
-      [class.selected]="i == (selectedIndex | async)">
+      [class.selected]="i == (selectedIndex | async)"
+      (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();">
       <div fxLayoutAlign="center center" fxFlex="60px" style="height:80px">
         <img style="height:85%" src="{{mediaItem.imageUrl}}">
       </div>
