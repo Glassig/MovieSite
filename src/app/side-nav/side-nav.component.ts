@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AF } from '../providers/af';
+import {AuthProviders} from 'angularfire2';
 
 @Component({
   selector: 'side-nav',
@@ -8,15 +9,14 @@ import { AF } from '../providers/af';
 })
 export class SideNavComponent implements OnInit {
 
+  providerFacebook: AuthProviders = AuthProviders.Facebook;
+  providerGoogle: AuthProviders = AuthProviders.Google;
+
+
 
   constructor(public afService: AF) { 
   }
 
   ngOnInit() {
   }
-
-  logout() {
-  	this.afService.logout();
-  }
-
 }

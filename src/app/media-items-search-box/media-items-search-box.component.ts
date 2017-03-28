@@ -49,7 +49,6 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   }
 
   mediaInfo(media: MediaItem) {
-    console.log(media);
     switch(media.mediaType) {
       case MediaType.Movie: this.router.navigate(['/movie', media.id]);
                   break;

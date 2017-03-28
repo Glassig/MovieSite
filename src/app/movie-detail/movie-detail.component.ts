@@ -7,6 +7,8 @@ import { AF } from '../providers/af';
 import { Movie } from '../model/movie';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import 'rxjs/add/operator/switchMap';
+
 @Component({
   selector: 'movie',
   templateUrl: './movie-detail.component.html',
@@ -23,11 +25,10 @@ export class MovieDetailComponent implements OnInit {
   	) {}
 
   ngOnInit() {
-  	var id = +this.route.snapshot.params['id'];
-  	this.apiService.getMovie(id)
-  	.subscribe(movie => {
-  		this.movie = movie;
-  	});
+  	//subscribe to changes in id in the URL
+  	this.route.params
+    .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
+    .subscribe((movie: Movie) => this.movie = movie);
   }
 
 }

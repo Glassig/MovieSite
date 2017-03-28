@@ -14,7 +14,7 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit() {
   	if(!this.afService.isLoggedIn) {
-  		this.router.navigate(['/login']);
+  		this.router.navigate(['/search-movie']);
   	} else {
   	}
   }

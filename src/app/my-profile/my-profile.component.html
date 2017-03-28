@@ -10,7 +10,7 @@
 	<h1>My watchlist </h1>
 	<div fxLayout="row" fxLayoutWrap>
 		<div *ngFor="let movie of afService.user.watchlist">
-			<img src={{movie.imageUrl}} style="height:100px;style:100px">
+			<img src={{movie.imageUrl}} style="margin-left:10px;height:100px;style:100px" (click)="afService.removeMovieFromWatchlist(movie)">
 		</div>
 	</div>
 
