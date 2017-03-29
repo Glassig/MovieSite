@@ -88,6 +88,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
       .scan((acc: number, curr: ["up"|"down"|"top"|number,number]) => {
         const move = curr[0];
         const n = curr[1];
+        console.log("tja man");
         if (n == 0) { return null; }
         if (typeof move == "number") { return move }
         switch (move) {
@@ -146,7 +147,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   enter() { this.enterPresses.next(); }
 
   // listen for hovering over result rows
-  over(index: number) { this.hovers.next(index); }
+  mouseEnter(index: number) { this.hovers.next(index); }
 
   // searching for media items
   searchMediaItems(query: string) { this.mediaItemsSearchTerms.next(query); }
