@@ -1,15 +1,12 @@
-<div style="width:100%;height:100%;position: absolute">
-	<top-nav style="width:100%;height:60px; position: relative"></top-nav>
-	<div style="height:100%; width: 100%; position: relative; align-items: stretch">
-		<md-sidenav-container class="sidenav-fab-container" style="position:relative; width:100%; height:100%">
-				<md-sidenav #sidenav mode="side" opened="true" class="sidenav-content" style="height:100%">
-					<side-nav></side-nav>
-				</md-sidenav>
 
-				<div fxLayout="row" fxLayoutAlign="start">
-					<button md-mini-fab (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>
-					<router-outlet style="margin-left:10px"></router-outlet>
-				</div>
+<div class="primary-container">
+	<top-nav class="top-nav-container" (toggleEvent)="toggleNav($event)"></top-nav>
+	<div class="site-content">
+		<md-sidenav-container class="sidenav-fab-container">
+			<md-sidenav #sidenav mode="side" opened="true" class="sidenav-content" style="height:100%">
+				<side-nav></side-nav>
+			</md-sidenav>	
+			<router-outlet></router-outlet>
 		</md-sidenav-container>
 	<div>
 </div>

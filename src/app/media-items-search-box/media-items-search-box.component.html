@@ -3,18 +3,25 @@
     <input
       #mediaItemsSearchBox
       mdInput
-      type="text"
       placeholder="search for a movie, tv-show or person"
-      (keyup)="searchMediaItems(mediaItemsSearchBox.value)"
+      (input)="searchMediaItems(mediaItemsSearchBox.value)"
       (focus)="setBoxVisibility(true)"
-      >
+      (blur)="setBoxVisibility(false)"
+      (keydown.arrowdown)="move('down')"
+      (keydown.arrowup)="move('up')"
+      (keydown.enter)="enter()">
   </md-input-container>
-  <div [class.visible]="boxVisible" class="dropdown-content">
-
-    <div class="search-results-row" fxLayout="row" fxLayoutAlign="start start" *ngFor="let mediaItem of mediaItems | async" (click)="mediaInfo(mediaItem)">
-      <div fxLayout="row" fxLayoutAlign="center center" fxFlex="60px" style="height:80px">
-
-        <img style="height:85%" src="{{mediaItem.imageUrl}}">
+  <div [class.visible]="boxVisible | async" class="dropdown-content">
+    <div
+      class="search-results-row"
+      fxLayout="row"
+      fxLayoutAlign="start start"
+      *ngFor="let mediaItem of mediaItems | async; let i = index"
+      [class.selected]="i == (selectedIndex | async)"
+      (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();"
+      (mouseover)='over(i)'>
+      <div fxLayoutAlign="center center" fxFlex="55px" style="height:80px">
+        <img class="cover-image" src="{{mediaItem.imageUrl}}">
       </div>
       <div class="info-box">
         <div class="title">{{mediaItem.title}}</div>
