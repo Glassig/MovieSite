@@ -1,17 +1,18 @@
 <div *ngIf="this.movie">
 	<h1>{{this.movie.title}}</h1>
+		<div *ngIf="afService.isLoggedIn">
+		<button md-raised-button (click)="afService.addMovieToWatchlist(this.movie)" style="background:DeepSkyBlue">Add movie to watchlist</button>
+	</div>
 	<div fxLayout="row" class="movie-details-box">
 		<img src="{{this.movie.imageUrl}}" style="height:182px; width: auto; margin:0 5px 5px ">
 		<div class="movie-overview-box">
 			<p class="overview">{{movie.overview}}</p>
-			<p style="margin-top:30px">genres: {{movie.genres}}</p>
-			<p>runtime: {{movie.runtime}} minutes</p>
-			<p>release date: {{movie.releaseDate}}</p>
+			<p style="margin-top:30px">Genres: {{movie.genres}}</p>
+			<p>Runtime: {{movie.runtime}} minutes</p>
+			<p>Release date: {{movie.releaseDate}}</p>
 		</div>
 	</div>
-	<div *ngIf="afService.isLoggedIn">
-		<button md-raised-button (click)="afService.addMovieToWatchlist(this.movie)">Add movie to watchlist</button>
-	</div>
+
 	<div *ngIf="id">
 		<h1>Trailer</h1>
 		<youtube-player
