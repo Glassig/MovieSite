@@ -6,7 +6,8 @@
 	background:#333;
 	margin:0;
 }
-h1 {
+.logo {
 	color: white;
 	font-family: Palatino;
+	margin-left: 10px;
 }

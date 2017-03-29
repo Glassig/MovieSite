@@ -1,0 +1,9 @@
+#profile-container {
+	justify-content: space-between !important; /* Oh gods of CSS, please forgive me for this atrocity, but angular fucking flex fucking layout uses style="", and important is the only one with higher hierarchy*/
+}
+
+.profile-pic {
+	margin: 10px;
+	min-width: 150px;
+	border-radius: 50%;
+}
