@@ -42,7 +42,9 @@ export class MovieDetailComponent implements OnInit {
     .subscribe((movie: Movie) => { 
       this.movie = movie; 
       this.apiService.getMovieTrailers(movie.id)
-        .subscribe(keys => this.id = keys[0] ? keys[0] : undefined); 
+        .subscribe(keys => { 
+          this.id = keys[0] ? keys[0] : undefined;
+      }) 
     });
   }
 }

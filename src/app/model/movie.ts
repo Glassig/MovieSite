@@ -8,5 +8,4 @@ export class Movie {
   genres: string[];
   runtime: number | null;
   releaseDate: string | null;
-  ytKeys: string[];
 }
