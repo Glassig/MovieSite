@@ -15,12 +15,13 @@ import { ApiService } from './api/api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-items-search-box.component';
-import { LoginComponent } from './login/login.component';
 
 import { AngularFireModule } from 'angularfire2';
 
 import { AF } from './providers/af';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { TopNavComponent } from './top-nav/top-nav.component';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
   export const firebaseConfig = {
     apiKey: "AIzaSyDlEV2M2O1fwIwJnS7ZDNrLUb6KvoQ5ov4",
@@ -36,8 +37,9 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     SearchMovieComponent,
     SideNavComponent,
     MediaItemsSearchBoxComponent,
-    LoginComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    TopNavComponent,
+    MovieDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
   ],
   providers: [
     ApiService,
-    AF
+    AF,
   ],
   bootstrap: [AppComponent]
 })

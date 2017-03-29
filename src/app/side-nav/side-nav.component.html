@@ -1,15 +1,21 @@
-<md-list>
+<md-list class="sidenav-list">
 	<a>Home</a>
 	<md-divider></md-divider>
+	<a routerLink="/search-movie">Search movie</a>
 	
 	<div *ngIf="!afService.isLoggedIn">
-		<a routerLink="/login">Log in</a>
+		<md-list-item>
+			<button style="margin-top:10px" class="loginBtn loginBtn--facebook" (click)="afService.login(this.providerFacebook)">
+			Login with Facebook</button>
+		</md-list-item>
+		<md-list-item>
+			<button class="loginBtn loginBtn--google" (click)="afService.login(this.providerGoogle)">
+			Login with Google</button>
+		</md-list-item>
 	</div>
 	<div *ngIf="afService.isLoggedIn">
-		<a>My Watchlist</a>
-		<a routerLink="/search-movie">Search movie</a>
 		<a routerLink="/my-profile">My profile</a>
-		<a (click)="logout()">Logout</a>
+		<a (click)="afService.logout()">Logout</a>
 	</div>
 	
 </md-list>

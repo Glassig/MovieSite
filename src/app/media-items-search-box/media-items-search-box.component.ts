@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { Router } from '@angular/router';
+
 // Observable class extensions
 import 'rxjs/add/observable/of';
 
@@ -40,7 +42,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
 
   hovers = new Subject<number>();
 
-  constructor(public apiService: ApiService) { }
+  constructor(public apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.initialiseMediaItems();
@@ -126,7 +128,13 @@ export class MediaItemsSearchBoxComponent implements OnInit {
 
   navigateToItemDetailScreen(mediaItem: MediaItem) {
     //TODO: implement the navigation
-    console.log(`I want to navigate to the detail page for ${mediaItem.title}`);
+    switch(mediaItem.mediaType) {
+      case MediaType.Movie: this.router.navigate(['/movie', mediaItem.id]);
+                  break;
+      case MediaType.Person: break;
+      case MediaType.TVShow: break;
+      case MediaType.Unknown: console.log("Unable to acces page");
+    }
   }
 
   // --------------------------

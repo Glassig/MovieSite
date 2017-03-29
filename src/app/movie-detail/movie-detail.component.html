@@ -1,0 +1,8 @@
+<div *ngIf="this.movie">
+	<h1>{{this.movie.title}}</h1>
+	<img src="{{this.movie.imageUrl}}" style="height:100px; width: 100px">
+	<div *ngIf="afService.isLoggedIn">
+		<button (click)="afService.addMovieToWatchlist(this.movie)">Add movie to watchlist</button>
+	</div>
+</div>
+
