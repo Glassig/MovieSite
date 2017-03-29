@@ -18,9 +18,10 @@
       fxLayoutAlign="start start"
       *ngFor="let mediaItem of mediaItems | async; let i = index"
       [class.selected]="i == (selectedIndex | async)"
-      (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();">
-      <div fxLayoutAlign="center center" fxFlex="60px" style="height:80px">
-        <img style="height:85%" src="{{mediaItem.imageUrl}}">
+      (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();"
+      on-mouseover='over(i)'>
+      <div fxLayoutAlign="center center" fxFlex="55px" style="height:80px">
+        <img style="height:74px;width:49px;object-fit:cover" src="{{mediaItem.imageUrl}}">
       </div>
       <div class="info-box">
         <div class="title">{{mediaItem.title}}</div>

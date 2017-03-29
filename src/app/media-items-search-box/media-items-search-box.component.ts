@@ -30,13 +30,15 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   mediaItems: Observable<MediaItem[]>;
   boxVisible: Observable<boolean>;
 
-  private arrowClicks = new Subject<"up"|"down">();
+  private arrowClicks = new Subject<"up"|"down"|number>();
   selectedIndex: Observable<number|null>;
   selectedItem: Observable<MediaItem|null>;
 
   enterPresses = new Subject<void>();
 
   visibleToggles = new Subject<boolean>();
+
+  hovers = new Subject<number>();
 
   constructor(public apiService: ApiService) { }
 
@@ -67,13 +69,19 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   }
 
   private initialiseSelectedIndex() {
-    this.selectedIndex = Observable.merge(this.arrowClicks, this.mediaItems.mapTo("top"))
+    this.selectedIndex = Observable.merge(
+      this.arrowClicks,
+      this.mediaItems.mapTo("top"),
+      this.hovers.distinctUntilChanged()
+    )
       // don't navigate superfast when holding arrow button
       .sampleTime(50)
-      .withLatestFrom(this.mediaItems.map(items => items.length), (dir,n) => [dir,n])
-      .scan((acc: number, curr: ["up"|"down"|"top",number]) => {
+      .withLatestFrom(this.mediaItems.map(items => items.length), (move,n) => [move,n])
+      .scan((acc: number, curr: ["up"|"down"|"top"|number,number]) => {
+        const move = curr[0];
         const n = curr[1];
         if (n == 0) { return null; }
+        if (typeof move == "number") { return move }
         switch (curr[0]) {
           case "up": return (acc != null) ? (acc > 0 ? acc-1 : null) : null;
           case "down": return (acc != null) ? Math.min(acc+1, n-1) : 0;
@@ -116,9 +124,11 @@ export class MediaItemsSearchBoxComponent implements OnInit {
 
   // Functions called from html
 
-  move(direction: "up"|"down") { this.arrowClicks.next(direction); }
+  move(direction: "up"|"down"|number) { this.arrowClicks.next(direction); }
 
   enter() { this.enterPresses.next(); }
+
+  over(index: number) { this.hovers.next(index); }
 
   searchMediaItems(query: string) { this.mediaItemsSearchTerms.next(query); }
 
