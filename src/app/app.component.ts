@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AF } from "./providers/af";
 import { Router } from "@angular/router";
+import { MdSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { Router } from "@angular/router";
 export class AppComponent {
   title = 'MovieSite!';
   isLoggedIn: boolean;
+  @ViewChild('sidenav') public sidenav: MdSidenav;
 
   constructor(public afService: AF, private router: Router) {
     // // This asynchronously checks if our user is logged it and will automatically
@@ -33,4 +35,8 @@ export class AppComponent {
     // );
   }
   
+  toggleNav(message: string): void {
+    console.log("adult gets: ", message);
+    this.sidenav.toggle();
+  }
 }
