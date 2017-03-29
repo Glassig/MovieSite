@@ -127,7 +127,6 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   }
 
   navigateToItemDetailScreen(mediaItem: MediaItem) {
-    //TODO: implement the navigation
     switch(mediaItem.mediaType) {
       case MediaType.Movie: this.router.navigate(['/movie', mediaItem.id]);
                   break;
