@@ -5,7 +5,10 @@ import { AF } from '../providers/af';
 
 
 import { Movie } from '../model/movie';
+import { MovieVideo } from '../model/movie-video';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -16,14 +19,14 @@ import 'rxjs/add/operator/switchMap';
 })
 export class MovieDetailComponent implements OnInit {
 
-  private id;
-	movie: Movie;	
+  private videos: MovieVideo[];
+	movie: Movie;
   private player;
   private ytEvent;
 
-  constructor(public apiService: ApiService, 
+  constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
-  	private router: Router, 
+  	private router: Router,
   	public afService: AF
   	) {}
 
@@ -33,18 +36,18 @@ export class MovieDetailComponent implements OnInit {
   savePlayer(player) {
     this.player = player;
   }
-  
+
 
   ngOnInit() {
   	//subscribe to changes in id in the URL
-  	this.route.params
-    .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
-    .subscribe((movie: Movie) => { 
-      this.movie = movie; 
-      this.apiService.getMovieTrailers(movie.id)
-        .subscribe(keys => { 
-          this.id = keys[0] ? keys[0] : undefined;
-      }) 
-    });
+  	const movie = this.route.params
+      .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
+      .share();
+
+    movie.subscribe(movie => this.movie = movie);
+
+    movie
+      .switchMap(movie => this.apiService.getMovieVideos(movie.id))
+      .subscribe(videos => this.videos = videos);
   }
 }
