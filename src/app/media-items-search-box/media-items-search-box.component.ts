@@ -146,7 +146,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   enter() { this.enterPresses.next(); }
 
   // listen for hovering over result rows
-  over(index: number) { this.hovers.next(index); }
+  mouseEnter(index: number) { this.hovers.next(index); }
 
   // searching for media items
   searchMediaItems(query: string) { this.mediaItemsSearchTerms.next(query); }
