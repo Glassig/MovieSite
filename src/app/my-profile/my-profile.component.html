@@ -3,8 +3,10 @@
 </div>
 
 <div *ngIf="afService.isLoggedIn">
-	<h1>{{afService.user.name}}</h1>
-	<img src={{afService.user.imageUrl}}>
+	<div fxLayout="row" fxLayoutWrap>
+			<h1  fxLayoutAlign="left">{{afService.user.name}}</h1>
+			<img fxLayoutAlign="right" src={{afService.user.imageUrl}}>
+	</div>
 	<h1>My Reviews: ....</h1>
 	<h1>My liked movies ....</h1>
 	<h1>My watchlist </h1>

@@ -1,3 +1,7 @@
+.sidenav-list {
+  padding-top: 0;
+}
+
 a {
     display: block;
     color: #000;
