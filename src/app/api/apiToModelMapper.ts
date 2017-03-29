@@ -1,6 +1,7 @@
 import { MediaItem, MediaType, mediaTypeFromString } from '../model/media-item';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
+import { MovieVideo } from '../model/movie-video';
 
 export class ApiToModelMapper {
   static mediaItemFromJson(json: any): MediaItem {
@@ -114,9 +115,20 @@ export class ApiToModelMapper {
 
 		return person;
 	}
-}
 
-function unwrapped(val) {
-  if (val == null) { return null }
-  else { return  }
+  static movieVideoFromJson(json: any): MovieVideo|null {
+    if (json == undefined) { return null; }
+
+    const site = json.site as string;
+    // reject the video if it is not hosted by YouTube
+    if (site != "YouTube") { return null; }
+
+    var video = new MovieVideo();
+    video.id = json.id as string;
+    video.key = json.key as string;
+    video.name = json.name as string;
+    video.type = json.type;
+
+    return video;
+  }
 }

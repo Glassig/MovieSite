@@ -1,6 +1,6 @@
 <div *ngIf="this.movie">
-	<h1>{{this.movie.title}}</h1>
-		<div *ngIf="afService.isLoggedIn">
+	<h1>{{movie.title}}</h1>
+	<div *ngIf="afService.isLoggedIn">
 		<button md-raised-button (click)="afService.addMovieToWatchlist(this.movie)" style="background:DeepSkyBlue">Add movie to watchlist</button>
 	</div>
 	<div fxLayout="row" class="movie-details-box">
@@ -13,14 +13,13 @@
 		</div>
 	</div>
 
-	<div *ngIf="id">
-		<h1>Trailer</h1>
+	<div *ngFor="let video of videos">
+		<h1>{{video.name}}</h1>
 		<youtube-player
-	      [videoId]="id"
+	      [videoId]="video.key"
 	      (ready)="savePlayer($event)"
 	      (change)="onStateChange($event)"
 	    ></youtube-player>
 	</div>
 
 </div>
-

@@ -4,6 +4,7 @@ import { Http, Response } from '@angular/http';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
 import { MediaItem, MediaType } from '../model/media-item';
+import { MovieVideo } from '../model/movie-video';
 
 import { ApiToModelMapper } from './apiToModelMapper';
 
@@ -33,11 +34,12 @@ export class ApiService {
 			.map(ApiToModelMapper.movieFromJson);
 	}
 
-	getMovieTrailers(id: number): Observable<string[]> {
+	getMovieVideos(id: number): Observable<MovieVideo[]> {
 		const url: string = this.getByIdURL('movie', id, 'videos');
 		return this.http.get(url)
-			.map(resp => resp.json().results)
-			.map(results => results.map(res => res.key));
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieVideoFromJson))
+			.map(videos => videos.filter(video => video != null));
 	}
 
 	searchMovies(query: string): Observable<Movie[]> {
