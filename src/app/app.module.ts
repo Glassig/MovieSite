@@ -24,6 +24,7 @@ import { AF } from './providers/af';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { ActorDetailComponent } from './actor-detail/actor-detail.component';
 
   export const firebaseConfig = {
     apiKey: "AIzaSyDlEV2M2O1fwIwJnS7ZDNrLUb6KvoQ5ov4",
@@ -42,6 +43,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     MyProfileComponent,
     TopNavComponent,
     MovieDetailComponent,
+    ActorDetailComponent,
   ],
   imports: [
     BrowserModule,
