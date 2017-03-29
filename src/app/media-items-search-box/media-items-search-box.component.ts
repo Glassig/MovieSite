@@ -88,7 +88,6 @@ export class MediaItemsSearchBoxComponent implements OnInit {
       .scan((acc: number, curr: ["up"|"down"|"top"|number,number]) => {
         const move = curr[0];
         const n = curr[1];
-        console.log("tja man");
         if (n == 0) { return null; }
         if (typeof move == "number") { return move }
         switch (move) {
