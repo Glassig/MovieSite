@@ -16,7 +16,10 @@ import 'rxjs/add/operator/switchMap';
 })
 export class MovieDetailComponent implements OnInit {
 
+  private id;
 	movie: Movie;	
+  private player;
+  private ytEvent;
 
   constructor(public apiService: ApiService, 
   	private route: ActivatedRoute,
@@ -24,11 +27,24 @@ export class MovieDetailComponent implements OnInit {
   	public afService: AF
   	) {}
 
+  onStateChange(event) {
+    this.ytEvent = event.data;
+  }
+  savePlayer(player) {
+    this.player = player;
+  }
+  
+
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	this.route.params
     .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
-    .subscribe((movie: Movie) => this.movie = movie);
+    .subscribe((movie: Movie) => { 
+      this.movie = movie; 
+      this.apiService.getMovieTrailers(movie.id)
+        .subscribe(keys => { 
+          this.id = keys[0] ? keys[0] : undefined;
+      }) 
+    });
   }
-
 }
