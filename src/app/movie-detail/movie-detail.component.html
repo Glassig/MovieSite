@@ -1,16 +1,16 @@
 <div *ngIf="this.movie">
 	<h1>{{this.movie.title}}</h1>
 	<div fxLayout="row" class="movie-details-box">
-		<img src="{{this.movie.imageUrl}}" style="height:150px; margin:5px 5px 5px 5px">
+		<img src="{{this.movie.imageUrl}}" style="height:182px; width: auto; margin:0 5px 5px ">
 		<div class="movie-overview-box">
-			<p style="height:55px; max-height:100px; overflow: scroll">{{movie.overview}}</p>
-			<p style="margin-top:60px">genres: {{movie.genres}}</p>
+			<p class="overview">{{movie.overview}}</p>
+			<p style="margin-top:30px">genres: {{movie.genres}}</p>
 			<p>runtime: {{movie.runtime}} minutes</p>
 			<p>release date: {{movie.releaseDate}}</p>
 		</div>
 	</div>
 	<div *ngIf="afService.isLoggedIn">
-		<button (click)="afService.addMovieToWatchlist(this.movie)">Add movie to watchlist</button>
+		<button md-raised-button (click)="afService.addMovieToWatchlist(this.movie)">Add movie to watchlist</button>
 	</div>
 	<div *ngIf="id">
 		<h1>Trailer</h1>
