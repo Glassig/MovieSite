@@ -10,6 +10,10 @@
   background-color: #f1f1f1;
 }
 
+.selected {
+  background-color: #f1f1f1;
+}
+
 .title {
   color: #2d33a3;
   font-family: "Verdana";
