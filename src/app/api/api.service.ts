@@ -19,17 +19,25 @@ export class ApiService {
 		return `https://api.themoviedb.org/3/search/${type}?api_key=${ApiService.APIKey}&query=${query}`;
 	}
 
-	private getByIdURL(type: string, id: number): string {
-		return `https://api.themoviedb.org/3/${type}/${id}?api_key=${ApiService.APIKey}`;
+	private getByIdURL(type: string, id: number, additional): string {
+		var str = additional ? `/${additional}` : "";
+		return `https://api.themoviedb.org/3/${type}/${id}${str}?api_key=${ApiService.APIKey}`;
 	}
 
 	constructor(private http: Http) {}
 
 	getMovie(id: number): Observable<Movie> {
-		const url: string = this.getByIdURL('movie', id);
+		const url: string = this.getByIdURL('movie', id, undefined);
 		return this.http.get(url)
 			.map(resp => resp.json())
 			.map(ApiToModelMapper.movieFromJson);
+	}
+
+	getMovieTrailers(id: number): Observable<string[]> {
+		const url: string = this.getByIdURL('movie', id, 'videos');
+		return this.http.get(url)
+			.map(resp => resp.json().results)
+			.map(results => results.map(res => res.key));
 	}
 
 	searchMovies(query: string): Observable<Movie[]> {

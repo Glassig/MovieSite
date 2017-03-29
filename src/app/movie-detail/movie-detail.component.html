@@ -4,5 +4,14 @@
 	<div *ngIf="afService.isLoggedIn">
 		<button (click)="afService.addMovieToWatchlist(this.movie)">Add movie to watchlist</button>
 	</div>
+	<div *ngIf="id">
+		<h1>Trailer</h1>
+		<youtube-player
+	      [videoId]="id"
+	      (ready)="savePlayer($event)"
+	      (change)="onStateChange($event)"
+	    ></youtube-player>
+	</div>
+
 </div>
 

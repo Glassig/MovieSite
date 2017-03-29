@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { MaterialModule } from '@angular/material';
 import 'hammerjs';
@@ -17,6 +18,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-items-search-box.component';
 
 import { AngularFireModule } from 'angularfire2';
+import { YoutubePlayerModule } from 'ng2-youtube-player';
 
 import { AF } from './providers/af';
 import { MyProfileComponent } from './my-profile/my-profile.component';
@@ -39,7 +41,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     MediaItemsSearchBoxComponent,
     MyProfileComponent,
     TopNavComponent,
-    MovieDetailComponent
+    MovieDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
+    YoutubePlayerModule,
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
