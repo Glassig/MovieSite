@@ -50,19 +50,24 @@ export class MediaItemsSearchBoxComponent implements OnInit {
     this.setUpEnterPressSubscription();
   }
 
+  // --------------------------
   // Observable initialisations
+  // --------------------------
 
   private initialiseMediaItems() {
     this.mediaItems = this.mediaItemsSearchTerms
+      // don't make API request for every input change if the typing is really fast
       .debounceTime(300)
+      // if last API search request was made with same query, don't search again
       .distinctUntilChanged()
+      // remove leading and trailing whitespaces from query string
       .map(term => term.trim())
       // don't make an API request if search term is empty
       .switchMap(term => term
         ? this.apiService.searchMediaItems(term)
         : Observable.of<MediaItem[]>([])
       )
-      //only display first 8 results
+      // only display a maximum of 8 results
       .map(results => results.slice(0,8))
       // each subscriber shouldn't make a new API request
       .share();
@@ -76,19 +81,22 @@ export class MediaItemsSearchBoxComponent implements OnInit {
     )
       // don't navigate superfast when holding arrow button
       .sampleTime(50)
+      // incorporate the latest value of mediaItems
       .withLatestFrom(this.mediaItems.map(items => items.length), (move,n) => [move,n])
       .scan((acc: number, curr: ["up"|"down"|"top"|number,number]) => {
         const move = curr[0];
         const n = curr[1];
         if (n == 0) { return null; }
         if (typeof move == "number") { return move }
-        switch (curr[0]) {
+        switch (move) {
           case "up": return (acc != null) ? (acc > 0 ? acc-1 : null) : null;
           case "down": return (acc != null) ? Math.min(acc+1, n-1) : 0;
           case "top": return 0;
         }
       }, 0)
+      // don't recalculate for each subscriber
       .share()
+      // make sure every subscriber gets the last emitted number as initial value
       .publishReplay(1).refCount();
   }
 
@@ -100,8 +108,8 @@ export class MediaItemsSearchBoxComponent implements OnInit {
 
   private initialiseBoxVisible() {
     const itemsNotEmpty = this.mediaItems.map(items => items.length > 0);
-    // delay clicks outside box (to be able to click on a result row)
     const trueValues = this.visibleToggles.filter(b => b);
+    // delay clicks outside box (to be able to click on a result row)
     const falseValues = this.visibleToggles.filter(b => !b).delay(200);
     this.boxVisible = Observable.merge(itemsNotEmpty, Observable.merge(trueValues, falseValues))
       .startWith(false)
@@ -112,7 +120,6 @@ export class MediaItemsSearchBoxComponent implements OnInit {
     this.enterPresses.withLatestFrom(this.selectedItem, (_,item) => item)
       .filter(item => item!=null)
       .subscribe(item => {
-        // THIS is where we should navigate to the detail screen for the selected item
         this.navigateToItemDetailScreen(item);
       });
   }
@@ -122,15 +129,21 @@ export class MediaItemsSearchBoxComponent implements OnInit {
     console.log(`I want to navigate to the detail page for ${mediaItem.title}`);
   }
 
+  // --------------------------
   // Functions called from html
+  // --------------------------
 
   move(direction: "up"|"down"|number) { this.arrowClicks.next(direction); }
 
+  // listen for enter presses
   enter() { this.enterPresses.next(); }
 
+  // listen for hovering over result rows
   over(index: number) { this.hovers.next(index); }
 
+  // searching for media items
   searchMediaItems(query: string) { this.mediaItemsSearchTerms.next(query); }
 
+  // listen for clicks inside and outside of text field and update visiblity accordingly
   setBoxVisibility(visible: boolean) { this.visibleToggles.next(visible); }
 }
