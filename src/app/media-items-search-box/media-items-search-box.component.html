@@ -19,7 +19,7 @@
       *ngFor="let mediaItem of mediaItems | async; let i = index"
       [class.selected]="i == (selectedIndex | async)"
       (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();"
-      on-mouseover='over(i)'>
+      (mouseover)='over(i)'>
       <div fxLayoutAlign="center center" fxFlex="55px" style="height:80px">
         <img class="cover-image" src="{{mediaItem.imageUrl}}">
       </div>
