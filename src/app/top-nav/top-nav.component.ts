@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'top-nav',
@@ -11,5 +11,10 @@ export class TopNavComponent implements OnInit {
 
   ngOnInit() {
   }
+  @Output() toggleEvent: EventEmitter<string> = new EventEmitter<string>();
 
+  sendToggle(): void {
+  	console.log("child sends message");
+  	this.toggleEvent.emit("message");
+  }
 }

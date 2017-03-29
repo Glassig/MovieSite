@@ -1,15 +1,11 @@
 <div class="primary-container">
-	<top-nav class="top-nav-container"></top-nav>
+	<top-nav class="top-nav-container" (toggleEvent)="toggleNav($event)"></top-nav>
 	<div class="site-content">
 		<md-sidenav-container class="sidenav-fab-container">
 			<md-sidenav #sidenav mode="side" opened="true" class="sidenav-content" style="height:100%">
 				<side-nav></side-nav>
-			</md-sidenav>
-
-			<div fxLayout="row" fxLayoutAlign="start">
-				<button md-mini-fab (click)="sidenav.toggle()"><md-icon>menu</md-icon></button>	
-			</div>
-			<router-outlet style="margin-left:10px"></router-outlet>
+			</md-sidenav>	
+			<router-outlet></router-outlet>
 		</md-sidenav-container>
 	<div>
 </div>
