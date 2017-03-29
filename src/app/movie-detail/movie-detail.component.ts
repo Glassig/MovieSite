@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
-import { ApiToModelMapper } from '../api/apiToModelMapper';
 import { AF } from '../providers/af';
 
 

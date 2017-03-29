@@ -56,6 +56,20 @@ export class ApiService {
 			.map(results => results.map(ApiToModelMapper.personFromJson));
 	}
 
+	getPerson(id: number): Observable<Person> {
+		const url: string = this.getByIdURL('person', id, undefined);
+		return this.http.get(url)
+			.map(resp => {
+				return ApiToModelMapper.personFromJson(resp.json());
+			});
+	}
+
+	getMovieCredits(id: number): Observable<Movie[]> {
+		const url: string = this.getByIdURL('person', id, 'movie_credits');
+		return this.http.get(url) 
+			.map(resp => resp.json().cast.map(res => ApiToModelMapper.movieFromJson(res)));
+	}
+
 	searchMediaItems(query: string): Observable<MediaItem[]> {
 		const url: string = this.searchURL('multi', query);
 		return this.http.get(url)

@@ -129,8 +129,9 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   navigateToItemDetailScreen(mediaItem: MediaItem) {
     switch(mediaItem.mediaType) {
       case MediaType.Movie: this.router.navigate(['/movie', mediaItem.id]);
-                  break;
-      case MediaType.Person: break;
+                            break;
+      case MediaType.Person: this.router.navigate(['/actor', mediaItem.id]);
+                            break;
       case MediaType.TVShow: break;
       case MediaType.Unknown: console.log("Unable to acces page");
     }
