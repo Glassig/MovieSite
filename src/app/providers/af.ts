@@ -94,8 +94,15 @@ export class AF {
 
   addMovieToWatchlist(movie: Movie) {
     if(this.isLoggedIn) {
-      this.user.watchlist.push(movie);
-      this.users.update(this.user.key, this.user);
+      var exists = false;
+      this.user.watchlist.forEach(function(el) {
+        if(el.id == movie.id)
+          exists = true;
+      });
+      if(!exists){
+        this.user.watchlist.push(movie);
+        this.users.update(this.user.key, this.user);
+      }
     }
   }
 
