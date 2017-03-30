@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AF} from "../providers/af";
 import { Router } from '@angular/router';
 import { Movie } from '../model/movie';
+import { Person } from '../model/person';
 
 @Component({
   selector: 'my-profile',
@@ -17,6 +18,10 @@ export class MyProfileComponent implements OnInit {
   		this.router.navigate(['/search-movie']);
   	} else {
   	}
+  }
+
+  navigateToMovieDetailScreen(movie: Movie) {
+    this.router.navigate(['/movie', movie.id]);
   }
 
 }

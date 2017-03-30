@@ -12,11 +12,11 @@
 			<h1>My watchlist </h1>
 			<div fxLayout="row" fxLayoutWrap>
 				<div *ngFor="let movie of afService.user.watchlist" class="image-container">
-					<button md-mini-fab (click)="afService.removeMovieFromWatchlist(movie)" class="close"><md-icon style="color:white;">close</md-icon></button>
-					<img src={{movie.imageUrl}} class="movie-img">
+					<button md-mini-fab (click)="afService.removeMovieFromWatchlist(movie); $event.stopPropagation()" class="close"><md-icon style="color:white;">close</md-icon></button>
+					<img (click)="navigateToMovieDetailScreen(movie)" src={{movie.imageUrl}} class="movie-img">
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 </div>

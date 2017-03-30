@@ -106,6 +106,11 @@ export class AF {
     }
   }
 
+  movieIsInWatchList(movie: Movie): boolean {
+    if (!this.isLoggedIn) { return false }
+    return this.user.watchlist.map(movie => movie.id).includes(movie.id);
+  }
+
   removeMovieFromWatchlist(movie: Movie) {
     if(this.isLoggedIn) {
       this.user.watchlist = this.user.watchlist
