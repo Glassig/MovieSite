@@ -8,3 +8,19 @@
 	border-radius: 50%;
 	float: right;
 }
+
+.image-container {
+	position: relative;
+}
+
+.close {
+	position: absolute;
+	background:red;
+	top: -7px;
+	right: -7px;
+}
+
+.movie-img {
+	margin: 10px;
+	max-height: 150px;
+}
