@@ -93,16 +93,10 @@ export class AF {
   }
 
   addMovieToWatchlist(movie: Movie) {
-    if(this.isLoggedIn) {
-      var exists = false;
-      this.user.watchlist.forEach(function(el) {
-        if(el.id == movie.id)
-          exists = true;
-      });
-      if(!exists){
-        this.user.watchlist.push(movie);
-        this.users.update(this.user.key, this.user);
-      }
+    if (!this.isLoggedIn) { return }
+    if (!this.movieIsInWatchList(movie)) {
+      this.user.watchlist.push(movie);
+      this.users.update(this.user.key, this.user);
     }
   }
 
