@@ -1,12 +1,13 @@
-
 <div class="primary-container">
 	<top-nav class="top-nav-container" (toggleEvent)="toggleNav($event)"></top-nav>
-	<div class="site-content">
+	<div class="site-container">
 		<md-sidenav-container class="sidenav-fab-container">
 			<md-sidenav #sidenav mode="side" opened="true" class="sidenav-content" style="height:100%">
 				<side-nav></side-nav>
 			</md-sidenav>	
-			<router-outlet></router-outlet>
+			<div class="content">
+				<router-outlet></router-outlet>
+			</div>
 		</md-sidenav-container>
 	<div>
 </div>
