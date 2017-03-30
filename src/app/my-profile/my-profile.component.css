@@ -22,4 +22,5 @@
 .movie-img {
 	margin: 10px;
 	max-height: 150px;
+	cursor: pointer;
 }
