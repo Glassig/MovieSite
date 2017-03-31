@@ -18,6 +18,8 @@
 			</button>
 		</div>
 	</div>
+
+
 	<div fxLayout="row" class="movie-details-box">
 		<img src="{{this.movie.imageUrl}}" style="height:182px; width: auto; margin:0 5px 5px ">
 		<div class="movie-overview-box">
@@ -28,6 +30,8 @@
 		</div>
 	</div>
 
+	<create-review [movie]="this.movie"></create-review>
+
 	<div *ngFor="let video of videos">
 		<h1>{{video.name}}</h1>
 		<youtube-player
@@ -36,5 +40,4 @@
 	      (change)="onStateChange($event)"
 	    ></youtube-player>
 	</div>
-	<create-review [movie]="this.movie"></create-review>
 </div>
