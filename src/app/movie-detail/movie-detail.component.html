@@ -30,7 +30,7 @@
 		</div>
 	</div>
 
-	<create-review [movie]="this.movie"></create-review>
+	<div *ngIf="afService.isLoggedIn"><create-review [movie]="this.movie"></create-review></div>
 
 	<div *ngFor="let video of videos">
 		<h1>{{video.name}}</h1>
