@@ -14,7 +14,7 @@
 
 .close {
 	position: absolute;
-	background:red;
+	background: #E65C5F;
 	top: -7px;
 	right: -7px;
 }
