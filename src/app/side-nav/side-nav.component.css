@@ -2,6 +2,10 @@
   padding-top: 0;
 }
 
+md-icon {
+  margin-right: 10px;
+}
+
 a {
     display: block;
     color: #000;
@@ -10,8 +14,8 @@ a {
     cursor: pointer;
 }
 
-a.active {
-    background-color: #4CAF50;
+a.active_link {
+    background-color: #666;
     color: white;
 }
 

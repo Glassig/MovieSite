@@ -1,7 +1,7 @@
 <md-list class="sidenav-list">
-	<a>Home</a>
+	<a fxLayoutAlign=" center" ><md-icon>home</md-icon>Home</a>
 	<md-divider></md-divider>
-	<a routerLink="/search-movie">Search movie</a>
+	<a routerLink="/search-movie" routerLinkActive="active_link" fxLayoutAlign=" center" ><md-icon>search</md-icon>Search movie</a>
 	
 	<div *ngIf="!afService.isLoggedIn">
 		<md-list-item>
@@ -14,8 +14,8 @@
 		</md-list-item>
 	</div>
 	<div *ngIf="afService.isLoggedIn">
-		<a routerLink="/my-profile">My profile</a>
-		<a (click)="afService.logout()">Logout</a>
+		<a routerLink="/my-profile" routerLinkActive="active_link" fxLayoutAlign=" center" ><md-icon>person</md-icon>My profile</a>
+		<a (click)="afService.logout()" fxLayoutAlign=" center" ><md-icon>power_settings_new</md-icon>Logout</a>
 	</div>
 	
 </md-list>
