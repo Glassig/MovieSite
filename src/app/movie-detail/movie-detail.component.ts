@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { AF } from '../providers/af';
 
-
 import { Movie } from '../model/movie';
 import { MovieVideo } from '../model/movie-video';
 import { Router, ActivatedRoute, Params } from '@angular/router';
