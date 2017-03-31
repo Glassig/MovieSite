@@ -23,9 +23,12 @@
 	position: relative;
 }
 
-.site-content {
+.site-container {
 	height:100%; 
 	width: 100%; 
 	position: relative; 
 	align-items: stretch;
+}
+.content {
+	margin: 15px;
 }

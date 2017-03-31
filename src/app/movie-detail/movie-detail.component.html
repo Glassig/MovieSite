@@ -1,7 +1,22 @@
 <div *ngIf="this.movie">
 	<h1>{{movie.title}}</h1>
 	<div *ngIf="afService.isLoggedIn">
-		<button md-raised-button (click)="afService.addMovieToWatchlist(this.movie)" style="background:DeepSkyBlue">Add movie to watchlist</button>
+		<div *ngIf="afService.movieIsInWatchList(movie)">
+			<button
+				md-raised-button
+				(click)="afService.removeMovieFromWatchlist(this.movie)"
+				style="background:#ff4000">
+				Remove movie from watchlist
+			</button>
+		</div>
+		<div *ngIf="!afService.movieIsInWatchList(movie)">
+			<button
+				md-raised-button
+				(click)="afService.addMovieToWatchlist(this.movie)"
+				style="background:DeepSkyBlue">
+				Add movie to watchlist
+			</button>
+		</div>
 	</div>
 	<div fxLayout="row" class="movie-details-box">
 		<img src="{{this.movie.imageUrl}}" style="height:182px; width: auto; margin:0 5px 5px ">

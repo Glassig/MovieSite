@@ -1,12 +1,12 @@
 <div *ngIf="person">
 	<h1>{{person.name}}</h1>
-	<img src="{{person.imageUrl}}" style="width:150px;height:150px">
+	<img src="{{person.imageUrl}}" class="person-image">
 
 	<div *ngIf="movieCredits">
 		<h1> Movie Credits </h1>
 	<div fxLayout="row" fxLayoutWrap>
 		<div *ngFor="let movie of movieCredits">
-			<img src="{{movie.imageUrl}}" style="width:100px;height:100px" (click)="navigateToMovieDetail(movie)">
+			<img src="{{movie.imageUrl}}" class="movie-images" (click)="navigateToMovieDetail(movie)">
 		</div>
 	</div>
 	</div>

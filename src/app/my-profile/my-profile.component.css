@@ -3,7 +3,6 @@
 }
 
 .profile-pic {
-	margin: 10px;
 	min-width: 150px;
 	border-radius: 50%;
 	float: right;
@@ -23,4 +22,5 @@
 .movie-img {
 	margin: 10px;
 	max-height: 150px;
+	cursor: pointer;
 }
