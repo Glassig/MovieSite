@@ -4,7 +4,13 @@
 	position: relative;
 	z-index: 50;
 	background:#333;
-	margin:0;
+	margin:0px;
+	border:10px solid transparent;
+	border-image-source: url("/assets/img/square3.png");
+	border-image-slice: 33%;
+	border-image-width: 10px; 
+	border-image-repeat: round;
+	border-image-outset: 0px 10px 0px 10px;
 }
 .logo {
 	color: white;
