@@ -20,20 +20,24 @@ Styling and stars
 export class CreateReviewComponent implements OnInit {
     @Input() movie: Movie;
     review: Review;
+    rating: number;
 
     constructor(public afService: AF){}
 
     ngOnInit(){
 
     }
-  addReview(textInput: string,ratingInput: number) {
+    changeRating(num) {
+      this.rating = num;
+    }
+  addReview(textInput: string) {
       this.review = {
           user_id: this.afService.user.id,
           movie: this.movie,
           text: textInput,
-          rating: ratingInput
+          rating: this.rating
       }
-      console.log(this.review.rating)
+      console.log(this.review);
 
     }
 
