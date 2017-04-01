@@ -14,3 +14,22 @@
 	overflow: scroll;
 	margin-top:0;
 }
+.box-card {
+	margin-left: 25px;
+	margin-top: 25px;
+}
+.box-card-textbox {
+	margin:0;
+	height:30px;
+	background-color:#333;
+	text-align:center;
+}
+.textbox-text {
+	color: white;
+	margin:0;
+	height:100%;
+}
+.title {
+	font-family: Palatino;
+	font-size: 200%;
+}
