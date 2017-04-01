@@ -23,11 +23,15 @@
 	height:30px;
 	background-color:#333;
 	text-align:center;
+	width:200px;
+
 }
 .textbox-text {
 	color: white;
+	font-size:80%;
 	margin:0;
 	height:100%;
+	overflow:hidden;
 }
 .title {
 	font-family: Palatino;

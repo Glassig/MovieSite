@@ -6,3 +6,11 @@
 	width:100px;
 	margin:5px;
 }
+.box-card {
+	margin-left: 25px;
+	margin-top: 25px;
+}
+.title {
+	font-family: Palatino;
+	font-size: 200%;
+}
