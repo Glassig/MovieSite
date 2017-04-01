@@ -1,12 +1,14 @@
+<media-items-search-box style="width:400px; height:200px"></media-items-search-box>
+
 <div *ngIf="person">
-	<h1>{{person.name}}</h1>
+	<p class="title">{{person.name}}</p>
 	<img src="{{person.imageUrl}}" class="person-image">
 
 	<div *ngIf="movieCredits">
-		<h1> Movie Credits </h1>
-	<div fxLayout="row" fxLayoutWrap>
-		<div *ngFor="let movie of movieCredits">
-			<img src="{{movie.imageUrl}}" class="movie-images" (click)="navigateToMovieDetail(movie)">
+		<p class="title"> Movie Credits </p>
+	<div fxLayout="row" style="overflow:scroll">
+		<div *ngFor="let movie of movieCredits" class="box-card">
+			<movie-card [movie]="movie"></movie-card>
 		</div>
 	</div>
 	</div>

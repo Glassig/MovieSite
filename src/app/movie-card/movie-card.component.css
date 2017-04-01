@@ -1,0 +1,8 @@
+.movie-frame {
+	width:100px;
+	cursor:pointer;
+}
+.text {
+	font-size:80%;
+	text-align:center;
+}

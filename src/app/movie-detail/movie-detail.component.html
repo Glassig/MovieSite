@@ -1,5 +1,8 @@
+<media-items-search-box style="width:400px; height:200px"></media-items-search-box>
+
+
 <div *ngIf="this.movie">
-	<h1>{{movie.title}}</h1>
+	<p class="title">{{movie.title}}</p>
 	<div *ngIf="afService.isLoggedIn">
 		<div *ngIf="afService.movieIsInWatchList(movie)">
 			<button
@@ -31,13 +34,26 @@
 	</div>
 
 	<div *ngIf="afService.isLoggedIn"><create-review [movie]="this.movie"></create-review></div>
+	<div *ngIf="recommendedMovies"><p class="title">Similar Movies</p></div>
+	<div fxLayout="row" style="overflow:scroll">
+		<div *ngFor="let rmovie of recommendedMovies" class="box-card">
+			<movie-card [movie]="rmovie"></movie-card>
+		</div>
+	</div>
 
-	<div *ngFor="let video of videos">
-		<h1>{{video.name}}</h1>
-		<youtube-player
-	      [videoId]="video.key"
-	      (ready)="savePlayer($event)"
-	      (change)="onStateChange($event)"
-	    ></youtube-player>
+	<p class="title">Trailers</p>
+	<div fxLayout="row" style="overflow: scroll">
+		<div *ngFor="let video of videos" class="box-card">
+			<youtube-player
+				width="200"
+				height="250"
+		      [videoId]="video.key"
+		      (ready)="savePlayer($event)"
+		      (change)="onStateChange($event)"
+		    ></youtube-player>
+		    <div class="box-card-textbox">
+		    	<p class="textbox-text" fxLayoutAlign="center center">{{video.name}}</p>
+		    </div>
+		</div>
 	</div>
 </div>
