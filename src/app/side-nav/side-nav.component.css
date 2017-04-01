@@ -19,7 +19,7 @@ a.active_link {
     color: white;
 }
 
-a:hover:not(.active) {
+a:hover {
     background-color: #555;
     color: white;
 }

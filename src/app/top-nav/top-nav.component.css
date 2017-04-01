@@ -12,10 +12,85 @@
 	border-image-width: 10px; 
 	border-image-repeat: round;
 	border-image-outset: 0px 10px 0px 10px;
+}
 
+.frames {
+	background-color: #dedeef;
+	border-radius: 10px;
+	height: 54px; /* height of topbar decided in css is 60px, so here we have 3px away from that*/
+	width: 170px;
+	margin: 3px auto;
 }
+
 .logo {
-	color: white;
+	color: #333;
 	font-family: Palatino;
-	margin-left: 10px;
+	margin:0px;
 }
+
+a {
+	display: block;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.frames:hover {
+	box-shadow: 0 0 55px #FFFFE0;
+	background: rgba(255, 255, 224, 0.82);
+}
+
+.frames#login {
+	box-shadow: none;
+	background-color: #dedeef;
+}
+
+.active_link {
+    background-color: #FFFFE0;
+    box-shadow: 0 0 25px #FFFFE0;
+}
+a md-icon {
+	margin-right: 10px;
+}
+
+.loginBtn {
+	border:none;
+	border-radius: 5px;
+}
+
+button i {
+	margin-right:3px;
+}
+
+/* Facebook */
+.loginBtn--facebook {
+	background-color: #4C69BA;
+	color:white;
+  	font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;
+  	text-shadow: 0 -1px 0 #354C8C;
+  	background-image: linear-gradient(#4C69BA, #3B55A0);
+  	cursor: pointer;
+  	height: 40%;
+}
+
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #5B7BD5;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+/* Google */
+.loginBtn--google {
+	padding-top: 5px;
+  	font-family: "Roboto", Roboto, arial, sans-serif;
+  	color: white;
+  	background-color: #DD4B39;
+  	cursor: pointer;
+  	height: 40%;
+}
+
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #E74B37;
+}
+

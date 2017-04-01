@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { AF } from '../providers/af';
+import {AuthProviders} from 'angularfire2';
 
 @Component({
   selector: 'top-nav',
@@ -7,7 +9,10 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class TopNavComponent implements OnInit {
 
-  constructor() { }
+  providerFacebook: AuthProviders = AuthProviders.Facebook;
+  providerGoogle: AuthProviders = AuthProviders.Google;
+
+  constructor(public afService: AF) { }
 
   ngOnInit() {
   }
