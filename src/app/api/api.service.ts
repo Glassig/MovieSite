@@ -42,6 +42,14 @@ export class ApiService {
 			.map(videos => videos.filter(video => video != null));
 	}
 
+	getRecommendedMovies(id: number): Observable<Movie[]> {
+		const url: string = this.getByIdURL('movie', id, 'recommendations');
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieFromJson))
+			.map(videos => videos.filter(video => video != null));
+	}
+
 	searchMovies(query: string): Observable<Movie[]> {
 		const url: string = this.searchURL('movie', query);
 		return this.http.get(url)

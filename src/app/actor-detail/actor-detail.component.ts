@@ -19,10 +19,6 @@ export class ActorDetailComponent implements OnInit {
   	private router: Router,
   	) {}
 
-  	navigateToMovieDetail(movie: Movie) {
-  		this.router.navigate(['/movie', movie.id]);
-  	} 
-
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	const person = this.route.params

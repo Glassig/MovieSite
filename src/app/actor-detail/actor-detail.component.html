@@ -6,7 +6,7 @@
 		<h1> Movie Credits </h1>
 	<div fxLayout="row" fxLayoutWrap>
 		<div *ngFor="let movie of movieCredits">
-			<img src="{{movie.imageUrl}}" class="movie-images" (click)="navigateToMovieDetail(movie)">
+			<movie-card [movie]="movie"></movie-card>
 		</div>
 	</div>
 	</div>

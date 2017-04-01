@@ -18,6 +18,7 @@ import 'rxjs/add/operator/switchMap';
 export class MovieDetailComponent implements OnInit {
 
   private videos: MovieVideo[];
+  private recommendedMovies: Movie[];
 	movie: Movie;
   private player;
   private ytEvent;
@@ -47,5 +48,10 @@ export class MovieDetailComponent implements OnInit {
     movie
       .switchMap(movie => this.apiService.getMovieVideos(movie.id))
       .subscribe(videos => this.videos = videos);
+
+    movie
+      .switchMap(movie => this.apiService.getRecommendedMovies(movie.id))
+      .subscribe(movies => this.recommendedMovies = movies);
+
   }
 }
