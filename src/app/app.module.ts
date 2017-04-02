@@ -20,6 +20,8 @@ import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-ite
 import { AngularFireModule } from 'angularfire2';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
 
+import { CarouselModule } from 'ng2-bootstrap';
+
 import { AF } from './providers/af';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
@@ -57,6 +59,7 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
     AppRoutingModule,
     FlexLayoutModule,
     YoutubePlayerModule,
+    CarouselModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [

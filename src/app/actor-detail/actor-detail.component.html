@@ -2,10 +2,16 @@
 
 <div *ngIf="person">
 	<p class="title">{{person.name}}</p>
-	<img src="{{person.imageUrl}}" class="person-image">
+	<div style="width:200px">
+		<carousel>
+			<slide *ngFor="let photo of taggedPhotos">
+				<div style="width:100%"><img src="{{photo}}" style="width:100%;"></div>
+			</slide>
+		</carousel>
+	</div>
 
 	<div *ngIf="movieCredits">
-		<p class="title"> Movie Credits </p>
+		<p class="title" style="margin-top:20px"> Movie Credits </p>
 	<div fxLayout="row" style="overflow:scroll">
 		<div *ngFor="let movie of movieCredits" class="box-card">
 			<movie-card [movie]="movie"></movie-card>
