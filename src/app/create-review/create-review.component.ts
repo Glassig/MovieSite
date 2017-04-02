@@ -39,6 +39,7 @@ export class CreateReviewComponent implements OnInit {
       }
       console.log(this.review);
 
+      this.afService.addReview(this.review);
     }
 
 

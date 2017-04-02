@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'angularfire2';
 import { User } from '../model/user';
 import { Movie } from '../model/movie';
+import { Review } from '../model/review';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,13 +13,16 @@ export class AF {
 
   isLoggedIn: boolean = false;
   public user: User;
+  reviews: FirebaseListObservable<any>;
   users: FirebaseListObservable<any>;
   userSubscription: Subscription;
   watchlistSubscription: Subscription;
+  reviewlistSubscription: Subscription;
 
   constructor(public af: AngularFire) {
     this.user = new User();
     this.users = this.af.database.list('users');
+    this.reviews = this.af.database.list('reviews');
   }
   /**
    * Logs in the user and adds to the database if it is the first login attempt
@@ -62,12 +66,14 @@ export class AF {
   }
 
   userFromJson(json: any): User {
+
     var user = new User();
     user.email = json.auth.email;
     user.id = json.auth.uid;
     user.imageUrl = json.auth.photoURL;
     user.name = json.auth.displayName;
     user.watchlist = [];
+    user.reviewlist = [];
     return user;
   }
   /**
@@ -91,6 +97,19 @@ export class AF {
     runtime: 140,
     releaseDate: "2014-01-01"
   }
+
+
+  addReview(review: Review){
+      console.log("Enter AF addreview")
+      if (!this.isLoggedIn){ return }
+          this.reviews.push(review);
+          this.users.update(this.user.key, this.user);
+          console.log(this.user.name, this.user.reviewlist[0].rating);
+
+
+  }
+
+
 
   addMovieToWatchlist(movie: Movie) {
     if (!this.isLoggedIn) { return }
