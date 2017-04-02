@@ -72,6 +72,14 @@ export class ApiService {
 			});
 	}
 
+	getTaggedPhotos(id: number): Observable<String[]> {
+		const imgBaseUrl = "https://image.tmdb.org/t/p/w500";
+		const url: string = this.getByIdURL('person', id, 'images');
+		return this.http.get(url)
+			.map(response => response.json().profiles)
+			.map(results => results.map(res => imgBaseUrl + res.file_path));
+	}
+
 	getMovieCredits(id: number): Observable<Movie[]> {
 		const url: string = this.getByIdURL('person', id, 'movie_credits');
 		return this.http.get(url) 
