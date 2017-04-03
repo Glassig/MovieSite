@@ -37,3 +37,8 @@
 	font-family: Palatino;
 	font-size: 200%;
 }
+
+.material-icons {
+	font-size: 40px;
+	cursor: pointer;
+}
