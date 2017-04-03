@@ -73,7 +73,7 @@ export class AF {
     user.imageUrl = json.auth.photoURL;
     user.name = json.auth.displayName;
     user.watchlist = [];
-    user.reviewlist = [];
+
     return user;
   }
   /**
@@ -98,13 +98,41 @@ export class AF {
     releaseDate: "2014-01-01"
   }
 
+ getUserReviews(){
+     const query = this.af.database.list("reviews",{
+
+     query:{
+         orderByChild: "user_id",
+         equalTo: this.user.id
+        }
+    });
+    console.log("query done");
+     return query;
+ }
+
+
+
+ testQuery(movie: Movie){
+     console.log("Test query");
+     console.log(movie.id);
+
+     const query = this.af.database.list("reviews",{
+
+     query:{
+         orderByChild: "movie_id",
+         equalTo: movie.id
+        }
+    });
+    console.log("query done");
+     return query;
+ }
 
   addReview(review: Review){
       console.log("Enter AF addreview")
       if (!this.isLoggedIn){ return }
           this.reviews.push(review);
           this.users.update(this.user.key, this.user);
-          console.log(this.user.name, this.user.reviewlist[0].rating);
+          console.log(this.user.name);
 
 
   }

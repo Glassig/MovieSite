@@ -3,6 +3,7 @@ import {AF} from "../providers/af";
 import { Router } from '@angular/router';
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
+import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'angularfire2';
 
 @Component({
   selector: 'my-profile',
@@ -11,12 +12,16 @@ import { Person } from '../model/person';
 })
 export class MyProfileComponent implements OnInit {
 
+  reviews: FirebaseListObservable<any>;
+
   constructor(public afService: AF, private router: Router) {}
 
   ngOnInit() {
   	if(!this.afService.isLoggedIn) {
   		this.router.navigate(['/search-movie']);
+        this.reviews = null;
   	} else {
+            this.reviews = this.afService.getUserReviews();
   	}
   }
 
