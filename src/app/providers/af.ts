@@ -116,7 +116,8 @@ export class AF {
 
 
   }
-
+//Returns all reviews from a certain user.
+// @return FirebaseListObservable,  list containing reviews
  getUserReviews(){
      const query = this.af.database.list("reviews",{
 
@@ -131,7 +132,8 @@ export class AF {
  }
 
 
-
+// Finds all reviews regarding a certain movie.
+// TODO fult med movie_id i review
  testQuery(movieid: number) {
      const array = []
      console.log("Test query");
@@ -148,16 +150,16 @@ export class AF {
             array.push(snapshot.val());
         })
     });
-    console.log("query done");
+    //console.log("query done");
      return array;
  }
 
   addReview(review: Review){
-      console.log("Enter AF addreview")
+      //console.log("Enter AF addreview")
       if (!this.isLoggedIn){ return }
           this.reviews.push(review);
           this.users.update(this.user.key, this.user);
-          console.log(this.user.name);
+        //  console.log(this.user.name);
 
 
   }

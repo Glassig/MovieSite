@@ -33,15 +33,11 @@ export class CreateReviewComponent implements OnInit {
     constructor(public afService: AF, public af: AngularFire, private route: ActivatedRoute,){}
 
     ngOnChanges(){
-        this.reviews = [];
+        this.reviews = []; // Not sure if nesscesary
         this.reviews = this.afService.testQuery(this.movie.id);
     }
 
     ngOnInit(){
-
-
-
-
 
 
         this.reviews = this.afService.testQuery(this.movie.id);

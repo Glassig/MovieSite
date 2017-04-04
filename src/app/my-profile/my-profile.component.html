@@ -11,13 +11,7 @@
 
 				<li *ngFor="let review of this.reviews | async">
 
-					<div class="row">
-	        			<div class="col s12 m6">
-	              			<span class="card-title">{{review.movie.title}}</span>
-	              			<p><small>{{review.rating}} </small>{{review.text}}.</p>
-	            		</div>
-
-	        			</div>
+					<review-card [review]="review"></review-card>
 
 				</li>
 
