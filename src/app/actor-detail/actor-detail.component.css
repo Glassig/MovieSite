@@ -13,4 +13,17 @@
 .title {
 	font-family: Palatino;
 	font-size: 200%;
+	margin-top: 20px;
+}
+div.carousel.slide {
+	width:250px;
+	max-width:400px;
+	background-color:black;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  min-height: 250px;
+  height:250px;    /* Set slide height here */
+
 }

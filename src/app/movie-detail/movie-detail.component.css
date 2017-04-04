@@ -55,3 +55,8 @@
 .sub-button {
 	margin-bottom: 10px;
 }
+
+.material-icons {
+	font-size: 40px;
+	cursor: pointer;
+}

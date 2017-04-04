@@ -5,22 +5,16 @@
 	<div class="backdrop" [style.background-image]="'url(' + movie.backdropUrl + ')'">
 		<div class="overlay" fxFlex="60%">
 			<h1 class="title">{{movie.title}}</h1>
-			<div *ngIf="afService.isLoggedIn" class="sub-button">
-				<div *ngIf="afService.movieIsInWatchList(movie)">
-					<button
-						md-raised-button
-						(click)="afService.removeMovieFromWatchlist(this.movie)"
-						style="background:#ff4000">
-						Remove movie from watchlist
-					</button>
-				</div>
-				<div *ngIf="!afService.movieIsInWatchList(movie)">
-					<button
-						md-raised-button
-						(click)="afService.addMovieToWatchlist(this.movie)"
-						style="background:DeepSkyBlue">
-						Add movie to watchlist
-					</button>
+
+			<div *ngIf="afService.isLoggedIn">
+				<div fxLayout="row">
+					<div *ngIf="afService.movieIsInWatchList(movie)">
+						<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
+					</div>
+					<div *ngIf="!afService.movieIsInWatchList(movie)">
+						<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
+					</div>
+					<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
 				</div>
 			</div>
 
