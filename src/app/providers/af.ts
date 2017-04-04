@@ -98,6 +98,29 @@ export class AF {
     releaseDate: "2014-01-01"
   }
 
+
+//Returns the profile picture from a certain user
+//*user_id : The id of the selected user.
+  findUserPhoto(userid){
+      console.log("Enter find photo");
+      console.log(userid);
+      const selUser = this.af.database.list("users",{
+          preserveSnapshot: true,
+          query: {
+              orderByChild: "id",
+              equalTo: userid
+          }
+      }).subscribe(snapshots=>{
+          snapshots.forEach(snapshot=>{
+              console.log(snapshot.val())
+              return snapshot.val().imageUrl;
+          })
+      });
+
+
+
+  }
+
  getUserReviews(){
      const query = this.af.database.list("reviews",{
 
@@ -106,25 +129,31 @@ export class AF {
          equalTo: this.user.id
         }
     });
+
     console.log("query done");
      return query;
  }
 
 
 
- testQuery(movie: Movie){
+ testQuery(movieid: number) {
+     const array = []
      console.log("Test query");
-     console.log(movie.id);
+     //console.log(movie.id);
 
      const query = this.af.database.list("reviews",{
-
+     preserveSnapshot: true,
      query:{
          orderByChild: "movie_id",
-         equalTo: movie.id
+         equalTo: movieid
         }
+    }).subscribe(snapshots=>{
+        snapshots.forEach(snapshot=>{
+            array.push(snapshot.val());
+        })
     });
     console.log("query done");
-     return query;
+     return array;
  }
 
   addReview(review: Review){

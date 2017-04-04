@@ -7,7 +7,7 @@ import { MovieVideo } from '../model/movie-video';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
-
+import 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
 @Component({

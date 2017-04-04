@@ -5,7 +5,12 @@ import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'a
 
 import { Review } from "../model/review"
 import{ Movie } from "../model/movie"
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Observable } from 'rxjs/Rx';
+import { Subscription } from "rxjs";
+import 'rxjs/Rx';
+import 'rxjs/add/operator/switchMap';
 /*
     TODO
 Firebase for reviews
@@ -20,20 +25,25 @@ Styling and stars
   styleUrls: ['./create-review.component.css']
 })
 export class CreateReviewComponent implements OnInit {
-    @Input() movie: Movie;
-    movie_id: number;
-    review: Review;
-    rating: number;
-    reviews: FirebaseListObservable<any>;
+    @Input() private movie: Movie;
+    private movie_id: number;
+    private review: Review;
+    private rating: number;
+    private reviews: Review[];
 
-
-    constructor(public afService: AF, public af: AngularFire){}
+    constructor(public afService: AF, public af: AngularFire, private route: ActivatedRoute,){}
 
     ngOnInit(){
+        this.reviews = this.afService.testQuery(this.movie.id);
+        //    this.reviews = array;
+        //});
+        //const movie = this.route.params
+        //.switchMap((params: Params) => this.reviews = this.afService.testQuery(+params['id']));
 
 
+        console.log(this.reviews);
+        //this.movie.switchMap(movie=>this.afService.testQuery(movie.id)).subscribe(reviews=> this.reviews=reviews);
 
-        this.reviews = this.afService.testQuery(this.movie);
 
     }
 

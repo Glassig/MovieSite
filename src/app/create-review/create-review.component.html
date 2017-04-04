@@ -21,7 +21,7 @@
 		<button (click)="testQuery()"></button>
 	</div>
 	<p>HEJ</p>
-	<div *ngFor="let item of this.reviews | async">
-		{{item.rating}}
+	<div *ngFor="let review of this.reviews">
+		<review-card [review]="review"></review-card>
 	</div>
 </div>

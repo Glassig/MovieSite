@@ -1,4 +1,4 @@
-import { Movie } from "../model/movie.ts"
+import { Movie } from "../model/movie"
 export class Review{
     user_id: string;
     movie: Movie;
