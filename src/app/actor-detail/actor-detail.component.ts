@@ -13,6 +13,7 @@ export class ActorDetailComponent implements OnInit {
 
 	person: Person;
 	movieCredits: Movie[];
+  taggedPhotos: String[];
 
     constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
@@ -34,6 +35,11 @@ export class ActorDetailComponent implements OnInit {
     movieCredits.subscribe(movieCredits => {
     	return this.movieCredits = movieCredits.length > 8 ? movieCredits.slice(0,8) : movieCredits;
     });
+
+    const taggedPhotos = this.route.params
+      .switchMap((params: Params) => this.apiService.getTaggedPhotos(+params['id']))
+      .share();
+    taggedPhotos.subscribe(images => this.taggedPhotos = images.length > 12 ? images.slice(0,12) : images);
   }
 
 }
