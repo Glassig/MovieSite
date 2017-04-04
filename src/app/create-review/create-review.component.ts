@@ -37,7 +37,6 @@ export class CreateReviewComponent implements OnInit {
 
     ngOnInit(){
 
-
         this.reviews = this.afService.testQuery(this.movie.id);
         //    this.reviews = array;
         //});

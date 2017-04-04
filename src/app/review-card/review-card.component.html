@@ -2,7 +2,7 @@
 
         <img md-card-avatar id="review-profie" src="{{url}}">
         <img md-card-image src="{{review.movie.imageUrl}}">
-        <md-card-title>{{review.rating}}</md-card-title>
+        <star-rating-comp [rating]="review.rating" [readOnly]="true"></star-rating-comp>
         <md-card-subtitle>{{review.movie.title}}</md-card-subtitle>
         <md-card-content>{{review.text}}</md-card-content>
 
