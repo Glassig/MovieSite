@@ -13,9 +13,7 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 /*
     TODO
-Firebase for reviews
-Reviewlist for user
-Reviewlist for movie / show reviews for movie
+Reseta text efter du har skrivit
 Styling and stars
 */
 
