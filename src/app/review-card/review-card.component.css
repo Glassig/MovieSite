@@ -1,0 +1,6 @@
+img[md-card-image] {
+    max-width: 300px;
+    max-height: 300px;
+  width: calc(100% + 48px);
+  margin: 0 rem(-2.400) rem(1.600) rem(-2.400);
+}

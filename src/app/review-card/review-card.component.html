@@ -1,3 +1,9 @@
-<div class="row">
-<img  src="{{url}}"/>
-</div>
+<md-card>
+
+        <img md-card-avatar id="review-profie" src="{{url}}">
+        <md-card-title>{{review.rating}}</md-card-title>
+        <md-card-subtitle>{{review.movie.title}}</md-card-subtitle>
+
+        <img md-card-image src="{{review.movie.imageUrl}}">
+
+</md-card>

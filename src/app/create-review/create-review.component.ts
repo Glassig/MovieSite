@@ -26,14 +26,24 @@ Styling and stars
 })
 export class CreateReviewComponent implements OnInit {
     @Input() private movie: Movie;
-    private movie_id: number;
     private review: Review;
     private rating: number;
     private reviews: Review[];
 
     constructor(public afService: AF, public af: AngularFire, private route: ActivatedRoute,){}
 
+    ngOnChanges(){
+        this.reviews = [];
+        this.reviews = this.afService.testQuery(this.movie.id);
+    }
+
     ngOnInit(){
+
+
+
+
+
+
         this.reviews = this.afService.testQuery(this.movie.id);
         //    this.reviews = array;
         //});
