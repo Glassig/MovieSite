@@ -1,16 +1,12 @@
 .movie-overview-box {
-	font-size: 12;
 	margin: 0;
 	margin-left: 20px;
 }
 .movie-details-box {
-	margin-top:20px;
-	padding: 10px;
-	width:80%;
-	min-width: 70%;
+	overflow: hidden;
 }
 .overview {
-	height:70px; 
+	max-height: 180px;
 	overflow: scroll;
 	margin-top:0;
 }
@@ -35,7 +31,29 @@
 }
 .title {
 	font-family: Palatino;
-	font-size: 200%;
+}
+
+.backdrop {
+	margin: auto -15px;
+	background-image-width: 100%;
+	height: 100%;
+	background-position: center center;
+  	background-repeat: no-repeat;
+}
+
+.overlay {
+	padding:15px;
+	min-width: 400px;
+	background: rgba(255,255,255,0.7);
+}
+
+.poster-img {
+	height: 325px;
+	width: auto;
+}
+
+.sub-button {
+	margin-bottom: 10px;
 }
 
 .material-icons {

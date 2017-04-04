@@ -2,40 +2,46 @@
 
 
 <div *ngIf="this.movie">
-	<p class="title">{{movie.title}}</p>
-		
-	<div *ngIf="afService.isLoggedIn">
-		<div fxLayout="row">
-			<div *ngIf="afService.movieIsInWatchList(movie)">
-				<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
-			</div>
-			<div *ngIf="!afService.movieIsInWatchList(movie)">
-				<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
-			</div>
-			<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
-		</div>
-	</div>
+	<div class="backdrop" [style.background-image]="'url(' + movie.backdropUrl + ')'">
+		<div class="overlay" fxFlex="60%">
+			<h1 class="title">{{movie.title}}</h1>
 
+			<div *ngIf="afService.isLoggedIn">
+				<div fxLayout="row">
+					<div *ngIf="afService.movieIsInWatchList(movie)">
+						<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
+					</div>
+					<div *ngIf="!afService.movieIsInWatchList(movie)">
+						<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
+					</div>
+					<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
+				</div>
+			</div>
 
-	<div fxLayout="row" class="movie-details-box">
-		<img src="{{this.movie.imageUrl}}" style="height:182px; width: auto; margin:0 5px 5px ">
-		<div class="movie-overview-box">
-			<p class="overview">{{movie.overview}}</p>
-			<p style="margin-top:30px">Genres: {{movie.genres}}</p>
-			<p>Runtime: {{movie.runtime}} minutes</p>
-			<p>Release date: {{movie.releaseDate}}</p>
+			<div fxLayout="row" class="movie-details-box">
+				<img src="{{this.movie.imageUrl}}" class="poster-img">
+				<div class="movie-overview-box" fxLayout="column" fxLayoutAlign="start start">
+					<p class="overview">{{movie.overview}}</p>
+					<p>Genres: {{movie.genres}}</p>
+					<p>Runtime: {{movie.runtime}} minutes</p>
+					<p>Release date: {{movie.releaseDate}}</p>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<div *ngIf="afService.isLoggedIn"><create-review [movie]="this.movie"></create-review></div>
-	<div *ngIf="recommendedMovies"><p class="title">Similar Movies</p></div>
-	<div fxLayout="row" style="overflow:scroll">
-		<div *ngFor="let rmovie of recommendedMovies" class="box-card">
-			<movie-card [movie]="rmovie"></movie-card>
+
+	<div *ngIf="recommendedMovies">
+		<h2 class="title">Similar Movies</h2>
+		<div fxLayout="row" style="overflow:scroll">
+			<div *ngFor="let rmovie of recommendedMovies" class="box-card">
+				<movie-card [movie]="rmovie"></movie-card>
+			</div>
 		</div>
 	</div>
 
-	<p class="title">Trailers</p>
+	<h2 class="title">Trailers</h2>
 	<div fxLayout="row" style="overflow: scroll">
 		<div *ngFor="let video of videos" class="box-card">
 			<youtube-player
