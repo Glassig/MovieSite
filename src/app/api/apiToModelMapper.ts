@@ -71,8 +71,9 @@ export class ApiToModelMapper {
 
   static movieFromJson(json: any): Movie {
 		if (json == undefined) { return undefined; }
-
-    const imgBaseUrl = "https://image.tmdb.org/t/p/w500";
+    const imgBaseUrl_noWidth = "https://image.tmdb.org/t/p";
+    const imgBaseUrl = [imgBaseUrl_noWidth, "/w500"].join("");
+    const imgBaseUrl_backdrop = [imgBaseUrl_noWidth, "/w1280"].join("");
 
 		var movie = new Movie();
     movie.id = json.id as number;
@@ -83,6 +84,11 @@ export class ApiToModelMapper {
     movie.imageUrl = posterPath
       ? `${imgBaseUrl}${json.poster_path}`
       : "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png";
+
+    const backdropPath = json.backdrop_path;
+    movie.backdropUrl = backdropPath
+      ? `${imgBaseUrl_backdrop}${json.backdrop_path}`
+      : "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
 
 		movie.overview = json.overview as string;
 
