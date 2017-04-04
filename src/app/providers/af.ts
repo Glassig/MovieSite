@@ -110,12 +110,8 @@ export class AF {
               orderByChild: "id",
               equalTo: userid
           }
-      }).subscribe(snapshots=>{
-          snapshots.forEach(snapshot=>{
-              console.log(snapshot.val())
-              return snapshot.val().imageUrl;
-          })
-      });
+      })
+      return selUser
 
 
 
