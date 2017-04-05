@@ -53,7 +53,6 @@ export class CreateReviewComponent implements OnInit {
     }
 
     addReview(textInput: string) {
-        console.log(this.movie);
       if(typeof this.rating === 'undefined'){
           this.rating = 0;
       }
@@ -69,7 +68,6 @@ export class CreateReviewComponent implements OnInit {
           text: textInput,
           rating: this.rating
       }
-      console.log(this.review);
 
       this.afService.addReview(this.review);
     }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { AF } from '../providers/af';
 
+import {MdSnackBar} from '@angular/material';
+
 import { Movie } from '../model/movie';
 import { MovieVideo } from '../model/movie-video';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -26,7 +28,8 @@ export class MovieDetailComponent implements OnInit {
   constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
   	private router: Router,
-  	public afService: AF
+  	public afService: AF,
+    public snackBar: MdSnackBar
   	) {}
 
   onStateChange(event) {
@@ -34,6 +37,9 @@ export class MovieDetailComponent implements OnInit {
   }
   savePlayer(player) {
     this.player = player;
+  }
+  openSnackbar(message: string) {
+    this.snackBar.open(message, '', { duration: 2000 });
   }
 
 
