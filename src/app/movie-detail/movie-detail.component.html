@@ -6,18 +6,6 @@
 		<div class="overlay" fxFlex="60%">
 			<h1 class="title">{{movie.title}}</h1>
 
-			<div *ngIf="afService.isLoggedIn">
-				<div fxLayout="row">
-					<div *ngIf="afService.movieIsInWatchList(movie)">
-						<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
-					</div>
-					<div *ngIf="!afService.movieIsInWatchList(movie)">
-						<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
-					</div>
-					<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
-				</div>
-			</div>
-
 			<div fxLayout="row" class="movie-details-box">
 				<img src="{{this.movie.imageUrl}}" class="poster-img">
 				<div class="movie-overview-box" fxLayout="column" fxLayoutAlign="start start">
@@ -25,6 +13,17 @@
 					<p>Genres: {{movie.genres}}</p>
 					<p>Runtime: {{movie.runtime}} minutes</p>
 					<p>Release date: {{movie.releaseDate}}</p>
+					<div *ngIf="afService.isLoggedIn">
+						<div fxLayout="row">
+							<div *ngIf="afService.movieIsInWatchList(movie)">
+								<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
+							</div>
+							<div *ngIf="!afService.movieIsInWatchList(movie)">
+								<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
+							</div>
+							<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

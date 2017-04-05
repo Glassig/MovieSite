@@ -56,7 +56,9 @@ export class AF {
           if(resp[0] != undefined) {
             this.user.key = resp[0].$key;
             var list = resp[0].watchlist;
+            var list2 = resp[0].favouritelist;
             list == undefined ? this.user.watchlist = [] : this.user.watchlist = list;
+            list2 == undefined ? this.user.favouritelist = [] : this.user.favouritelist = list2;
           }
         }
       },
