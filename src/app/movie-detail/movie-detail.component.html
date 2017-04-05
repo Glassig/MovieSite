@@ -13,15 +13,20 @@
 					<p>Genres: {{movie.genres}}</p>
 					<p>Runtime: {{movie.runtime}} minutes</p>
 					<p>Release date: {{movie.releaseDate}}</p>
-					<div *ngIf="afService.isLoggedIn">
+					<div *ngIf="afService.loadedLists">
 						<div fxLayout="row">
-							<div *ngIf="afService.movieIsInWatchList(movie)">
+							<div *ngIf="afService.movieIsInList(movie, afService.user.watchlist)">
 								<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
 							</div>
-							<div *ngIf="!afService.movieIsInWatchList(movie)">
-								<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
+							<div *ngIf="!afService.movieIsInList(movie, afService.user.watchlist)">
+								<i class="material-icons" (click)="afService.addMovieToList(this.movie, afService.user.watchlist)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
 							</div>
-							<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
+							<div *ngIf="!afService.movieIsInList(movie, afService.user.favouritelist)">
+								<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right" (click)="afService.addMovieToList(this.movie, afService.user.favouritelist)">favorite_border</i>
+							</div>
+							<div *ngIf="afService.movieIsInList(movie, afService.user.favouritelist)">
+								<i class="material-icons" style="margin-left:20px; font-color:red" mdTooltip="Add to favorites" mdTooltipPosition="right" (click)="afService.removeMovieFromFavouritelist(this.movie)">favorite</i>
+							</div>
 						</div>
 					</div>
 				</div>

@@ -19,7 +19,6 @@
     	<textarea rows="4" cols="50" [(ngModel)] = "txt"></textarea>
     	<button (click)="addReview(txt)">Add</button>
 	</div>
-	<p>HEJ</p>
 	<div *ngFor="let review of this.reviews">
 		<review-card [review]="review"></review-card>
 	</div>
