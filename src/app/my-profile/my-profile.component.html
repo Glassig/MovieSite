@@ -17,11 +17,9 @@
 
 			<h1>My favourite movies</h1>
 			<div fxLayout="row" fxLayoutWrap>
-				<div *ngFor="let movie of afService.user.favouritelist; let i = index" class="image-container">
-					
+				<div *ngFor="let movie of afService.user.favouritelist; let i = index" class="image-container" [dragula]='"first-bag"'>
 					<button md-mini-fab (click)="afService.removeMovieFromFavouritelist(movie); $event.stopPropagation()" class="close"><md-icon style="color:white;">close</md-icon></button>
 					<img (click)="navigateToMovieDetailScreen(movie)" src={{movie.imageUrl}} class="movie-img">
-					<p style="text-align: center">{{i+1}}.</p>
 				</div>
 			</div>
 			<h1>My watchlist </h1>
