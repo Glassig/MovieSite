@@ -20,7 +20,9 @@
     	<button (click)="addReview(txt)">Add</button>
 	</div>
 	<p>HEJ</p>
-	<div *ngFor="let review of this.reviews">
-		<review-card [review]="review"></review-card>
+	<div fxLayout="row" style="overflow:scroll">
+		<div *ngFor="let review of this.reviews"  class="box-card">
+			<review-card [review]="review"></review-card>
+		</div>
 	</div>
 </div>
