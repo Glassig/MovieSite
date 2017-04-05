@@ -3,11 +3,7 @@
 <div *ngIf="person">
 	<p class="title">{{person.name}}</p>
 	<div style="width:200px">
-		<carousel>
-			<slide *ngFor="let photo of taggedPhotos">
-				<div style="width:100%"><img src="{{photo}}" style="width:100%;"></div>
-			</slide>
-		</carousel>
+		<img src="{{person.imageUrl}}" style="width:100%">
 	</div>
 
 	<div *ngIf="movieCredits">
