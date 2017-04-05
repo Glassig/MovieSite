@@ -18,7 +18,6 @@
     <div fxLayout="row" style="margin-top:20px">
     	<textarea rows="4" cols="50" [(ngModel)] = "txt"></textarea>
     	<button (click)="addReview(txt)">Add</button>
-		<button (click)="testQuery()"></button>
 	</div>
 	<p>HEJ</p>
 	<div *ngFor="let review of this.reviews">
