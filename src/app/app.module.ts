@@ -19,7 +19,7 @@ import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-ite
 
 import { AngularFireModule } from 'angularfire2';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
-import { StarRatingModule } from '../../node_modules/angular-star-rating/src/star-rating.module';
+//import { StarRatingModule } from '../../node_modules/angular-star-rating/src/star-rating.module';
 
 import { CarouselModule } from 'ng2-bootstrap';
 
@@ -61,7 +61,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    StarRatingModule,
+    //StarRatingModule,
     YoutubePlayerModule,
     CarouselModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
