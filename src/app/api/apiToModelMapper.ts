@@ -102,6 +102,23 @@ export class ApiToModelMapper {
 
     movie.releaseDate = json.release_date ? json.release_date : null;
 
+    const credits = json.credits;
+    const cast = credits ? credits.cast as any[] : [];
+    cast.forEach(person => {
+      const character = person.character as string;
+      if (character == null) { return }
+      const p = ApiToModelMapper.personFromJson(person);
+      movie.castCharacterMap.set(p, character);
+    });
+
+    const crew = credits ? credits.crew as any[] : [];
+    crew.forEach(person => {
+      const job = person.job as string;
+      if (job == null) { return }
+      const p = ApiToModelMapper.personFromJson(person);
+      movie.crewJobMap.set(p, job);
+    })
+
 		return movie;
 	}
 

@@ -11,6 +11,6 @@ export class Movie {
   genres: string[];
   runtime: number | null;
   releaseDate: string | null;
-  crewJobMap: Map<Person,string>;
-  castCharacterMap: Map<Person,string>;
+  crewJobMap: Map<Person,string> = new Map();
+  castCharacterMap: Map<Person,string> = new Map();
 }
