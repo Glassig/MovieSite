@@ -116,6 +116,8 @@ export class ApiToModelMapper {
       const job = person.job as string;
       if (job == null) { return }
       const p = ApiToModelMapper.personFromJson(person);
+      // ugly hack to remove crew with nu public
+      if (p.imageUrl.endsWith("not-found.png")) { return; }
       movie.crewJobMap.set(p, job);
     })
 
