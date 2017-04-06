@@ -122,6 +122,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
     this.enterPresses.withLatestFrom(this.selectedItem, (_,item) => item)
       .filter(item => item!=null)
       .subscribe(item => {
+        this.setBoxVisibility(false)
         this.navigateToItemDetailScreen(item);
       });
   }
