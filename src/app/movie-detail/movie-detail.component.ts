@@ -4,6 +4,7 @@ import { AF } from '../providers/af';
 
 import { Movie } from '../model/movie';
 import { MovieVideo } from '../model/movie-video';
+import { Person } from '../model/person';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
@@ -36,6 +37,13 @@ export class MovieDetailComponent implements OnInit {
     this.player = player;
   }
 
+  cast(): Person[] {
+    return Array.from(this.movie.castCharacterMap.keys());
+  }
+
+  characterForActor(actor: Person): string {
+    return this.movie.castCharacterMap.get(actor);
+  }
 
   ngOnInit() {
   	//subscribe to changes in id in the URL

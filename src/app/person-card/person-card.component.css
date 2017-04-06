@@ -1,0 +1,10 @@
+.person-frame {
+	width:100px;
+	cursor:pointer;
+}
+.text {
+	font-size:80%;
+	text-align:center;
+	margin-top:0;
+	width: 100px;
+}

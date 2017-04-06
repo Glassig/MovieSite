@@ -30,6 +30,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { ActorDetailComponent } from './actor-detail/actor-detail.component';
 import { CreateReviewComponent } from './create-review/create-review.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
+import { PersonCardComponent } from './person-card/person-card.component';
 import { ReviewCardComponent } from './review-card/review-card.component';
 
   export const firebaseConfig = {
@@ -52,6 +53,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     ActorDetailComponent,
     CreateReviewComponent,
     MovieCardComponent,
+    PersonCardComponent,
     ReviewCardComponent,
   ],
   imports: [
