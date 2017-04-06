@@ -45,6 +45,14 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.castCharacterMap.get(actor);
   }
 
+  crew(): Person[] {
+    return Array.from(this.movie.crewJobMap.keys());
+  }
+
+  jobForCrewPerson(crewPerson: Person): string {
+    return this.movie.crewJobMap.get(crewPerson);
+  }
+
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	const movie = this.route.params

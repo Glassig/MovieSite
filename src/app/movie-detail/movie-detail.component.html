@@ -41,6 +41,17 @@
 			</div>
 		</div>
 	</div>
+
+	<div *ngIf="movie">
+		<h2 class="title">Crew</h2>
+		<div fxLayout="row" style="overflow:scroll">
+			<div *ngFor="let crewPerson of crew()" class="box-card">
+					<person-card [person]="crewPerson"></person-card>
+					<div class="text">{{jobForCrewPerson(crewPerson)}}</div>
+			</div>
+		</div>
+	</div>
+
 	<div *ngIf="recommendedMovies">
 		<h2 class="title">Similar Movies</h2>
 		<div fxLayout="row" style="overflow:scroll">
