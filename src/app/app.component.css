@@ -2,6 +2,9 @@
   width: 100%;
   height: 100%;
   position: fixed;
+  background-attachment: fixed;
+  background-position: center;
+	background-image: url(https://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-10-full.jpg);
 }
 
 .sidenav-fab-container md-sidenav {
@@ -33,3 +36,5 @@
 	margin: 15px;
 	margin-bottom:100px;
 }
+
+
