@@ -40,7 +40,7 @@ a {
 	background: rgba(255, 255, 224, 0.82);
 }
 
-.frames#login {
+.frames#login, .frames.title {
 	box-shadow: none;
 	background-color: #e4e4e4;
 }

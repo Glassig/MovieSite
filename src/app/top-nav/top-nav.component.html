@@ -1,25 +1,36 @@
 <div class="topBar">
-	<div fxLayout="row" class="topBar-row" fxLayoutAlign="space-around center">
-		<button md-icon-button (click)="sendToggle()" ><md-icon style="color:white;">menu</md-icon></button>
-		<div class="frames" fxLayout="column" fxLayoutAlign="center center">
-			<h1 class="logo">Movie Site</h1>
-		</div>
-		<div class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
-			<a fxLayoutAlign=" center" ><md-icon>search</md-icon>Search</a>
-		</div>
-		<div *ngIf="!afService.isLoggedIn">
-			<div class="frames" id="login" fxLayout="column" fxLayoutAlign="space-around center">
-				<button class="loginBtn loginBtn--facebook" (click)="afService.login(this.providerFacebook)"><i class="fa fa-facebook" aria-hidden="true"></i>
-				Login with Facebook</button>
-				<button class="loginBtn loginBtn--google" (click)="afService.login(this.providerGoogle)"><i class="fa fa-google" aria-hidden="true"></i>
-				Login with Google</button>
+	<div class="topBar-row">
+		<div class="remove-sideNav" fxLayout="row" fxLayoutAlign="start center">
+			<button md-icon-button (click)="sendToggle()" class="hamburger"><md-icon style="color:white;">menu</md-icon></button>
+			<div class="frames title" fxLayout="column" fxLayoutAlign="center center">
+				<h1 class="logo">Movie Site</h1>
 			</div>
 		</div>
-		<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/my-profile" routerLinkActive="active_link">		
-			<a fxLayoutAlign=" center" ><md-icon>person</md-icon>My profile</a>
+		
+		<div class="remove-topNav" fxLayout="row" fxLayoutAlign="space-around center">
+			<div class="frames title" fxLayout="column" fxLayoutAlign="center center">
+				<h1 class="logo">Movie Site</h1>
+			</div>
+
+			<div class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
+				<a fxLayoutAlign=" center" ><md-icon>search</md-icon>Search</a>
+			</div>
+
+			<!-- So, this div has the classes and id, because of the layout. -->
+			<div *ngIf="!afService.isLoggedIn" class="frames" id="login" fxLayout="column" fxLayoutAlign="space-around center">
+				<button class="loginBtn loginBtn--facebook" (click)="afService.login(this.providerFacebook)"><i class="fa fa-facebook" aria-hidden="true"></i>
+					Login with Facebook</button>
+				<button class="loginBtn loginBtn--google" (click)="afService.login(this.providerGoogle)"><i class="fa fa-google" aria-hidden="true"></i>
+					Login with Google</button>
+			</div>
+
+			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/my-profile" routerLinkActive="active_link">		
+				<a fxLayoutAlign=" center" ><md-icon>person</md-icon>My profile</a>
+			</div>
+			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center">
+				<a (click)="afService.logout()" fxLayoutAlign=" center" ><md-icon>power_settings_new</md-icon>Logout</a>
+			</div>
 		</div>
-		<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center">
-			<a (click)="afService.logout()" fxLayoutAlign=" center" ><md-icon>power_settings_new</md-icon>Logout</a>
-		</div>
+		
 	</div>
 </div>

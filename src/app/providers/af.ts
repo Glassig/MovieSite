@@ -86,19 +86,6 @@ export class AF {
     return this.af.auth.logout();
   }
 
-  testMovie: Movie = {
-    id: 123,
-    title: "interstellar",
-    imageUrl: "http://www.hollywoodreporter.com/sites/default/files/custom/Blog_Images/interstellar3.jpg",
-    backdropUrl: "https://blogs-images.forbes.com/simonthompson/files/2016/11/fantastic-beasts-movie-posters-clips-1200x600.jpg?width=960",
-    overview: "best movie",
-    collectionId: null,
-    // maybe make genre an enum in future
-    genres: [],
-    runtime: 140,
-    releaseDate: "2014-01-01"
-  }
-
 
 //Returns the profile picture from a certain user
 //*user_id : The id of the selected user.
