@@ -1,3 +1,11 @@
 <div style="margin-left:10px">
 	<media-items-search-box style="width:300px"></media-items-search-box>
 </div>
+<div *ngIf="afService.isLoggedIn">
+	<h2 class="title">Recommended Movies For You</h2>
+	<div fxLayout="row" style="overflow:scroll">
+		<div *ngFor="let rmovie of recommendedMovies | async" class="box-card">
+			<movie-card [movie]="rmovie"></movie-card>
+		</div>
+	</div>
+</div>
