@@ -12,6 +12,7 @@ import { Subscription } from "rxjs";
 export class AF {
 
   isLoggedIn: boolean = false;
+  loadedLists: boolean = false;
   public user: User;
   reviews: FirebaseListObservable<any>;
   users: FirebaseListObservable<any>;
@@ -56,7 +57,10 @@ export class AF {
           if(resp[0] != undefined) {
             this.user.key = resp[0].$key;
             var list = resp[0].watchlist;
+            var list2 = resp[0].favouritelist;
             list == undefined ? this.user.watchlist = [] : this.user.watchlist = list;
+            list2 == undefined ? this.user.favouritelist = [] : this.user.favouritelist = list2;
+            this.loadedLists = true;
           }
         }
       },
@@ -81,12 +85,12 @@ export class AF {
    */
   logout() {
     this.isLoggedIn = false;
+    this.loadedLists = false;
     this.userSubscription.unsubscribe();
     if(this.watchlistSubscription) { this.watchlistSubscription.unsubscribe() }
     return this.af.auth.logout();
   }
-
-
+  
 //Returns the profile picture from a certain user
 //*user_id : The id of the selected user.
   findUserPhoto(userid){
@@ -121,12 +125,9 @@ export class AF {
 
 
 // Finds all reviews regarding a certain movie.
-// TODO fult med movie_id i review
+// TODO fult med movie_id i review 
  testQuery(movieid: number) {
      const array = []
-     console.log("Test query");
-     //console.log(movie.id);
-
      const query = this.af.database.list("reviews",{
      preserveSnapshot: true,
      query:{
@@ -138,33 +139,46 @@ export class AF {
             array.push(snapshot.val());
         })
     });
-    //console.log("query done");
      return array;
  }
 
   addReview(review: Review){
-      //console.log("Enter AF addreview")
       if (!this.isLoggedIn){ return }
           this.reviews.push(review);
           this.users.update(this.user.key, this.user);
-        //  console.log(this.user.name);
-
-
   }
 
-
-
-  addMovieToWatchlist(movie: Movie) {
-    if (!this.isLoggedIn) { return }
-    if (!this.movieIsInWatchList(movie)) {
-      this.user.watchlist.push(movie);
+  removeMovieFromFavouritelist(movie: Movie) {
+    if(this.isLoggedIn) {
+      this.user.favouritelist = this.user.favouritelist
+      .filter(function(resp) {
+        return resp.id !== movie.id;
+      });
       this.users.update(this.user.key, this.user);
     }
   }
 
-  movieIsInWatchList(movie: Movie): boolean {
-    if (!this.isLoggedIn) { return false }
-    return this.user.watchlist.map(movie => movie.id).includes(movie.id);
+  removeMovieFromList(movie: Movie, array: Movie[]) {
+    if(this.isLoggedIn) {
+      array = array
+      .filter(function(resp) {
+        return resp.id !== movie.id;
+      });
+      this.users.update(this.user.key, this.user);
+    }
+  }
+
+  addMovieToList(movie: Movie, array: Movie[]) {
+    if (!this.isLoggedIn) { return }
+    if (!this.movieIsInList(movie, array)) {
+      array.push(movie);
+      this.users.update(this.user.key, this.user);
+    }
+  }
+
+  movieIsInList(movie: Movie, array: Movie[]): boolean {
+    if(!array) { return false }
+    return array.map(movie => movie.id).includes(movie.id);
   }
 
   removeMovieFromWatchlist(movie: Movie) {

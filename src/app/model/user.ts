@@ -7,5 +7,6 @@ export class User {
   email: string;
   reviewlist: Review[];
   watchlist: Movie[];
+  favouritelist: Movie[];
   key: string;
 }

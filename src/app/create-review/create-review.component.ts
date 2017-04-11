@@ -42,8 +42,6 @@ export class CreateReviewComponent implements OnInit {
         //});
         //const movie = this.route.params
         //.switchMap((params: Params) => this.reviews = this.afService.testQuery(+params['id']));
-
-
         //this.movie.switchMap(movie=>this.afService.testQuery(movie.id)).subscribe(reviews=> this.reviews=reviews);
 
 
@@ -54,7 +52,6 @@ export class CreateReviewComponent implements OnInit {
     }
 
     addReview(textInput: string) {
-        console.log(this.movie);
       if(typeof this.rating === 'undefined'){
           this.rating = 0;
       }
@@ -70,7 +67,6 @@ export class CreateReviewComponent implements OnInit {
           text: textInput,
           rating: this.rating
       }
-      console.log(this.review);
 
       this.afService.addReview(this.review);
     }
