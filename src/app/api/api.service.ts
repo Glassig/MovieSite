@@ -20,15 +20,18 @@ export class ApiService {
 		return `https://api.themoviedb.org/3/search/${type}?api_key=${ApiService.APIKey}&query=${query}`;
 	}
 
-	private getByIdURL(type: string, id: number, additional): string {
+	private getByIdURL(type: string, id: number, additional: string, appendToResponseStrings: string[] = []): string {
+		const append = appendToResponseStrings.length > 0
+			? `&append_to_response=${appendToResponseStrings.reduce((acc,s) => `${acc},${s}`)}`
+			: "";
 		var str = additional ? `/${additional}` : "";
-		return `https://api.themoviedb.org/3/${type}/${id}${str}?api_key=${ApiService.APIKey}`;
+		return `https://api.themoviedb.org/3/${type}/${id}${str}?api_key=${ApiService.APIKey}${append}`;
 	}
 
 	constructor(private http: Http) {}
 
 	getMovie(id: number): Observable<Movie> {
-		const url: string = this.getByIdURL('movie', id, undefined);
+		const url: string = this.getByIdURL('movie', id, null, ['credits']);
 		return this.http.get(url)
 			.map(resp => resp.json())
 			.map(ApiToModelMapper.movieFromJson);
@@ -65,7 +68,7 @@ export class ApiService {
 	}
 
 	getPerson(id: number): Observable<Person> {
-		const url: string = this.getByIdURL('person', id, undefined);
+		const url: string = this.getByIdURL('person', id, null);
 		return this.http.get(url)
 			.map(resp => {
 				return ApiToModelMapper.personFromJson(resp.json());

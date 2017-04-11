@@ -90,7 +90,7 @@ export class AF {
     if(this.watchlistSubscription) { this.watchlistSubscription.unsubscribe() }
     return this.af.auth.logout();
   }
-
+  
 //Returns the profile picture from a certain user
 //*user_id : The id of the selected user.
   findUserPhoto(userid){

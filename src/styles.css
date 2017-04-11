@@ -1,4 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 body {
 	margin:0;
+	
+}
+
+/*large screen*/
+@media screen and (min-width: 720px) { 
+    md-sidenav {
+        display: none !important;
+    }
+    .remove-sideNav {
+    	display: none !important;
+    }
+}
+
+/*small screen*/
+@media screen and (max-width: 719px) {
+	.remove-topNav {
+		display: none !important;
+	}
 }

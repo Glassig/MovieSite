@@ -8,12 +8,11 @@
 		<div>
 			<h1>{{afService.user.name}}</h1>
 			<h1>My Reviews: ....</h1>
-
+			<ul class="review-list">
 				<li *ngFor="let review of this.reviews | async">
-
 					<review-card [review]="review"></review-card>
-
 				</li>
+      </ul>
 
 			<h1>My favourite movies</h1>
 			<div fxLayout="row" fxLayoutWrap>

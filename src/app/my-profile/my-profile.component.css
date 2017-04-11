@@ -24,3 +24,7 @@
 	max-height: 150px;
 	cursor: pointer;
 }
+
+.review-list {
+	list-style: none;
+}

@@ -42,7 +42,6 @@ export class CreateReviewComponent implements OnInit {
         //});
         //const movie = this.route.params
         //.switchMap((params: Params) => this.reviews = this.afService.testQuery(+params['id']));
-
         //this.movie.switchMap(movie=>this.afService.testQuery(movie.id)).subscribe(reviews=> this.reviews=reviews);
 
 

@@ -1,3 +1,5 @@
+import { Person } from './person';
+
 export class Movie {
   id: number;
   title: string;
@@ -9,4 +11,6 @@ export class Movie {
   genres: string[];
   runtime: number | null;
   releaseDate: string | null;
+  crewJobMap: Map<Person,string> = new Map();
+  castCharacterMap: Map<Person,string> = new Map();
 }

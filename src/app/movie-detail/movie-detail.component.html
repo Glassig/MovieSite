@@ -36,6 +36,26 @@
 
 	<div *ngIf="afService.isLoggedIn"><create-review [movie]="this.movie"></create-review></div>
 
+	<div *ngIf="movie">
+		<h2 class="title">Cast</h2>
+		<div fxLayout="row" style="overflow:scroll">
+			<div *ngFor="let actor of cast()" class="box-card">
+					<person-card [person]="actor"></person-card>
+					<div class="text">as {{characterForActor(actor)}}</div>
+			</div>
+		</div>
+	</div>
+
+	<div *ngIf="movie">
+		<h2 class="title">Crew</h2>
+		<div fxLayout="row" style="overflow:scroll">
+			<div *ngFor="let crewPerson of crew()" class="box-card">
+					<person-card [person]="crewPerson"></person-card>
+					<div class="text">{{jobForCrewPerson(crewPerson)}}</div>
+			</div>
+		</div>
+	</div>
+
 	<div *ngIf="recommendedMovies">
 		<h2 class="title">Similar Movies</h2>
 		<div fxLayout="row" style="overflow:scroll">
