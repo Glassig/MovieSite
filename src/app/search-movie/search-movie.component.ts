@@ -13,6 +13,13 @@ import { Movie } from '../model/movie';
 export class SearchMovieComponent implements OnInit {
   recommendedMovies: Observable<Movie[]>
 
+  swiperConfig: Object = {
+            pagination: '.swiper-pagination',
+            slidesPerView: 'auto',
+            paginationClickable: true,
+            spaceBetween: 30
+          };
+
   constructor(
     public apiService: ApiService,
   	public afService: AF
@@ -25,5 +32,12 @@ export class SearchMovieComponent implements OnInit {
           ? this.apiService.getRecommendedMoviesForUser(user, 20)
           : Observable.of([])
       )
+  }
+
+  titleString(movie: Movie): string {
+    const releaseDate = movie.releaseDate;
+    return releaseDate
+      ? `${movie.title} (${releaseDate.split('-')[0]})`
+      : `${movie.title}`;
   }
 }

@@ -12,6 +12,8 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { SearchMovieComponent } from './search-movie/search-movie.component';
 
+import { SwiperModule } from 'angular2-useful-swiper';
+
 import { ApiService } from './api/api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
@@ -63,6 +65,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     FlexLayoutModule,
     YoutubePlayerModule,
     DragulaModule,
+    SwiperModule,
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [
