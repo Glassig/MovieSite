@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 body {
 	margin:0;
-	
+
 }
 
 /*large screen*/
-@media screen and (min-width: 720px) { 
+@media screen and (min-width: 720px) {
     md-sidenav {
         display: none !important;
     }
@@ -19,4 +19,14 @@ body {
 	.remove-topNav {
 		display: none !important;
 	}
+}
+
+/* this has to be here unfortunately */
+.swiper-pagination-bullet {
+  background: white;
+  opacity: .3;
+}
+.swiper-pagination-bullet-active {
+  background: #FFFFE0;
+	opacity: 1;
 }

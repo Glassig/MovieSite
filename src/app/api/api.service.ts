@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
+import { User } from '../model/user';
 import { MediaItem, MediaType } from '../model/media-item';
 import { MovieVideo } from '../model/movie-video';
 
@@ -51,6 +52,39 @@ export class ApiService {
 			.map(this.extractResults)
 			.map(results => results.map(ApiToModelMapper.movieFromJson))
 			.map(videos => videos.filter(video => video != null));
+	}
+
+	getRecommendedMoviesForUser(user: User, numberOfMovies: number): Observable<Movie[]> {
+		const numberOfFavourites = user.favouritelist.length;
+		const recsFromEachMovie = Math.ceil(numberOfMovies / numberOfFavourites);
+
+		const recObservables = user.favouritelist
+			.map(movie =>
+				this.getRecommendedMovies(movie.id)
+					.map(movies => this.getNRandomElements(movies, recsFromEachMovie))
+			);
+
+		return Observable.zip(...recObservables)
+			.map(movieLists => movieLists.reduce((acc,ms) => acc.concat(ms)), [])
+			.map(movies => movies.splice(0, numberOfMovies));
+	}
+
+	// Get a given number of random elements from an array
+	private getNRandomElements<T>(array: T[], numberOfElements: number): T[] {
+		if (numberOfElements >= array.length) { return array; }
+
+		var indexes: number[] = [];
+		while (indexes.length < numberOfElements) {
+    	var randIndex = Math.floor(Math.random() * array.length);
+    	if (indexes.indexOf(randIndex) > -1) continue;
+    	indexes[indexes.length] = randIndex;
+		}
+
+		var resultArray = [];
+		indexes.forEach(index => {
+			resultArray.push(array[index]);
+		});
+		return resultArray;
 	}
 
 	searchMovies(query: string): Observable<Movie[]> {

@@ -5,6 +5,7 @@ import { Movie } from '../model/movie';
 import { Review } from '../model/review';
 
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subscription } from "rxjs";
 
@@ -14,6 +15,7 @@ export class AF {
   isLoggedIn: boolean = false;
   loadedLists: boolean = false;
   public user: User;
+  public loggedInUser = new BehaviorSubject<User|null>(null);
   reviews: FirebaseListObservable<any>;
   users: FirebaseListObservable<any>;
   userSubscription: Subscription;
@@ -60,6 +62,7 @@ export class AF {
             var list2 = resp[0].favouritelist;
             list == undefined ? this.user.watchlist = [] : this.user.watchlist = list;
             list2 == undefined ? this.user.favouritelist = [] : this.user.favouritelist = list2;
+            this.loggedInUser.next(this.user);
             this.loadedLists = true;
           }
         }
@@ -85,12 +88,13 @@ export class AF {
    */
   logout() {
     this.isLoggedIn = false;
+    this.loggedInUser.next(null);
     this.loadedLists = false;
     this.userSubscription.unsubscribe();
     if(this.watchlistSubscription) { this.watchlistSubscription.unsubscribe() }
     return this.af.auth.logout();
   }
-  
+
 //Returns the profile picture from a certain user
 //*user_id : The id of the selected user.
   findUserPhoto(userid){
@@ -125,7 +129,7 @@ export class AF {
 
 
 // Finds all reviews regarding a certain movie.
-// TODO fult med movie_id i review 
+// TODO fult med movie_id i review
  testQuery(movieid: number) {
      const array = []
      const query = this.af.database.list("reviews",{
