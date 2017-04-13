@@ -3,25 +3,5 @@
 </div>
 <div *ngIf="this.afService.loggedInUser | async">
 	<h2 class="title">Recommended Movies For You</h2>
-	<swiper [config]="swiperConfig" [initialize]="this.afService.loggedInUser | async">
-		<div class="swiper-wrapper">
-			<div
-				*ngFor="let rmovie of recommendedMovies | async"
-				class="swiper-slide movie-slide"
-				(click)="navigateToDetail(rmovie)">
-				<div class="background-image" [style.background-image]="'url(' + rmovie.backdropUrl + ')'"></div>
-				<div class="content">
-					<div fxLayout="row">
-						<img src="{{rmovie.imageUrl}}" class="poster-img">
-						<div fxLayout="column" style="margin:10px 10px 10px 0px">
-							<div class="movie-slide-text movie-title">{{titleString(rmovie)}}</div>
-							<div class="movie-slide-text movie-overview">{{rmovie.overview}}</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Add Pagination -->
-		<div class="swiper-pagination"></div>
-	</swiper>
+	<movie-list [movies]="recommendedMovies | async" [size]='"big"'></movie-list>
 </div>

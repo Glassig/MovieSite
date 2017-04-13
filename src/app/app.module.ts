@@ -32,6 +32,7 @@ import { CreateReviewComponent } from './create-review/create-review.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { PersonCardComponent } from './person-card/person-card.component';
 import { ReviewCardComponent } from './review-card/review-card.component';
+import { MovieListComponent } from './movie-list/movie-list.component';
 
   export const firebaseConfig = {
     apiKey: "AIzaSyDlEV2M2O1fwIwJnS7ZDNrLUb6KvoQ5ov4",
@@ -55,6 +56,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     MovieCardComponent,
     PersonCardComponent,
     ReviewCardComponent,
+    MovieListComponent,
   ],
   imports: [
     BrowserModule,
