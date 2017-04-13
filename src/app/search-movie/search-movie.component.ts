@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { AF } from '../providers/af';
 
-import { Router } from '@angular/router';
-
 import { Observable } from 'rxjs/Rx';
 import { Movie } from '../model/movie';
 
@@ -14,20 +12,12 @@ import { Movie } from '../model/movie';
 })
 export class SearchMovieComponent implements OnInit {
   recommendedMovies: Observable<Movie[]>
-
-  swiperConfig: Object = {
-            pagination: '.swiper-pagination',
-            slidesPerView: 'auto',
-            paginationClickable: true,
-            spaceBetween: 30,
-            autoplay: 2000,
-            autoplayDisableOnInteraction: true
-          };
+  hotNewMovies: Observable<Movie[]>
+  upcomingMovies: Observable<Movie[]>
 
   constructor(
     public apiService: ApiService,
-  	public afService: AF,
-    private router: Router
+  	public afService: AF
   	) {}
 
   ngOnInit() {
@@ -37,16 +27,8 @@ export class SearchMovieComponent implements OnInit {
           ? this.apiService.getRecommendedMoviesForUser(user, 20)
           : Observable.of([])
       )
-  }
 
-  titleString(movie: Movie): string {
-    const releaseDate = movie.releaseDate;
-    return releaseDate
-      ? `${movie.title} (${releaseDate.split('-')[0]})`
-      : `${movie.title}`;
+    this.hotNewMovies = this.apiService.getHotNewMovies(10);
+    this.upcomingMovies = this.apiService.getUpcomingMovies(10);
   }
-
-  navigateToDetail(movie: Movie) {
-		this.router.navigate(['/movie', movie.id]);
-	}
 }

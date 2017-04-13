@@ -29,6 +29,22 @@ export class ApiService {
 		return `https://api.themoviedb.org/3/${type}/${id}${str}?api_key=${ApiService.APIKey}${append}`;
 	}
 
+	private getHotNewMoviesURL(): string {
+		const todaysDate = new Date();
+		const endDateStr = todaysDate.toISOString().substring(0,10);
+		todaysDate.setMonth(todaysDate.getMonth()-1);
+		const startDateStr = todaysDate.toISOString().substring(0,10);
+		console.log(`startDateStr: ${startDateStr}`);
+		console.log(`endDateStr: ${endDateStr}`);
+		return `https://api.themoviedb.org/3/discover/movie?api_key=c4c310d31261b52644239b9e959bd9cc&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${startDateStr}&primary_release_date.lte=${endDateStr}`
+	}
+
+	private getUpcomingMoviesURL(): string {
+		const todaysDate = new Date();
+		const todaysDateStr = todaysDate.toISOString().substring(0,10);
+		return `https://api.themoviedb.org/3/discover/movie?api_key=c4c310d31261b52644239b9e959bd9cc&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${todaysDateStr}`
+	}
+
 	constructor(private http: Http) {}
 
 	getMovie(id: number): Observable<Movie> {
@@ -85,6 +101,22 @@ export class ApiService {
 			resultArray.push(array[index]);
 		});
 		return resultArray;
+	}
+
+	getHotNewMovies(numberOfMovies: number): Observable<Movie[]> {
+		const url = this.getHotNewMoviesURL();
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieFromJson))
+			.map(videos => videos.filter(video => video != null));
+	}
+
+	getUpcomingMovies(numberOfMovies: number): Observable<Movie[]> {
+		const url = this.getUpcomingMoviesURL();
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieFromJson))
+			.map(videos => videos.filter(video => video != null));
 	}
 
 	searchMovies(query: string): Observable<Movie[]> {
