@@ -12,6 +12,8 @@
   position: relative;
   background-color: black;
 }
+.movie-slide { transition: all .2s ease-in-out; }
+.movie-slide:active { transform: scale(0.98); }
 .poster-img {
   box-shadow: 2px 2px 3px 0px;
   margin: 10px 10px 10px 10px;
