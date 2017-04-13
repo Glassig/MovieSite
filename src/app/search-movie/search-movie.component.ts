@@ -12,6 +12,8 @@ import { Movie } from '../model/movie';
 })
 export class SearchMovieComponent implements OnInit {
   recommendedMovies: Observable<Movie[]>
+  hotNewMovies: Observable<Movie[]>
+  upcomingMovies: Observable<Movie[]>
 
   constructor(
     public apiService: ApiService,
@@ -25,5 +27,8 @@ export class SearchMovieComponent implements OnInit {
           ? this.apiService.getRecommendedMoviesForUser(user, 20)
           : Observable.of([])
       )
+
+    this.hotNewMovies = this.apiService.getHotNewMovies(10);
+    this.upcomingMovies = this.apiService.getUpcomingMovies(10);
   }
 }
