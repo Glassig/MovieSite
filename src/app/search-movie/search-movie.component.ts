@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { AF } from '../providers/af';
 
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs/Rx';
 import { Movie } from '../model/movie';
 
@@ -17,12 +19,15 @@ export class SearchMovieComponent implements OnInit {
             pagination: '.swiper-pagination',
             slidesPerView: 'auto',
             paginationClickable: true,
-            spaceBetween: 30
+            spaceBetween: 30,
+            autoplay: 2000,
+            autoplayDisableOnInteraction: true
           };
 
   constructor(
     public apiService: ApiService,
-  	public afService: AF
+  	public afService: AF,
+    private router: Router
   	) {}
 
   ngOnInit() {
@@ -40,4 +45,8 @@ export class SearchMovieComponent implements OnInit {
       ? `${movie.title} (${releaseDate.split('-')[0]})`
       : `${movie.title}`;
   }
+
+  navigateToDetail(movie: Movie) {
+		this.router.navigate(['/movie', movie.id]);
+	}
 }

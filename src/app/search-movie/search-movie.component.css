@@ -6,7 +6,7 @@
 	font-family: Palatino;
 }
 .movie-slide {
-
+  cursor: pointer;
   height: 320px;
   width: 700px;
   position: relative;

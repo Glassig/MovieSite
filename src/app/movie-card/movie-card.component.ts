@@ -17,5 +17,5 @@ export class MovieCardComponent implements OnInit {
 
 	navigateToMovieDetail() {
 		this.router.navigate(['/movie', this.movie.id]);
-	} 
+	}
 }
