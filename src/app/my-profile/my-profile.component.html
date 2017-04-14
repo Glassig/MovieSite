@@ -10,8 +10,10 @@
 		</div>
 		<div>
 			<h1 class="title">My Reviews</h1>
-			<div *ngFor="let review of reviews | async" fxLayout="row" style="overflow:scroll">
-				<review-card [review]="review"></review-card>
+			<div fxLayout="row" style="overflow-x:scroll">
+				<div *ngFor="let review of reviews | async">
+					<review-card [review]="review"></review-card>
+				</div>
 			</div>
 
 			<h1 class="title">My favourite movies</h1>

@@ -26,26 +26,10 @@ export class CreateReviewComponent implements OnInit {
     @Input() private movie: Movie;
     private review: Review;
     private rating: number;
-    private reviews: Review[];
 
     constructor(public afService: AF, public af: AngularFire, private route: ActivatedRoute,){}
 
-    ngOnChanges(){
-        this.reviews = []; // Not sure if nesscesary
-        this.reviews = this.afService.testQuery(this.movie.id);
-    }
-
-    ngOnInit(){
-
-        this.reviews = this.afService.testQuery(this.movie.id);
-        //    this.reviews = array;
-        //});
-        //const movie = this.route.params
-        //.switchMap((params: Params) => this.reviews = this.afService.testQuery(+params['id']));
-        //this.movie.switchMap(movie=>this.afService.testQuery(movie.id)).subscribe(reviews=> this.reviews=reviews);
-
-
-    }
+    ngOnInit(){}
 
     changeRating(num) {
       this.rating = num;
@@ -69,6 +53,7 @@ export class CreateReviewComponent implements OnInit {
       }
 
       this.afService.addReview(this.review);
+      
     }
 
 
