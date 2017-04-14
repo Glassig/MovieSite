@@ -20,6 +20,8 @@ export class MovieListComponent implements OnInit {
   ngOnInit() {
     this.swiperConfig = {
               pagination: '.swiper-pagination',
+              nextButton: '.swiper-button-next',
+              prevButton: '.swiper-button-prev',
               slidesPerView: 'auto',
               paginationClickable: true,
               spaceBetween: 30,
