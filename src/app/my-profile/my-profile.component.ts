@@ -21,7 +21,7 @@ export class MyProfileComponent implements OnInit {
   		this.router.navigate(['/search-movie']);
         this.reviews = null;
   	} else {
-            this.reviews = this.afService.getUserReviews();
+      this.reviews = this.afService.getUserReviews();
   	}
   }
 

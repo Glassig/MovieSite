@@ -1,4 +1,6 @@
 import {Injectable} from "@angular/core";
+import { Http, Response } from '@angular/http';
+
 import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'angularfire2';
 import { User } from '../model/user';
 import { Movie } from '../model/movie';
@@ -122,34 +124,25 @@ export class AF {
          equalTo: this.user.id
         }
     });
-
-    console.log("query done");
      return query;
  }
 
-
 // Finds all reviews regarding a certain movie.
 // TODO fult med movie_id i review
- testQuery(movieid: number) {
-     const array = []
-     const query = this.af.database.list("reviews",{
+ getReviewsForMovie(movieid: number) {
+
+     return this.af.database.list("reviews",{
      preserveSnapshot: true,
      query:{
          orderByChild: "movie_id",
          equalTo: movieid
         }
-    }).subscribe(snapshots=>{
-        snapshots.forEach(snapshot=>{
-            array.push(snapshot.val());
-        })
     });
-     return array;
  }
 
   addReview(review: Review){
       if (!this.isLoggedIn){ return }
-          this.reviews.push(review);
-          this.users.update(this.user.key, this.user);
+      this.reviews.push(review);
   }
 
   removeMovieFromFavouritelist(movie: Movie) {
@@ -193,5 +186,9 @@ export class AF {
       });
       this.users.update(this.user.key, this.user);
     }
+  }
+
+  extractResults(response: Response): any[] {
+    return response.json().results as any[];
   }
 }

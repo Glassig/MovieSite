@@ -8,6 +8,7 @@ import { Movie } from '../model/movie';
 import { MovieVideo } from '../model/movie-video';
 import { Person } from '../model/person';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Review } from '../model/review';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
@@ -21,6 +22,7 @@ import 'rxjs/add/operator/switchMap';
 export class MovieDetailComponent implements OnInit {
 
   private videos: MovieVideo[];
+  private reviews: Review[];
   private recommendedMovies: Movie[];
 	movie: Movie;
   private player;
@@ -59,6 +61,16 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.crewJobMap.get(crewPerson);
   }
 
+  jsonToReview(obj): Review {
+    var review = new Review();
+    review.movie = obj.movie;
+    review.movie_id = obj.movie_id;
+    review.rating = obj.rating;
+    review.text = obj.text;
+    review.user_id = obj.user_id;
+    return review;
+  }
+
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	const movie = this.route.params
@@ -75,5 +87,15 @@ export class MovieDetailComponent implements OnInit {
       .switchMap(movie => this.apiService.getRecommendedMovies(movie.id))
       .subscribe(movies => this.recommendedMovies = movies);
 
+    movie
+      .switchMap(movie => this.afService.getReviewsForMovie(movie.id))
+      .subscribe(snapshots => {
+        this.reviews = [];
+        snapshots.forEach(snapshot => {
+          var review = this.jsonToReview(snapshot.val());
+          this.reviews.push(review);
+        }
+        )}
+        );
   }
 }

@@ -35,10 +35,14 @@
 	</div>
 
 	<div *ngIf="afService.isLoggedIn"><create-review [movie]="this.movie"></create-review></div>
-
+	<div fxLayout="row" style="overflow-x:scroll">
+		<div *ngFor="let review of reviews">
+			<review-card [review]="review"></review-card>
+		</div>
+	</div>
 	<div *ngIf="movie">
 		<h2 class="title">Cast</h2>
-		<div fxLayout="row" style="overflow:scroll">
+		<div fxLayout="row" style="overflow-x:scroll">
 			<div *ngFor="let actor of cast()" class="box-card">
 					<person-card [person]="actor"></person-card>
 					<div class="text">as {{characterForActor(actor)}}</div>
