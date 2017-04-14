@@ -57,27 +57,33 @@
 	</div>
 
 	<div *ngIf="recommendedMovies">
-		<h2 class="title">Similar Movies</h2>
-		<div fxLayout="row" style="overflow:scroll">
-			<div *ngFor="let rmovie of recommendedMovies" class="box-card">
-				<movie-card [movie]="rmovie"></movie-card>
+		<div *ngIf="recommendedMovies.length != 0">
+			<h2 class="title">Similar Movies</h2>
+			<div fxLayout="row" style="overflow:scroll">
+				<div *ngFor="let rmovie of recommendedMovies" class="box-card">
+					<movie-card [movie]="rmovie"></movie-card>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<h2 class="title">Trailers</h2>
-	<div fxLayout="row" style="overflow: scroll">
-		<div *ngFor="let video of videos" class="box-card">
-			<youtube-player
-				width="200"
-				height="250"
-		      [videoId]="video.key"
-		      (ready)="savePlayer($event)"
-		      (change)="onStateChange($event)"
-		    ></youtube-player>
-		    <div class="box-card-textbox">
-		    	<p class="textbox-text" fxLayoutAlign="center center">{{video.name}}</p>
-		    </div>
+	<div *ngIf="videos">
+		<div *ngIf="videos.length != 0">
+			<h2 class="title">Trailers</h2>
+			<div fxLayout="row" style="overflow: scroll">
+				<div *ngFor="let video of videos" class="box-card">
+					<youtube-player
+						width="200"
+						height="250"
+				      [videoId]="video.key"
+				      (ready)="savePlayer($event)"
+				      (change)="onStateChange($event)"
+				    ></youtube-player>
+				    <div class="box-card-textbox">
+				    	<p class="textbox-text" fxLayoutAlign="center center">{{video.name}}</p>
+				    </div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
