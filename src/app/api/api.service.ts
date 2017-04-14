@@ -34,8 +34,6 @@ export class ApiService {
 		const endDateStr = todaysDate.toISOString().substring(0,10);
 		todaysDate.setMonth(todaysDate.getMonth()-1);
 		const startDateStr = todaysDate.toISOString().substring(0,10);
-		console.log(`startDateStr: ${startDateStr}`);
-		console.log(`endDateStr: ${endDateStr}`);
 		return `https://api.themoviedb.org/3/discover/movie?api_key=c4c310d31261b52644239b9e959bd9cc&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${startDateStr}&primary_release_date.lte=${endDateStr}`
 	}
 
