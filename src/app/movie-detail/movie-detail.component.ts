@@ -22,11 +22,11 @@ import 'rxjs/add/operator/switchMap';
 export class MovieDetailComponent implements OnInit {
 
   private videos: MovieVideo[];
-  private reviews: Review[];
   private recommendedMovies: Movie[];
 	movie: Movie;
   private player;
   private ytEvent;
+  private hasReviewed: boolean = false;
 
   constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
@@ -61,23 +61,16 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.crewJobMap.get(crewPerson);
   }
 
-  jsonToReview(obj): Review {
-    var review = new Review();
-    review.movie = obj.movie;
-    review.movie_id = obj.movie_id;
-    review.rating = obj.rating;
-    review.text = obj.text;
-    review.user_id = obj.user_id;
-    return review;
-  }
-
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	const movie = this.route.params
       .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
       .share();
 
-    movie.subscribe(movie => this.movie = movie);
+    movie.subscribe(movie => { 
+      this.movie = movie;
+      this.afService.initiateReviewSubscription(this.movie.id); 
+    });
 
     movie
       .switchMap(movie => this.apiService.getMovieVideos(movie.id))
@@ -87,15 +80,5 @@ export class MovieDetailComponent implements OnInit {
       .switchMap(movie => this.apiService.getRecommendedMovies(movie.id))
       .subscribe(movies => this.recommendedMovies = movies);
 
-    movie
-      .switchMap(movie => this.afService.getReviewsForMovie(movie.id))
-      .subscribe(snapshots => {
-        this.reviews = [];
-        snapshots.forEach(snapshot => {
-          var review = this.jsonToReview(snapshot.val());
-          this.reviews.push(review);
-        }
-        )}
-        );
   }
 }

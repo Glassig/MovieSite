@@ -24,8 +24,8 @@ Styling and stars
 })
 export class CreateReviewComponent implements OnInit {
     @Input() private movie: Movie;
-    private review: Review;
     private rating: number;
+    private text: string;
 
     constructor(public afService: AF, public af: AngularFire, private route: ActivatedRoute,){}
 
@@ -39,20 +39,20 @@ export class CreateReviewComponent implements OnInit {
       if(typeof this.rating === 'undefined'){
           this.rating = 0;
       }
-      if (typeof textInput === 'undefined'){
-          textInput = "";
+      if (typeof this.text === 'undefined'){
+          this.text = "";
       }
 
-
-      this.review = {
+      var review = new Review();
+      review = {
+          user: this.afService.user,
           user_id: this.afService.user.id,
           movie: this.movie,
           movie_id: this.movie.id,
-          text: textInput,
+          text: this.text,
           rating: this.rating
       }
-
-      this.afService.addReview(this.review);
+      this.afService.addReview(review);
       
     }
 

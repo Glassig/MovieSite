@@ -16,12 +16,13 @@ export class AF {
 
   isLoggedIn: boolean = false;
   loadedLists: boolean = false;
+  hasReviewed: boolean = false;
   public user: User;
   public loggedInUser = new BehaviorSubject<User|null>(null);
-  reviews: FirebaseListObservable<any>;
+  movieReviews: Review[];
   users: FirebaseListObservable<any>;
+  reviews: FirebaseListObservable<any>;
   userSubscription: Subscription;
-  watchlistSubscription: Subscription;
   reviewlistSubscription: Subscription;
 
   constructor(public af: AngularFire) {
@@ -93,32 +94,14 @@ export class AF {
     this.loggedInUser.next(null);
     this.loadedLists = false;
     this.userSubscription.unsubscribe();
-    if(this.watchlistSubscription) { this.watchlistSubscription.unsubscribe() }
+    this.reviewlistSubscription.unsubscribe();
     return this.af.auth.logout();
   }
 
-//Returns the profile picture from a certain user
-//*user_id : The id of the selected user.
-  findUserPhoto(userid){
-      //console.log("Enter find photo");
-      //console.log(userid);
-      const selUser = this.af.database.list("users",{
-          preserveSnapshot: true,
-          query: {
-              orderByChild: "id",
-              equalTo: userid
-          }
-      })
-      return selUser
-
-
-
-  }
 //Returns all reviews from a certain user.
 // @return FirebaseListObservable,  list containing reviews
  getUserReviews(){
      const query = this.af.database.list("reviews",{
-
      query:{
          orderByChild: "user_id",
          equalTo: this.user.id
@@ -127,21 +110,29 @@ export class AF {
      return query;
  }
 
-// Finds all reviews regarding a certain movie.
-// TODO fult med movie_id i review
- getReviewsForMovie(movieid: number) {
-
-     return this.af.database.list("reviews",{
-     preserveSnapshot: true,
-     query:{
-         orderByChild: "movie_id",
-         equalTo: movieid
-        }
-    });
+// Finds all reviews for a certain movie.
+initiateReviewSubscription(movieid: number) {
+     this.reviewlistSubscription = 
+     this.af.database.list('reviews',{ 
+       preserveSnapshot: true, 
+       query:{ 
+         orderByChild: "movie_id", 
+         equalTo: movieid 
+       }})
+     .subscribe(snapshots => {
+        this.movieReviews = [];
+        this.hasReviewed = false;
+        snapshots.forEach(snapshot => {
+          var review = snapshot.val();
+          this.movieReviews.push(review);
+          if(this.isLoggedIn && review.user_id == this.user.id) { this.hasReviewed = true }
+        }) 
+    }, 
+      error => console.error('Error fetching reviews', error));
  }
 
   addReview(review: Review){
-      if (!this.isLoggedIn){ return }
+      if (!this.isLoggedIn || this.hasReviewed){ return }
       this.reviews.push(review);
   }
 
