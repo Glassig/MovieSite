@@ -97,23 +97,6 @@ export class AF {
     return this.af.auth.logout();
   }
 
-//Returns the profile picture from a certain user
-//*user_id : The id of the selected user.
-  findUserPhoto(userid){
-      //console.log("Enter find photo");
-      //console.log(userid);
-      const selUser = this.af.database.list("users",{
-          preserveSnapshot: true,
-          query: {
-              orderByChild: "id",
-              equalTo: userid
-          }
-      })
-      return selUser
-
-
-
-  }
 //Returns all reviews from a certain user.
 // @return FirebaseListObservable,  list containing reviews
  getUserReviews(){

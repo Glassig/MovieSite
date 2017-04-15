@@ -61,16 +61,6 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.crewJobMap.get(crewPerson);
   }
 
-  jsonToReview(obj): Review {
-    var review = new Review();
-    review.movie = obj.movie;
-    review.movie_id = obj.movie_id;
-    review.rating = obj.rating;
-    review.text = obj.text;
-    review.user_id = obj.user_id;
-    return review;
-  }
-
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	const movie = this.route.params
@@ -92,8 +82,7 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(snapshots => {
         this.reviews = [];
         snapshots.forEach(snapshot => {
-          var review = this.jsonToReview(snapshot.val());
-          this.reviews.push(review);
+          this.reviews.push(snapshot.val());
         }
         )}
         );

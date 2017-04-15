@@ -45,6 +45,7 @@ export class CreateReviewComponent implements OnInit {
 
 
       this.review = {
+          user: this.afService.user,
           user_id: this.afService.user.id,
           movie: this.movie,
           movie_id: this.movie.id,
