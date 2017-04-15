@@ -22,11 +22,11 @@ import 'rxjs/add/operator/switchMap';
 export class MovieDetailComponent implements OnInit {
 
   private videos: MovieVideo[];
-  private reviews: Review[];
   private recommendedMovies: Movie[];
 	movie: Movie;
   private player;
   private ytEvent;
+  private hasReviewed: boolean = false;
 
   constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
@@ -67,7 +67,10 @@ export class MovieDetailComponent implements OnInit {
       .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
       .share();
 
-    movie.subscribe(movie => this.movie = movie);
+    movie.subscribe(movie => { 
+      this.movie = movie;
+      this.afService.initiateReviewSubscription(this.movie.id); 
+    });
 
     movie
       .switchMap(movie => this.apiService.getMovieVideos(movie.id))
@@ -77,14 +80,5 @@ export class MovieDetailComponent implements OnInit {
       .switchMap(movie => this.apiService.getRecommendedMovies(movie.id))
       .subscribe(movies => this.recommendedMovies = movies);
 
-    movie
-      .switchMap(movie => this.afService.getReviewsForMovie(movie.id))
-      .subscribe(snapshots => {
-        this.reviews = [];
-        snapshots.forEach(snapshot => {
-          this.reviews.push(snapshot.val());
-        }
-        )}
-        );
   }
 }

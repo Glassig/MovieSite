@@ -34,9 +34,13 @@
 		</div>
 	</div>
 
-	<div *ngIf="afService.isLoggedIn"><create-review [movie]="this.movie"></create-review></div>
+	<div *ngIf="afService.isLoggedIn">
+		<div *ngIf="!afService.hasReviewed">
+			<create-review [movie]="this.movie"></create-review>
+		</div>
+	</div>
 	<div fxLayout="row" style="overflow-x:scroll">
-		<div *ngFor="let review of reviews">
+		<div *ngFor="let review of afService.movieReviews">
 			<review-card [review]="review"></review-card>
 		</div>
 	</div>
