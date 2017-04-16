@@ -15,12 +15,6 @@ export class ReviewCardComponent implements OnInit {
   constructor(public afService: AF) { }
 
   ngOnInit() {
-      // Finds the url for the user picture.
-     this.url = this.afService.findUserPhoto(this.review.user_id).subscribe(snapshots=>{
-         snapshots.forEach(snapshot=>{
-             this.url = snapshot.val().imageUrl
-         })
-     });
      let list : number[] = [];
      for (let i = 0; i < this.review.rating; ++i) {
         list[i]= i;

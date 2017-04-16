@@ -12,6 +12,8 @@ import 'hammerjs';
 import { AppComponent } from './app.component';
 import { SearchMovieComponent } from './search-movie/search-movie.component';
 
+import { SwiperModule } from 'angular2-useful-swiper';
+
 import { ApiService } from './api/api.service';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
@@ -19,9 +21,7 @@ import { MediaItemsSearchBoxComponent } from './media-items-search-box/media-ite
 
 import { AngularFireModule } from 'angularfire2';
 import { YoutubePlayerModule } from 'ng2-youtube-player';
-//import { StarRatingModule } from '../../node_modules/angular-star-rating/src/star-rating.module';
-
-import { CarouselModule } from 'ng2-bootstrap';
+import { DragulaModule } from 'ng2-dragula';
 
 import { AF } from './providers/af';
 import { MyProfileComponent } from './my-profile/my-profile.component';
@@ -32,6 +32,7 @@ import { CreateReviewComponent } from './create-review/create-review.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { PersonCardComponent } from './person-card/person-card.component';
 import { ReviewCardComponent } from './review-card/review-card.component';
+import { MovieListComponent } from './movie-list/movie-list.component';
 
   export const firebaseConfig = {
     apiKey: "AIzaSyDlEV2M2O1fwIwJnS7ZDNrLUb6KvoQ5ov4",
@@ -55,6 +56,7 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     MovieCardComponent,
     PersonCardComponent,
     ReviewCardComponent,
+    MovieListComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,9 +65,9 @@ import { ReviewCardComponent } from './review-card/review-card.component';
     MaterialModule,
     AppRoutingModule,
     FlexLayoutModule,
-    //StarRatingModule,
     YoutubePlayerModule,
-    CarouselModule.forRoot(),
+    DragulaModule,
+    SwiperModule,
     AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [

@@ -88,7 +88,7 @@ export class ApiToModelMapper {
     const backdropPath = json.backdrop_path;
     movie.backdropUrl = backdropPath
       ? `${imgBaseUrl_backdrop}${json.backdrop_path}`
-      : "http://2.bp.blogspot.com/-NBniP7HEcqw/UJgO7lopaII/AAAAAAAACCs/u5X5wEimHoI/s1600/not-found.png"
+      : "http://blogs.sas.com/content/sastraining/files/2015/03/black_background.png"
 
 		movie.overview = json.overview as string;
 

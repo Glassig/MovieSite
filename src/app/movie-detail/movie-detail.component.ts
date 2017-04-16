@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { AF } from '../providers/af';
 
+import {MdSnackBar} from '@angular/material';
+
 import { Movie } from '../model/movie';
 import { MovieVideo } from '../model/movie-video';
 import { Person } from '../model/person';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Review } from '../model/review';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
@@ -23,11 +26,13 @@ export class MovieDetailComponent implements OnInit {
 	movie: Movie;
   private player;
   private ytEvent;
+  private hasReviewed: boolean = false;
 
   constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
   	private router: Router,
-  	public afService: AF
+  	public afService: AF,
+    public snackBar: MdSnackBar
   	) {}
 
   onStateChange(event) {
@@ -35,6 +40,9 @@ export class MovieDetailComponent implements OnInit {
   }
   savePlayer(player) {
     this.player = player;
+  }
+  openSnackbar(message: string) {
+    this.snackBar.open(message, '', { duration: 2000 });
   }
 
   cast(): Person[] {
@@ -59,7 +67,10 @@ export class MovieDetailComponent implements OnInit {
       .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
       .share();
 
-    movie.subscribe(movie => this.movie = movie);
+    movie.subscribe(movie => { 
+      this.movie = movie;
+      this.afService.initiateReviewSubscription(this.movie.id); 
+    });
 
     movie
       .switchMap(movie => this.apiService.getMovieVideos(movie.id))

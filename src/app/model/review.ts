@@ -1,8 +1,10 @@
 import { Movie } from "../model/movie"
+import { User } from "../model/user";
 export class Review{
-    user_id: string;
+	user: User;
+	user_id;
     movie: Movie;
-    movie_id: number;  // Untill i figure out a better solution
+    movie_id;
     text: string;
     rating: number;
 }

@@ -1,10 +1,13 @@
 import {Injectable} from "@angular/core";
+import { Http, Response } from '@angular/http';
+
 import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'angularfire2';
 import { User } from '../model/user';
 import { Movie } from '../model/movie';
 import { Review } from '../model/review';
 
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
 import { Subscription } from "rxjs";
 
@@ -12,11 +15,14 @@ import { Subscription } from "rxjs";
 export class AF {
 
   isLoggedIn: boolean = false;
+  loadedLists: boolean = false;
+  hasReviewed: boolean = false;
   public user: User;
-  reviews: FirebaseListObservable<any>;
+  public loggedInUser = new BehaviorSubject<User|null>(null);
+  movieReviews: Review[];
   users: FirebaseListObservable<any>;
+  reviews: FirebaseListObservable<any>;
   userSubscription: Subscription;
-  watchlistSubscription: Subscription;
   reviewlistSubscription: Subscription;
 
   constructor(public af: AngularFire) {
@@ -56,7 +62,11 @@ export class AF {
           if(resp[0] != undefined) {
             this.user.key = resp[0].$key;
             var list = resp[0].watchlist;
+            var list2 = resp[0].favouritelist;
             list == undefined ? this.user.watchlist = [] : this.user.watchlist = list;
+            list2 == undefined ? this.user.favouritelist = [] : this.user.favouritelist = list2;
+            this.loggedInUser.next(this.user);
+            this.loadedLists = true;
           }
         }
       },
@@ -81,90 +91,82 @@ export class AF {
    */
   logout() {
     this.isLoggedIn = false;
+    this.loggedInUser.next(null);
+    this.loadedLists = false;
     this.userSubscription.unsubscribe();
-    if(this.watchlistSubscription) { this.watchlistSubscription.unsubscribe() }
+    this.reviewlistSubscription.unsubscribe();
     return this.af.auth.logout();
   }
 
-
-//Returns the profile picture from a certain user
-//*user_id : The id of the selected user.
-  findUserPhoto(userid){
-      //console.log("Enter find photo");
-      //console.log(userid);
-      const selUser = this.af.database.list("users",{
-          preserveSnapshot: true,
-          query: {
-              orderByChild: "id",
-              equalTo: userid
-          }
-      })
-      return selUser
-
-
-
-  }
 //Returns all reviews from a certain user.
 // @return FirebaseListObservable,  list containing reviews
  getUserReviews(){
      const query = this.af.database.list("reviews",{
-
      query:{
          orderByChild: "user_id",
          equalTo: this.user.id
         }
     });
-
-    console.log("query done");
      return query;
  }
 
-
-// Finds all reviews regarding a certain movie.
-// TODO fult med movie_id i review
- testQuery(movieid: number) {
-     const array = []
-     console.log("Test query");
-     //console.log(movie.id);
-
-     const query = this.af.database.list("reviews",{
-     preserveSnapshot: true,
-     query:{
-         orderByChild: "movie_id",
-         equalTo: movieid
-        }
-    }).subscribe(snapshots=>{
-        snapshots.forEach(snapshot=>{
-            array.push(snapshot.val());
-        })
-    });
-    //console.log("query done");
-     return array;
+// Finds all reviews for a certain movie.
+initiateReviewSubscription(movieid: number) {
+     this.reviewlistSubscription = 
+     this.af.database.list('reviews',{ 
+       preserveSnapshot: true, 
+       query:{ 
+         orderByChild: "movie_id", 
+         equalTo: movieid 
+       }})
+     .subscribe(snapshots => {
+        this.movieReviews = [];
+        this.hasReviewed = false;
+        snapshots.forEach(snapshot => {
+          var review = snapshot.val();
+          this.movieReviews.push(review);
+          if(this.isLoggedIn && review.user_id == this.user.id) { this.hasReviewed = true }
+        }) 
+    }, 
+      error => console.error('Error fetching reviews', error));
  }
 
   addReview(review: Review){
-      //console.log("Enter AF addreview")
-      if (!this.isLoggedIn){ return }
-          this.reviews.push(review);
-          this.users.update(this.user.key, this.user);
-        //  console.log(this.user.name);
-
-
+      if (!this.isLoggedIn || this.hasReviewed){ return }
+      this.reviews.push(review);
   }
 
-
-
-  addMovieToWatchlist(movie: Movie) {
-    if (!this.isLoggedIn) { return }
-    if (!this.movieIsInWatchList(movie)) {
-      this.user.watchlist.push(movie);
+  removeMovieFromFavouritelist(movie: Movie) {
+    if(this.isLoggedIn) {
+      this.user.favouritelist = this.user.favouritelist
+      .filter(function(resp) {
+        return resp.id !== movie.id;
+      });
       this.users.update(this.user.key, this.user);
     }
   }
 
-  movieIsInWatchList(movie: Movie): boolean {
-    if (!this.isLoggedIn) { return false }
-    return this.user.watchlist.map(movie => movie.id).includes(movie.id);
+  removeMovieFromList(movie: Movie, array: Movie[]) {
+    if(this.isLoggedIn) {
+      array = array
+      .filter(function(resp) {
+        return resp.id !== movie.id;
+      });
+      this.users.update(this.user.key, this.user);
+    }
+  }
+
+  addMovieToList(movie: Movie, array: Movie[]) {
+    if (!this.isLoggedIn) { return }
+    if (!this.movieIsInList(movie, array)) {
+      array.push(movie);
+      this.users.update(this.user.key, this.user);
+    }
+  }
+
+  movieIsInList(movie: Movie, array: Movie[]): boolean {
+    if(!array) { return false }
+    return array.map(movie => movie.id).includes(movie.id);
   }
 
   removeMovieFromWatchlist(movie: Movie) {
@@ -175,5 +177,9 @@ export class AF {
       });
       this.users.update(this.user.key, this.user);
     }
+  }
+
+  extractResults(response: Response): any[] {
+    return response.json().results as any[];
   }
 }

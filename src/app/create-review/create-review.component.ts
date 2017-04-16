@@ -24,55 +24,36 @@ Styling and stars
 })
 export class CreateReviewComponent implements OnInit {
     @Input() private movie: Movie;
-    private review: Review;
     private rating: number;
-    private reviews: Review[];
+    private text: string;
 
     constructor(public afService: AF, public af: AngularFire, private route: ActivatedRoute,){}
 
-    ngOnChanges(){
-        this.reviews = []; // Not sure if nesscesary
-        this.reviews = this.afService.testQuery(this.movie.id);
-    }
-
-    ngOnInit(){
-
-        this.reviews = this.afService.testQuery(this.movie.id);
-        //    this.reviews = array;
-        //});
-        //const movie = this.route.params
-        //.switchMap((params: Params) => this.reviews = this.afService.testQuery(+params['id']));
-
-
-        //this.movie.switchMap(movie=>this.afService.testQuery(movie.id)).subscribe(reviews=> this.reviews=reviews);
-
-
-    }
+    ngOnInit(){}
 
     changeRating(num) {
       this.rating = num;
     }
 
     addReview(textInput: string) {
-        console.log(this.movie);
       if(typeof this.rating === 'undefined'){
           this.rating = 0;
       }
-      if (typeof textInput === 'undefined'){
-          textInput = "";
+      if (typeof this.text === 'undefined'){
+          this.text = "";
       }
 
-
-      this.review = {
+      var review = new Review();
+      review = {
+          user: this.afService.user,
           user_id: this.afService.user.id,
           movie: this.movie,
           movie_id: this.movie.id,
-          text: textInput,
+          text: this.text,
           rating: this.rating
       }
-      console.log(this.review);
-
-      this.afService.addReview(this.review);
+      this.afService.addReview(review);
+      
     }
 
 

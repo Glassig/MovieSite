@@ -1,0 +1,32 @@
+<swiper [config]="swiperConfig">
+  <div class="swiper-wrapper">
+    <div
+      *ngFor="let movie of movies"
+      class="swiper-slide movie-slide"
+      [class.big]='size == "big"'
+      [class.medium]='size == "medium"'
+      [class.small]='size == "small"'
+      (click)="navigateToDetail(movie)">
+      <div class="background-image" [style.background-image]="'url(' + movie.backdropUrl + ')'"></div>
+      <div class="content">
+        <div fxLayout="row">
+          <img
+          src="{{movie.imageUrl}}"
+          class="poster-img"
+          [class.big]='size == "big"'
+          [class.medium]='size == "medium"'
+          [class.small]='size == "small"'>
+          <div fxLayout="column" style="margin:10px 10px 10px 0px">
+            <div class="movie-slide-text movie-title">{{titleString(movie)}}</div>
+            <div class="movie-slide-text movie-overview">{{movie.overview}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Add Pagination -->
+  <div class="swiper-pagination"></div>
+  <!-- Add Arrows -->
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</swiper>

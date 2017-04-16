@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 
 import { Movie } from '../model/movie';
 import { Person } from '../model/person';
+import { User } from '../model/user';
 import { MediaItem, MediaType } from '../model/media-item';
 import { MovieVideo } from '../model/movie-video';
 
@@ -28,6 +29,20 @@ export class ApiService {
 		return `https://api.themoviedb.org/3/${type}/${id}${str}?api_key=${ApiService.APIKey}${append}`;
 	}
 
+	private getHotNewMoviesURL(): string {
+		const todaysDate = new Date();
+		const endDateStr = todaysDate.toISOString().substring(0,10);
+		todaysDate.setMonth(todaysDate.getMonth()-1);
+		const startDateStr = todaysDate.toISOString().substring(0,10);
+		return `https://api.themoviedb.org/3/discover/movie?api_key=c4c310d31261b52644239b9e959bd9cc&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${startDateStr}&primary_release_date.lte=${endDateStr}`
+	}
+
+	private getUpcomingMoviesURL(): string {
+		const todaysDate = new Date();
+		const todaysDateStr = todaysDate.toISOString().substring(0,10);
+		return `https://api.themoviedb.org/3/discover/movie?api_key=c4c310d31261b52644239b9e959bd9cc&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${todaysDateStr}`
+	}
+
 	constructor(private http: Http) {}
 
 	getMovie(id: number): Observable<Movie> {
@@ -47,6 +62,55 @@ export class ApiService {
 
 	getRecommendedMovies(id: number): Observable<Movie[]> {
 		const url: string = this.getByIdURL('movie', id, 'recommendations');
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieFromJson))
+			.map(videos => videos.filter(video => video != null));
+	}
+
+	getRecommendedMoviesForUser(user: User, numberOfMovies: number): Observable<Movie[]> {
+		const numberOfFavourites = user.favouritelist.length;
+		const recsFromEachMovie = Math.ceil(numberOfMovies / numberOfFavourites);
+
+		const recObservables = user.favouritelist
+			.map(movie =>
+				this.getRecommendedMovies(movie.id)
+					.map(movies => this.getNRandomElements(movies, recsFromEachMovie))
+			);
+
+		return Observable.zip(...recObservables)
+			.map(movieLists => movieLists.reduce((acc,ms) => acc.concat(ms)), [])
+			.map(movies => movies.splice(0, numberOfMovies));
+	}
+
+	// Get a given number of random elements from an array
+	private getNRandomElements<T>(array: T[], numberOfElements: number): T[] {
+		if (numberOfElements >= array.length) { return array; }
+
+		var indexes: number[] = [];
+		while (indexes.length < numberOfElements) {
+    	var randIndex = Math.floor(Math.random() * array.length);
+    	if (indexes.indexOf(randIndex) > -1) continue;
+    	indexes[indexes.length] = randIndex;
+		}
+
+		var resultArray = [];
+		indexes.forEach(index => {
+			resultArray.push(array[index]);
+		});
+		return resultArray;
+	}
+
+	getHotNewMovies(numberOfMovies: number): Observable<Movie[]> {
+		const url = this.getHotNewMoviesURL();
+		return this.http.get(url)
+			.map(this.extractResults)
+			.map(results => results.map(ApiToModelMapper.movieFromJson))
+			.map(videos => videos.filter(video => video != null));
+	}
+
+	getUpcomingMovies(numberOfMovies: number): Observable<Movie[]> {
+		const url = this.getUpcomingMoviesURL();
 		return this.http.get(url)
 			.map(this.extractResults)
 			.map(results => results.map(ApiToModelMapper.movieFromJson))

@@ -6,18 +6,6 @@
 		<div class="overlay" fxFlex="60%">
 			<h1 class="title">{{movie.title}}</h1>
 
-			<div *ngIf="afService.isLoggedIn">
-				<div fxLayout="row">
-					<div *ngIf="afService.movieIsInWatchList(movie)">
-						<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie)" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
-					</div>
-					<div *ngIf="!afService.movieIsInWatchList(movie)">
-						<i class="material-icons" (click)="afService.addMovieToWatchlist(this.movie)" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
-					</div>
-					<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right">favorite_border</i>
-				</div>
-			</div>
-
 			<div fxLayout="row" class="movie-details-box">
 				<img src="{{this.movie.imageUrl}}" class="poster-img">
 				<div class="movie-overview-box" fxLayout="column" fxLayoutAlign="start start">
@@ -25,16 +13,40 @@
 					<p>Genres: {{movie.genres}}</p>
 					<p>Runtime: {{movie.runtime}} minutes</p>
 					<p>Release date: {{movie.releaseDate}}</p>
+					<div *ngIf="afService.isLoggedIn">
+						<div fxLayout="row">
+							<div *ngIf="afService.movieIsInList(movie, afService.user.watchlist)">
+								<i class="material-icons" (click)="afService.removeMovieFromWatchlist(this.movie);openSnackbar('Removed movie from watchlist!')" mdTooltip="Remove from watchlist" mdTooltipPosition="right">remove</i>
+							</div>
+							<div *ngIf="!afService.movieIsInList(movie, afService.user.watchlist)">
+								<i class="material-icons" (click)="afService.addMovieToList(this.movie, afService.user.watchlist);openSnackbar('Added movie to watchlist!')" mdTooltip="Add to watchlist" mdTooltipPosition="right">add</i>
+							</div>
+							<div *ngIf="!afService.movieIsInList(movie, afService.user.favouritelist)">
+								<i class="material-icons" style="margin-left:20px" mdTooltip="Add to favorites" mdTooltipPosition="right" (click)="afService.addMovieToList(this.movie, afService.user.favouritelist);openSnackbar('Added movie to favourites!')">favorite_border</i>
+							</div>
+							<div *ngIf="afService.movieIsInList(movie, afService.user.favouritelist)">
+								<i class="material-icons" style="margin-left:20px;color:red" mdTooltip="Remove from favorites" mdTooltipPosition="right" (click)="afService.removeMovieFromFavouritelist(this.movie);openSnackbar('Removed movie from favourites')">favorite</i>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<div><create-review [movie]="this.movie"></create-review></div>
-
+	
+	<div *ngIf="afService.isLoggedIn">
+		<div *ngIf="!afService.hasReviewed">
+			<create-review [movie]="this.movie"></create-review>
+		</div>
+	</div>
+	<div fxLayout="row" style="overflow-x:scroll">
+		<div *ngFor="let review of afService.movieReviews">
+			<review-card [review]="review"></review-card>
+		</div>
+	</div>
 	<div *ngIf="movie">
 		<h2 class="title">Cast</h2>
-		<div fxLayout="row" style="overflow:scroll">
+		<div fxLayout="row" style="overflow-x:scroll">
 			<div *ngFor="let actor of cast()" class="box-card">
 					<person-card [person]="actor"></person-card>
 					<div class="text">as {{characterForActor(actor)}}</div>
@@ -53,27 +65,33 @@
 	</div>
 
 	<div *ngIf="recommendedMovies">
-		<h2 class="title">Similar Movies</h2>
-		<div fxLayout="row" style="overflow:scroll">
-			<div *ngFor="let rmovie of recommendedMovies" class="box-card">
-				<movie-card [movie]="rmovie"></movie-card>
+		<div *ngIf="recommendedMovies.length != 0">
+			<h2 class="title">Similar Movies</h2>
+			<div fxLayout="row" style="overflow:scroll">
+				<div *ngFor="let rmovie of recommendedMovies" class="box-card">
+					<movie-card [movie]="rmovie"></movie-card>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<h2 class="title">Trailers</h2>
-	<div fxLayout="row" style="overflow: scroll">
-		<div *ngFor="let video of videos" class="box-card">
-			<youtube-player
-				width="200"
-				height="250"
-		      [videoId]="video.key"
-		      (ready)="savePlayer($event)"
-		      (change)="onStateChange($event)"
-		    ></youtube-player>
-		    <div class="box-card-textbox">
-		    	<p class="textbox-text" fxLayoutAlign="center center">{{video.name}}</p>
-		    </div>
+	<div *ngIf="videos">
+		<div *ngIf="videos.length != 0">
+			<h2 class="title">Trailers</h2>
+			<div fxLayout="row" style="overflow: scroll">
+				<div *ngFor="let video of videos" class="box-card">
+					<youtube-player
+						width="200"
+						height="250"
+				      [videoId]="video.key"
+				      (ready)="savePlayer($event)"
+				      (change)="onStateChange($event)"
+				    ></youtube-player>
+				    <div class="box-card-textbox">
+				    	<p class="textbox-text" fxLayoutAlign="center center">{{video.name}}</p>
+				    </div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

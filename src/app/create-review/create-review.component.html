@@ -16,12 +16,7 @@
         </div>
     </form>
     <div fxLayout="row" style="margin-top:20px">
-    	<textarea rows="4" cols="50" [(ngModel)] = "txt"></textarea>
-    	<button (click)="addReview(txt)">Add</button>
-	</div>
-	<div fxLayout="row" style="overflow:scroll">
-		<div *ngFor="let review of this.reviews"  class="box-card">
-			<review-card [review]="review"></review-card>
-		</div>
+    	<textarea rows="4" cols="50" [(ngModel)] = "text"></textarea>
+    	<button (click)="addReview(text)">Add</button>
 	</div>
 </div>

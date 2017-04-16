@@ -1,3 +1,11 @@
 <div style="margin-left:10px">
 	<media-items-search-box style="width:300px"></media-items-search-box>
 </div>
+<div *ngIf="this.afService.loggedInUser | async">
+	<h2 class="title">Recommended Movies For You</h2>
+	<movie-list [movies]="recommendedMovies | async" [size]='"big"' [autoScroll]="true"></movie-list>
+</div>
+<h2 class="title">Hot New Movies</h2>
+<movie-list [movies]="hotNewMovies | async" [size]='"medium"'></movie-list>
+<h2 class="title">Upcoming Movies</h2>
+<movie-list [movies]="upcomingMovies | async" [size]='"medium"'></movie-list>
