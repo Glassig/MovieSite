@@ -1,18 +1,107 @@
-md-card{
-    height: 300px;
-    width: 500px;
+/*
+Image ratio: 1:1.5
+ratio card: image 40%, text 60%;
+image width is 175px, which makes:
+height: 175*1.5=262.5
+width=175/0.4=437.5
+*/
+
+.card {
+	position: relative;
+	background-image: url("/assets/img/ticket2.png");
+	width: 375px;
+	height: 200px;
+	margin: 10px;
+
+	/*
+	If don't want image, this will create it using css.
+    background:
+        -moz-radial-gradient(0 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+        -moz-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+        -moz-radial-gradient(100% 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+        -moz-radial-gradient(0 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px);
+    background:
+         -o-radial-gradient(0 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+         -o-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+         -o-radial-gradient(100% 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+         -o-radial-gradient(0 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px);
+    background:
+         -webkit-radial-gradient(0 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+         -webkit-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+         -webkit-radial-gradient(100% 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
+         -webkit-radial-gradient(0 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px);
+    background-position: bottom left, bottom right, top right, top left;
+    -moz-background-size: 50% 50%;
+    -webkit-background-size: 50% 50%;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;*/
+
 }
 
-img[md-card-image] {
-    max-width: 100px;
-    max-height: auto;
-    margin: 0 10% 16px
-
+.card-content {
+	position: absolute;
+	margin: 20px;
+	top:0; bottom:0; left:0; right:0;
+	padding:5px;
+	border:5px solid transparent;
+	border-image-source: url("/assets/img/dotted-line.png");
+	border-image-slice: 33%;
+	border-image-repeat: round;
+	color:#333;
 }
 
-img[md-card-avatar]{
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 50%
+/*
+.card{
+	padding: 0;
+	margin: 10px;
+	background-color: #fafafa;
+	border-radius: 3px;
+	width: 437.5px;
+	height: 262.5px;
+}
 
+.image-part {
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;	
+	background-size: contain;
+	background-repeat: no-repeat;
+}*/
+
+.movie-title {
+	margin:0.1em auto;
+	font-size: 1.4em;
+	overflow: scroll;
+	height: 1.5em;
+}
+
+.stars {
+	font-size: 1.2em;
+	margin: auto 3px;
+}
+
+#review-profile {
+	border-radius: 50%;
+	margin-left: 5px;
+	width: 60px;
+	height: auto;
+}
+
+.text {
+	margin-left: 5px;
+	overflow: scroll;
+	height: 50px;
+}
+
+.qstart {
+	font-size: 3em;
+	float: left;
+	margin-top:-10px;
+	margin-bottom: -30px;
+	color:#e20b17;
+}
+.qend { 
+	font-size: 3em;
+	float: right;
+	margin-top:0px;
+	color:#e20b17;
 }

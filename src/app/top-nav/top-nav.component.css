@@ -19,7 +19,8 @@
 	border-radius: 5px;
 	height: 54px; /* height of topbar decided in css is 60px, so here we have 3px away from that*/
 	width: 170px;
-	margin: 3px auto;
+	margin-top: 3px;
+	margin-bottom: 3px;
 }
 
 .logo {

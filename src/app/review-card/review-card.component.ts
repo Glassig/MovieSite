@@ -11,6 +11,7 @@ import { AF } from '../providers/af';
 export class ReviewCardComponent implements OnInit {
     @Input() review: Review;
     private url;
+    private stars;
   constructor(public afService: AF) { }
 
   ngOnInit() {
@@ -20,8 +21,12 @@ export class ReviewCardComponent implements OnInit {
              this.url = snapshot.val().imageUrl
          })
      });
+     let list : number[] = [];
+     for (let i = 0; i < this.review.rating; ++i) {
+        list[i]= i;
+     }
+     this.stars = list;
     // console.log(this.url);
   }
-
 
 }
