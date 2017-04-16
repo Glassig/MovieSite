@@ -13,7 +13,7 @@
 			</div>
 
 			<div class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
-				<a fxLayoutAlign=" center" ><md-icon>search</md-icon>Search</a>
+				<a fxLayoutAlign="center center" ><md-icon>search</md-icon>Search</a>
 			</div>
 
 			<!-- So, this div has the classes and id, because of the layout. -->
@@ -25,10 +25,10 @@
 			</div>
 
 			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/my-profile" routerLinkActive="active_link">		
-				<a fxLayoutAlign=" center" ><md-icon>person</md-icon>My profile</a>
+				<a fxLayoutAlign="center center" ><md-icon>person</md-icon>My profile</a>
 			</div>
 			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center">
-				<a (click)="afService.logout()" fxLayoutAlign=" center" ><md-icon>power_settings_new</md-icon>Logout</a>
+				<a (click)="afService.logout()" fxLayoutAlign="center center" ><md-icon>power_settings_new</md-icon>Logout</a>
 			</div>
 		</div>
 		
