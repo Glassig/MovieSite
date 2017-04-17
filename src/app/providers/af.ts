@@ -5,6 +5,7 @@ import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'a
 import { User } from '../model/user';
 import { Movie } from '../model/movie';
 import { Review } from '../model/review';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -25,7 +26,7 @@ export class AF {
   userSubscription: Subscription;
   reviewlistSubscription: Subscription;
 
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFire, private router: Router) {
     this.user = new User();
     this.users = this.af.database.list('users');
     this.reviews = this.af.database.list('reviews');
@@ -94,7 +95,10 @@ export class AF {
     this.loggedInUser.next(null);
     this.loadedLists = false;
     this.userSubscription.unsubscribe();
-    this.reviewlistSubscription.unsubscribe();
+    if(this.reviewlistSubscription != undefined){ 
+      this.reviewlistSubscription.unsubscribe();
+    }
+    this.router.navigate(['/search-movie']);
     return this.af.auth.logout();
   }
 
@@ -181,5 +185,10 @@ initiateReviewSubscription(movieid: number) {
 
   extractResults(response: Response): any[] {
     return response.json().results as any[];
+  }
+
+  updateUser() {
+    if (!this.isLoggedIn) { return }
+      this.users.update(this.user.key, this.user);
   }
 }

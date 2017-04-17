@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import {AF} from "../providers/af";
 import { Router } from '@angular/router';
 import { Movie } from '../model/movie';
@@ -16,6 +16,9 @@ export class MyProfileComponent implements OnInit {
   reviews: FirebaseListObservable<any>;
 
   constructor(public afService: AF, private router: Router, private dragulaService: DragulaService) { 
+    dragulaService.dropModel.subscribe((value) => {
+      this.onDropModel(value);
+    });
   }
 
   ngOnInit() {
@@ -25,6 +28,11 @@ export class MyProfileComponent implements OnInit {
   	} else {
       this.reviews = this.afService.getUserReviews();
   	}
+  } 
+
+  private onDropModel(args) {
+    let [el, target, source] = args;
+    this.afService.updateUser();
   }
 
   navigateToMovieDetailScreen(movie: Movie) {
