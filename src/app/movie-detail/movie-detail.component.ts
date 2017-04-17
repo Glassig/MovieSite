@@ -70,6 +70,7 @@ export class MovieDetailComponent implements OnInit {
     movie.subscribe(movie => { 
       this.movie = movie;
       this.afService.initiateReviewSubscription(this.movie.id); 
+      
     });
 
     movie
