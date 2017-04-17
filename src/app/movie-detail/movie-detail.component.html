@@ -2,7 +2,7 @@
 
 
 <div *ngIf="this.movie">
-	<div class="backdrop" [style.background-image]="'url(' + movie.backdropUrl + ')'">
+	<div class="backdrop" [style.background-image]="'url(' + movie.backdropUrl + ')'" fxLayout="row">
 		<div class="overlay" fxFlex="60%">
 			<h1 class="title">{{movie.title}}</h1>
 
@@ -32,8 +32,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="gradient" fxFlex="10%"></div>
 	</div>
-	
+
 	<div *ngIf="afService.isLoggedIn">
 		<div *ngIf="!afService.hasReviewed">
 			<create-review [movie]="this.movie"></create-review>
