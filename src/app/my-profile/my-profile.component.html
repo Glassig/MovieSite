@@ -17,17 +17,23 @@
 			</div>
 
 			<h1 class="title">My favourite movies</h1>
-			<div fxLayout="row" fxLayoutWrap>
+			<div fxLayout="row" fxLayoutWrap [dragula]='"first-bag"' [dragulaModel]='afService.user.favouritelist'>
 				<div *ngFor="let movie of afService.user.favouritelist; let i = index" class="image-container">
-					<button md-mini-fab (click)="afService.removeMovieFromFavouritelist(movie); $event.stopPropagation()" class="close"><md-icon style="color:white;">close</md-icon></button>
-					<img (click)="navigateToMovieDetailScreen(movie)" src={{movie.imageUrl}} class="movie-img">
+					<div id="{{movie.id}}">
+						<button md-mini-fab (click)="afService.removeMovieFromFavouritelist(movie); $event.stopPropagation()" class="close"><md-icon style="color:white;">close</md-icon></button>
+						<img (click)="navigateToMovieDetailScreen(movie)" src={{movie.imageUrl}} class="movie-img">
+						<h2 style="text-align:center;margin-top:5px">{{i+1}}</h2>
+					</div>
 				</div>
 			</div>
 			<h1 class="title">My watchlist </h1>
-			<div fxLayout="row" fxLayoutWrap>
-				<div *ngFor="let movie of afService.user.watchlist" class="image-container">
-					<button md-mini-fab (click)="afService.removeMovieFromWatchlist(movie); $event.stopPropagation()" class="close"><md-icon style="color:white;">close</md-icon></button>
-					<img (click)="navigateToMovieDetailScreen(movie)" src={{movie.imageUrl}} class="movie-img">
+			<div fxLayout="row" fxLayoutWrap [dragula]='"first-bag"' [dragulaModel]='afService.user.watchlist'>
+				<div *ngFor="let movie of afService.user.watchlist; let i = index" class="image-container" >
+					<div id="{{movie.id}}">
+						<button md-mini-fab (click)="afService.removeMovieFromWatchlist(movie); $event.stopPropagation()" class="close"><md-icon style="color:white;">close</md-icon></button>
+						<img (click)="navigateToMovieDetailScreen(movie)" src={{movie.imageUrl}} class="movie-img">
+						<h2 style="text-align:center;margin-top:5px">{{i+1}}</h2>
+					</div>
 				</div>
 			</div>
 		</div>
