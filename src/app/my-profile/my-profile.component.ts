@@ -14,10 +14,16 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 export class MyProfileComponent implements OnInit {
 
   reviews: FirebaseListObservable<any>;
+  options: any = {
+    removeOnSpill: true
+  }
 
   constructor(public afService: AF, private router: Router, private dragulaService: DragulaService) { 
     dragulaService.dropModel.subscribe((value) => {
-      this.onDropModel(value);
+      this.updateModel();
+    });
+    dragulaService.removeModel.subscribe((value) => {
+      this.updateModel();
     });
   }
 
@@ -30,8 +36,7 @@ export class MyProfileComponent implements OnInit {
   	}
   } 
 
-  private onDropModel(args) {
-    let [el, target, source] = args;
+  private updateModel() {
     this.afService.updateUser();
   }
 
