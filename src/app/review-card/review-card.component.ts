@@ -20,7 +20,6 @@ export class ReviewCardComponent implements OnInit {
         list[i]= i;
      }
      this.stars = list;
-    // console.log(this.url);
   }
 
 }
