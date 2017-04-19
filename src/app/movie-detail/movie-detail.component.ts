@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Review } from '../model/review';
 
 import { Observable } from 'rxjs/Rx';
+import { BehaviorSubject } from 'rxjs/Rx';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 
@@ -27,6 +28,9 @@ export class MovieDetailComponent implements OnInit {
   private player;
   private ytEvent;
   private hasReviewed: boolean = false;
+
+  isLoading = new BehaviorSubject<boolean>(false);
+  error = new BehaviorSubject<boolean>(false);
 
   constructor(public apiService: ApiService,
   	private route: ActivatedRoute,
@@ -66,7 +70,17 @@ export class MovieDetailComponent implements OnInit {
   ngOnInit() {
   	//subscribe to changes in id in the URL
   	const movie = this.route.params
-      .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
+      .do(_ => { this.isLoading.next(true); })
+      .do(_ => { this.error.next(false); })
+      .switchMap((params: Params): Observable<Movie> => {
+        return this.apiService.getMovie(+params['id'])
+          .catch(_ => {
+            this.error.next(true);
+            this.isLoading.next(false);
+            return Observable.empty();
+          })
+      })
+      .do(_ => { this.isLoading.next(false); })
       .share();
 
     movie.subscribe(movie => {

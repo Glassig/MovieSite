@@ -6,9 +6,9 @@
 				<h1 class="logo">Movie Site</h1>
 			</div>
 		</div>
-		
+
 		<div class="remove-topNav" fxLayout="row" fxLayoutAlign="space-around center">
-			<div class="frames title" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
+			<div style="cursor:pointer" class="frames title" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
 				<h1 class="logo">Movie Site</h1>
 			</div>
 
@@ -27,13 +27,13 @@
 					Login with Google</button>
 			</div>
 
-			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/my-profile" routerLinkActive="active_link">		
+			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/my-profile" routerLinkActive="active_link">
 				<a fxLayoutAlign="center center" ><md-icon>person</md-icon>My profile</a>
 			</div>
 			<div *ngIf="afService.isLoggedIn" class="frames" fxLayout="column" fxLayoutAlign="center center">
 				<a (click)="afService.logout()" fxLayoutAlign="center center" ><md-icon>power_settings_new</md-icon>Logout</a>
 			</div>
 		</div>
-		
+
 	</div>
 </div>

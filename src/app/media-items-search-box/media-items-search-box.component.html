@@ -13,7 +13,7 @@
   </md-input-container>
   <div [class.visible]="boxVisible | async" class="dropdown-content">
     <div class="hidden-by-default error-message" [class.visible]="error | async">
-      Could not fetch any media. Check your internet connection and try again
+      Couldn't fetch media. Check your internet connection and try again.
     </div>
     <div class="hidden-by-default" [class.visible]="!(error | async)">
       <div class="results">
