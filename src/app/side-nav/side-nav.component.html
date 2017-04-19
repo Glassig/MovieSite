@@ -1,7 +1,6 @@
 <md-list class="sidenav-list">
-	<a fxLayoutAlign=" center" ><md-icon>home</md-icon>Home</a>
+	<a fxLayoutAlign=" center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }"><md-icon>home</md-icon>Home</a>
 	<md-divider></md-divider>
-	<a routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }" fxLayoutAlign=" center" ><md-icon>search</md-icon>Search</a>
 	
 	<div *ngIf="!afService.isLoggedIn">
 		<md-list-item>

@@ -5,17 +5,21 @@ body {
 }
 
 /*large screen*/
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 768px) {
     md-sidenav {
         display: none !important;
     }
     .remove-sideNav {
     	display: none !important;
     }
+
+    .only-on-small {
+      display: none !important;
+    }
 }
 
 /*small screen*/
-@media screen and (max-width: 719px) {
+@media screen and (max-width: 767px) {
 	.remove-topNav {
 		display: none !important;
 	}

@@ -23,6 +23,14 @@
 	margin-bottom: 3px;
 }
 
+.frames#search-top-nav {
+	width: 230px;
+}
+
+/deep/ .frames div media-items-search-box div .dropdown-content {
+	left: -165px;
+}
+
 .logo {
 	color: #333;
 	margin:0px;
