@@ -41,7 +41,7 @@
 			<create-review [movie]="this.movie"></create-review>
 		</div>
 	</div>
-	 <div *ngIf="movie">
+	 <div *ngIf="afService.movieReviews?.length > 0">
 	<h2 class="reviews-title">Reviews</h2>
 	<div fxLayout="row" style="overflow-x:auto">
 		<div *ngFor="let review of afService.movieReviews">

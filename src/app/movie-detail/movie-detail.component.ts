@@ -53,9 +53,7 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.castCharacterMap.get(actor);
   }
 
-  hasReviews(){
-      return this.afService.movieReviews.lenght!=0;
-  }
+
 
   crew(): Person[] {
     return Array.from(this.movie.crewJobMap.keys());
