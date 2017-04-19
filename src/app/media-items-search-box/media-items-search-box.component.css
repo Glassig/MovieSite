@@ -21,11 +21,11 @@
   cursor: pointer;
 }
 .search-results-row:hover {
-  background-color: #f1f1f1;
+  background-color: #e2e2e2;
 }
 
 .selected {
-  background-color: #f1f1f1;
+  background-color: #e2e2e2;
 }
 
 .title {
