@@ -38,17 +38,20 @@ export class ApiToModelMapper {
 				mediaItem.title = json.name as string;
 
 				const knownFor = json.known_for as any[];
-        mediaItem.subtitle = knownFor && knownFor.length > 0
-          ? knownFor
+        if (knownFor && knownFor.length > 0) {
+          const titles = knownFor
               .map(ApiToModelMapper.mediaItemFromJson)
-  					  .map(media => media.title)
-  					  .reduce((acc,t) => `${acc}, ${t}`)
-          : "";
+              .filter(item => item != null)
+  					  .map(media => media.title);
+          if (titles.length > 0) mediaItem.subtitle = titles.reduce((acc,t) => `${acc}, ${t}`);
+          else { mediaItem.subtitle = "" };
+        } else {
+          mediaItem.subtitle = "";
+        }
 				break;
 
 			case MediaType.Unknown:
-				// TODO: handle this case
-				break;
+        return null;
 		}
 
 		return mediaItem;

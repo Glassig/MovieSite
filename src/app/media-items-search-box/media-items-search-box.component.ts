@@ -78,6 +78,7 @@ export class MediaItemsSearchBoxComponent implements OnInit {
           // catch any errors
           .catch(_ => {
             this.error.next(true);
+            console.log("error: " + _);
             return Observable.of([]);
           });
       })

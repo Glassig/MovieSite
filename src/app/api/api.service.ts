@@ -157,7 +157,8 @@ export class ApiService {
 		const url: string = this.searchURL('multi', query);
 		return this.http.get(url)
 			.map(this.extractResults)
-			.map(results => results.map(ApiToModelMapper.mediaItemFromJson));
+			.map(results => results.map(ApiToModelMapper.mediaItemFromJson))
+			.map(mediaItems => mediaItems.filter(item => item != null));
 	}
 
 	private extractResults(response: Response): any[] {
