@@ -1,5 +1,4 @@
 <div>
-	<h2>Write a review:</h2>
     <form>
         <div class="rating" >
             <input id="star5" name="star" type="radio" [value]="5" class="radio-btn hide" (change)="changeRating($event.target.value)">
@@ -16,7 +15,7 @@
         </div>
     </form>
     <div fxLayout="row" style="margin-top:20px">
-    	<textarea rows="4" cols="50" [(ngModel)] = "text"></textarea>
-    	<button (click)="addReview(text)">Add</button>
+    	<textarea placeholder="Write a review" maxlength="140" rows="4" cols="50" [(ngModel)] = "text"></textarea>
 	</div>
+	<button (click)="addReview(text)">Send</button>
 </div>

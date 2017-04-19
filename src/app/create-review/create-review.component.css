@@ -8,7 +8,11 @@
     clear: both;
 }
 
+
+
 .rating {
+    margin-top: 1%;
+    margin-left: 40%;
     width: 120px;
     unicode-bidi: bidi-override;
     direction: rtl;
@@ -18,7 +22,6 @@
 
 .rating > label {
     display: inline;
-    padding: 0;
     margin: 0;
     position: relative;
     width: 1.1em;
@@ -44,4 +47,16 @@
     position: absolute;
     left: 0;
     color: #FFD700;
+}
+
+textarea{
+    font-family: Palatino;
+    background-image: url(https://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-10-full.jpg);
+    border-style: solid;
+    border-color: black;
+    padding: 1em;
+    margin-left: 30%;
+    resize: none;
+    overflow: auto;
+
 }
