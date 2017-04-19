@@ -1,4 +1,4 @@
-export enum MediaType { Movie, TVShow, Person, Unknown }
+export enum MediaType { Movie, Person, Unknown }
 
 export function mediaTypeFromString(mediaTypeString: string): MediaType {
   var mediaType = MediaType.Unknown;
@@ -8,9 +8,6 @@ export function mediaTypeFromString(mediaTypeString: string): MediaType {
       break;
     case 'person':
       mediaType = MediaType.Person;
-      break;
-    case 'tv':
-      mediaType = MediaType.TVShow;
       break;
   }
   return mediaType;

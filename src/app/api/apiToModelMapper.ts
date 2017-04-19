@@ -46,21 +46,6 @@ export class ApiToModelMapper {
           : "";
 				break;
 
-			case MediaType.TVShow:
-        const tvPosterPath = json.poster_path;
-        mediaItem.imageUrl = tvPosterPath
-          ? `${imgBaseUrl}${tvPosterPath}`
-          : backupPic;
-
-        const firstAirDate = json.first_air_date;
-
-        mediaItem.title = firstAirDate
-          ? `${json.name} (${firstAirDate.split('-')[0]})`
-          : `${json.name}`;
-
-				mediaItem.subtitle = json.overview as string;
-				break;
-
 			case MediaType.Unknown:
 				// TODO: handle this case
 				break;

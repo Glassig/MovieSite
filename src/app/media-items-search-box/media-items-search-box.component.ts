@@ -144,7 +144,6 @@ export class MediaItemsSearchBoxComponent implements OnInit {
                             break;
       case MediaType.Person: this.router.navigate(['/actor', mediaItem.id]);
                             break;
-      case MediaType.TVShow: break;
       case MediaType.Unknown: console.log("Unable to acces page");
     }
   }
