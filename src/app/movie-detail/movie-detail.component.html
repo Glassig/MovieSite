@@ -1,5 +1,6 @@
-<media-items-search-box style="width:400px; height:200px"></media-items-search-box>
-
+<div class="only-on-small" style="margin-top: 15px;">
+	<media-items-search-box style="width:400px; height:200px;"></media-items-search-box>
+</div>
 
 <div *ngIf="this.movie">
 	<div class="backdrop" [style.background-image]="'url(' + movie.backdropUrl + ')'" fxLayout="row">

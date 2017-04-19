@@ -8,12 +8,15 @@
 		</div>
 		
 		<div class="remove-topNav" fxLayout="row" fxLayoutAlign="space-around center">
-			<div class="frames title" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie">
+			<div class="frames title" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
 				<h1 class="logo">Movie Site</h1>
 			</div>
 
-			<div class="frames" fxLayout="column" fxLayoutAlign="center center" routerLink="/search-movie" routerLinkActive="active_link" [routerLinkActiveOptions]="{ exact: false }">
-				<a fxLayoutAlign="center center" ><md-icon>search</md-icon>Search</a>
+			<div class="frames" id="search-top-nav" fxLayout="column" fxLayoutAlign="center center">
+				<div fxLayoutAlign="center center">
+					<md-icon>search</md-icon>
+					<media-items-search-box style="width:200px; padding-top: 5px;"></media-items-search-box>
+				</div>
 			</div>
 
 			<!-- So, this div has the classes and id, because of the layout. -->

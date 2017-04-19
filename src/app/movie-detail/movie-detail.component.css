@@ -33,7 +33,13 @@
 	margin: auto -15px;
 	background-position: center center;
   	background-repeat: no-repeat;
-	background-size: 100% auto;
+}
+
+/*large screen*/
+@media screen and (min-width: 768px) {
+	.backdrop {
+		background-size: 100% auto;
+	}
 }
 
 .overlay {
