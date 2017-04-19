@@ -7,7 +7,7 @@
 }
 .overview {
 	max-height: 180px;
-	overflow: scroll;
+	overflow: auto;
 	margin-top:0;
 }
 .box-card {

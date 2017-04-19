@@ -15,7 +15,7 @@
         </div>
     </form>
     <div fxLayout="row" style="margin-top:20px">
-    	<textarea placeholder="Write a review" maxlength="140" rows="4" cols="50" [(ngModel)] = "text"></textarea>
+    	<textarea placeholder="Write a review..." maxlength="140" rows="6" cols="50" [(ngModel)] = "text"></textarea>
 	</div>
-	<button (click)="addReview(text)">Send</button>
+	<button id="reviewbtn" (click)="addReview(text)">Submit!</button>
 </div>
