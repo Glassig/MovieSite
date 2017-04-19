@@ -53,6 +53,10 @@ export class MovieDetailComponent implements OnInit {
     return this.movie.castCharacterMap.get(actor);
   }
 
+  hasReviews(){
+      return this.afService.movieReviews.lenght!=0;
+  }
+
   crew(): Person[] {
     return Array.from(this.movie.crewJobMap.keys());
   }
@@ -67,10 +71,10 @@ export class MovieDetailComponent implements OnInit {
       .switchMap((params: Params) => this.apiService.getMovie(+params['id']))
       .share();
 
-    movie.subscribe(movie => { 
+    movie.subscribe(movie => {
       this.movie = movie;
-      this.afService.initiateReviewSubscription(this.movie.id); 
-      
+      this.afService.initiateReviewSubscription(this.movie.id);
+
     });
 
     movie

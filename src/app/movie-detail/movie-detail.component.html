@@ -41,14 +41,15 @@
 			<create-review [movie]="this.movie"></create-review>
 		</div>
 	</div>
-
+	 <div *ngIf="movie">
 	<h2 class="reviews-title">Reviews</h2>
 	<div fxLayout="row" style="overflow-x:auto">
 		<div *ngFor="let review of afService.movieReviews">
 			<review-card [review]="review"></review-card>
 		</div>
 	</div>
-	<div *ngIf="movie">
+</div>
+	<div *ngIf="cast().length!=0">
 		<h2 class="title">Cast</h2>
 		<div fxLayout="row" style="overflow-x:auto">
 			<div *ngFor="let actor of cast()" class="box-card">
@@ -58,7 +59,7 @@
 		</div>
 	</div>
 
-	<div *ngIf="movie">
+	<div *ngIf="crew().length!=0">
 		<h2 class="title">Crew</h2>
 		<div fxLayout="row" style="overflow:auto">
 			<div *ngFor="let crewPerson of crew()" class="box-card">
