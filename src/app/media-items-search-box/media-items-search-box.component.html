@@ -7,8 +7,8 @@
       (input)="searchMediaItems(mediaItemsSearchBox.value)"
       (focus)="setBoxVisibility(true)"
       (blur)="setBoxVisibility(false)"
-      (keydown.arrowdown)="move('down')"
-      (keydown.arrowup)="move('up')"
+      (keydown.arrowdown)="move('down'); false"
+      (keydown.arrowup)="move('up'); false"
       (keydown.enter)="enter()">
   </md-input-container>
   <div [class.visible]="boxVisible | async" class="dropdown-content">
