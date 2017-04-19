@@ -48,7 +48,7 @@
 			<review-card [review]="review"></review-card>
 		</div>
 	</div>
-	<div *ngIf="cast()">
+	<div *ngIf="movie">
 		<h2 class="title">Cast</h2>
 		<div fxLayout="row" style="overflow-x:auto">
 			<div *ngFor="let actor of cast()" class="box-card">
@@ -58,7 +58,7 @@
 		</div>
 	</div>
 
-	<div *ngIf="crew()">
+	<div *ngIf="movie">
 		<h2 class="title">Crew</h2>
 		<div fxLayout="row" style="overflow:auto">
 			<div *ngFor="let crewPerson of crew()" class="box-card">
