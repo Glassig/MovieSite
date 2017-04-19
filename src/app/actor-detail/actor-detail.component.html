@@ -8,7 +8,7 @@
 
 	<div *ngIf="movieCredits">
 		<p class="title" style="margin-top:20px"> Movie Credits </p>
-	<div fxLayout="row" style="overflow:scroll">
+	<div fxLayout="row" style="overflow:auto">
 		<div *ngFor="let movie of movieCredits" class="box-card">
 			<movie-card [movie]="movie"></movie-card>
 		</div>
