@@ -40,6 +40,7 @@
 			<create-review [movie]="this.movie"></create-review>
 		</div>
 	</div>
+	<h2 class="reviews-title">Reviews</h2>
 	<div fxLayout="row" style="overflow-x:scroll">
 		<div *ngFor="let review of afService.movieReviews">
 			<review-card [review]="review"></review-card>

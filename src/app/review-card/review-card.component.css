@@ -8,34 +8,13 @@ width=175/0.4=437.5
 
 .card {
 	position: relative;
-	background-image: url("/assets/img/ticket2.png");
 	width: 375px;
 	height: 200px;
 	margin: 10px;
-
-	/*
-	If don't want image, this will create it using css.
-    background:
-        -moz-radial-gradient(0 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-        -moz-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-        -moz-radial-gradient(100% 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-        -moz-radial-gradient(0 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px);
-    background:
-         -o-radial-gradient(0 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-         -o-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-         -o-radial-gradient(100% 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-         -o-radial-gradient(0 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px);
-    background:
-         -webkit-radial-gradient(0 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-         -webkit-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-         -webkit-radial-gradient(100% 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px),
-         -webkit-radial-gradient(0 0, circle, rgba(204,0,0,0) 25px, #dec8a4 27px);
-    background-position: bottom left, bottom right, top right, top left;
-    -moz-background-size: 50% 50%;
-    -webkit-background-size: 50% 50%;
-    background-size: 50% 50%;
-    background-repeat: no-repeat;*/
-
+	background-color: #333;
+    background-image: -moz-linear-gradient(135deg, black, #333);
+	background-image: -o-linear-gradient(135deg, black, #333);
+	background-image: -webkit-linear-gradient(135deg, black, #333);
 }
 
 .card-content {
@@ -47,7 +26,7 @@ width=175/0.4=437.5
 	border-image-source: url("/assets/img/dotted-line.png");
 	border-image-slice: 33%;
 	border-image-repeat: round;
-	color:#333;
+	color:white;
 }
 
 .movie-title {
@@ -65,6 +44,7 @@ width=175/0.4=437.5
 .stars {
 	font-size: 1.2em;
 	margin: auto 3px;
+	color: #FFDF00;
 }
 
 .text {
