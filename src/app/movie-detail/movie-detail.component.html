@@ -41,15 +41,16 @@
 			<create-review [movie]="this.movie"></create-review>
 		</div>
 	</div>
+
 	<h2 class="reviews-title">Reviews</h2>
-	<div fxLayout="row" style="overflow-x:scroll">
+	<div fxLayout="row" style="overflow-x:auto">
 		<div *ngFor="let review of afService.movieReviews">
 			<review-card [review]="review"></review-card>
 		</div>
 	</div>
 	<div *ngIf="movie">
 		<h2 class="title">Cast</h2>
-		<div fxLayout="row" style="overflow-x:scroll">
+		<div fxLayout="row" style="overflow-x:auto">
 			<div *ngFor="let actor of cast()" class="box-card">
 					<person-card [person]="actor"></person-card>
 					<div class="text">as {{characterForActor(actor)}}</div>
@@ -59,7 +60,7 @@
 
 	<div *ngIf="movie">
 		<h2 class="title">Crew</h2>
-		<div fxLayout="row" style="overflow:scroll">
+		<div fxLayout="row" style="overflow:auto">
 			<div *ngFor="let crewPerson of crew()" class="box-card">
 					<person-card [person]="crewPerson"></person-card>
 					<div class="text">{{jobForCrewPerson(crewPerson)}}</div>
@@ -70,7 +71,7 @@
 	<div *ngIf="recommendedMovies">
 		<div *ngIf="recommendedMovies.length != 0">
 			<h2 class="title">Similar Movies</h2>
-			<div fxLayout="row" style="overflow:scroll">
+			<div fxLayout="row" style="overflow:auto">
 				<div *ngFor="let rmovie of recommendedMovies" class="box-card">
 					<movie-card [movie]="rmovie"></movie-card>
 				</div>
@@ -81,7 +82,7 @@
 	<div *ngIf="videos">
 		<div *ngIf="videos.length != 0">
 			<h2 class="title">Trailers</h2>
-			<div fxLayout="row" style="overflow: scroll">
+			<div fxLayout="row" style="overflow: auto">
 				<div *ngFor="let video of videos" class="box-card">
 					<youtube-player
 						width="200"

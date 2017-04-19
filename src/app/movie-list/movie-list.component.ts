@@ -18,7 +18,7 @@ export class MovieListComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.swiperConfig = {
+    this.swiperConfig = {       
               pagination: '.swiper-pagination',
               nextButton: '.swiper-button-next',
               prevButton: '.swiper-button-prev',

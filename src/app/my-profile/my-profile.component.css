@@ -19,8 +19,8 @@
 }
 
 .review-row {
-	overflow: scroll;
-	
+	overflow: auto;
+
 }
 
 .close {

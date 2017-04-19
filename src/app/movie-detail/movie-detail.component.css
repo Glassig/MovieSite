@@ -7,7 +7,7 @@
 }
 .overview {
 	max-height: 180px;
-	overflow: scroll;
+	overflow: auto;
 	margin-top:0;
 }
 .box-card {
@@ -47,7 +47,7 @@
 	min-width: 100px;
 	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0.55), rgba(0,0,0,0)); /* For Chrome 25 and Safari 6, iOS 6.1, Android 4.3 */
 	background-image:    -moz-linear-gradient(left, rgba(0,0,0,0.55), rgba(0,0,0,0)); /* For Firefox (3.6 to 15) */
-	background-image:      -o-linear-gradient(left, rgba(0,0,0,0.55), rgba(0,0,0,0)); /* For old Opera (11.1 to 12.0) */ 
+	background-image:      -o-linear-gradient(left, rgba(0,0,0,0.55), rgba(0,0,0,0)); /* For old Opera (11.1 to 12.0) */
 	background-image:         linear-gradient(to right, rgba(0,0,0,0.55), rgba(0,0,0,0)); /* Standard syntax; must be last */
 }
 
