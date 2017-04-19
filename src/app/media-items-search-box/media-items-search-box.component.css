@@ -2,6 +2,20 @@
   width: 100%;
 }
 
+.input.loading
+{
+   background:
+     url('http://www.hsi.com.hk/HSI-Net/pages/images/en/share/ajax-loader.gif')
+     no-repeat
+     right center;
+}
+
+.error-message {
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+}
+
 .search-results-row {
   border-bottom: 1px solid darkgray;
   cursor: pointer;
@@ -90,6 +104,5 @@
     z-index: 100;
 }
 
-.visible {
-  display: block;
-}
+.hidden-by-default { display: none; }
+.visible { display: block; }

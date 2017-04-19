@@ -1,5 +1,5 @@
 <div class="dropdown">
-  <md-input-container class="input">
+  <md-input-container class="input" [class.loading]="isLoading | async">
     <input
       #mediaItemsSearchBox
       mdInput
@@ -12,20 +12,27 @@
       (keydown.enter)="enter()">
   </md-input-container>
   <div [class.visible]="boxVisible | async" class="dropdown-content">
-    <div
-      class="search-results-row"
-      fxLayout="row"
-      fxLayoutAlign="start start"
-      *ngFor="let mediaItem of mediaItems | async; let i = index"
-      [class.selected]="i == (selectedIndex | async)"
-      (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();"
-      (mouseenter)='mouseEnter(i)'>
-      <div fxLayoutAlign="center center" fxFlex="55px" style="height:80px">
-        <img class="cover-image" src="{{mediaItem.imageUrl}}">
-      </div>
-      <div class="info-box">
-        <div class="title">{{mediaItem.title}}</div>
-        <div class="subtitle line-clamp line-clamp-4">{{mediaItem.subtitle}}</div>
+    <div class="hidden-by-default error-message" [class.visible]="error | async">
+      Could not fetch any media. Check your internet connection and try again
+    </div>
+    <div class="hidden-by-default" [class.visible]="!(error | async)">
+      <div class="results">
+        <div
+          class="search-results-row"
+          fxLayout="row"
+          fxLayoutAlign="start start"
+          *ngFor="let mediaItem of mediaItems | async; let i = index"
+          [class.selected]="i == (selectedIndex | async)"
+          (click)="navigateToItemDetailScreen(mediaItem); $event.stopPropagation();"
+          (mouseenter)='mouseEnter(i)'>
+          <div fxLayoutAlign="center center" fxFlex="55px" style="height:80px">
+            <img class="cover-image" src="{{mediaItem.imageUrl}}">
+          </div>
+          <div class="info-box">
+            <div class="title">{{mediaItem.title}}</div>
+            <div class="subtitle line-clamp line-clamp-4">{{mediaItem.subtitle}}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

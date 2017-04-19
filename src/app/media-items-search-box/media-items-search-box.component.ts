@@ -29,8 +29,11 @@ import 'rxjs/add/operator/do';
 })
 export class MediaItemsSearchBoxComponent implements OnInit {
   private mediaItemsSearchTerms = new Subject<string>();
+  private delayedSearchTerms: Observable<string>;
   mediaItems: Observable<MediaItem[]>;
   boxVisible: Observable<boolean>;
+  isLoading = new BehaviorSubject<boolean>(false);
+  error = new BehaviorSubject<boolean>(false);
 
   private arrowClicks = new Subject<"up"|"down"|number>();
   selectedIndex: Observable<number|null>;
@@ -60,19 +63,30 @@ export class MediaItemsSearchBoxComponent implements OnInit {
     this.mediaItems = this.mediaItemsSearchTerms
       // don't make API request for every input change if the typing is really fast
       .debounceTime(300)
-      // if last API search request was made with same query, don't search again
-      .distinctUntilChanged()
       // remove leading and trailing whitespaces from query string
       .map(term => term.trim())
+      // if last API search request was made with same query, don't search again
+      .distinctUntilChanged()
+      // reset error when starting a new search
+      .do(_ => { this.error.next(false); })
+      // set isLoading to true
+      .do(_ => { this.isLoading.next(true); })
       // don't make an API request if search term is empty
-      .switchMap(term => term
-        ? this.apiService.searchMediaItems(term)
-        : Observable.of<MediaItem[]>([])
-      )
+      .switchMap((term): Observable<MediaItem[]> => {
+        if (!term) return Observable.of([]);
+        return this.apiService.searchMediaItems(term)
+          // catch any errors
+          .catch(_ => {
+            this.error.next(true);
+            return Observable.of([]);
+          });
+      })
       // only display a maximum of 8 results
       .map(results => results.slice(0,8))
+      // set isLoading to false
+      .do(_ => { this.isLoading.next(false); })
       // each subscriber shouldn't make a new API request
-      .share();
+      .publishReplay(1).refCount();
   }
 
   private initialiseSelectedIndex() {
@@ -96,8 +110,6 @@ export class MediaItemsSearchBoxComponent implements OnInit {
           case "top": return 0;
         }
       }, 0)
-      // don't recalculate for each subscriber
-      .share()
       // make sure every subscriber gets the last emitted number as initial value
       .publishReplay(1).refCount();
   }
@@ -105,15 +117,14 @@ export class MediaItemsSearchBoxComponent implements OnInit {
   private initialiseSelectedItem() {
     this.selectedItem = this.selectedIndex
       .withLatestFrom(this.mediaItems, (i,items) => (i!=null) ? items[i] : null)
-      .share();
+      .publishReplay(1).refCount();
   }
 
   private initialiseBoxVisible() {
-    const itemsNotEmpty = this.mediaItems.map(items => items.length > 0);
     const trueValues = this.visibleToggles.filter(b => b);
     // delay clicks outside box (to be able to click on a result row)
     const falseValues = this.visibleToggles.filter(b => !b).delay(200);
-    this.boxVisible = Observable.merge(itemsNotEmpty, Observable.merge(trueValues, falseValues))
+    this.boxVisible = Observable.merge(this.error.filter(e=>e), trueValues, falseValues)
       .startWith(false)
       .publishReplay(1).refCount();
   }

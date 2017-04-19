@@ -12,10 +12,7 @@
         <div fxLayout="row">
           <img
           src="{{movie.imageUrl}}"
-          class="poster-img"
-          [class.big]='size == "big"'
-          [class.medium]='size == "medium"'
-          [class.small]='size == "small"'>
+          class="poster-img">
           <div fxLayout="column" style="margin:10px 10px 10px 0px">
             <div class="movie-slide-text movie-title">{{titleString(movie)}}</div>
             <div class="movie-slide-text movie-overview">{{movie.overview}}</div>
