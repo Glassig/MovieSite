@@ -43,6 +43,10 @@
 	margin-left: 5px;
 	overflow: scroll;
 	height: 50px;
+	width: 100%;
+	overflow-wrap: break-word;
+  	word-wrap: break-word; /* breaks non-english content well */
+	hyphens: auto;
 }
 
 .qstart {
